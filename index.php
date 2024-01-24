@@ -151,7 +151,7 @@
                         <input type="text" id="zipcode" name="zipcode" placeholder="CEP">
                         <label for="zipcode">CEP</label>
 
-                        <input type="text" id="debit_amount" name="debit_amount" placeholder="Possui saldo devedor? Se sim, inserir o valor.">
+                        <input type="text" id="debit_amount" name="debit_amount" placeholder="R$ 0,00 - R$ 0,00 - Possui saldo devedor? Se sim, inserir o valor.">
                         <label for="debit_amount">Saldo Devedor</label>
 
                         <button type="submit" name="cadastrar_clientes">Cadastrar Cliente</button>
@@ -234,22 +234,22 @@
                         <textarea id="product_description" name="product_description" rows="4"placeholder="Decrição do Produto" ></textarea>
                         <label for="product_description">Decrição do Produto</label>
 
-                        <input type="text" id="price_type_1" name="price_type_1" placeholder="Preço tipo - 1" required>
+                        <input type="text" id="price_type_1" name="price_type_1" placeholder="R$ 0,00 - Preço tipo - 1" required>
                         <label for="price_type_1">Preço tipo - 1</label>
 
-                        <input type="text" id="price_type_2" name="price_type_2" placeholder="Preço tipo - 2" required>
+                        <input type="text" id="price_type_2" name="price_type_2" placeholder="R$ 0,00 - Preço tipo - 2">
                         <label for="price_type_2">Preço tipo - 2</label>
 
-                        <input type="text" id="price_type_3" name="price_type_3" placeholder="Preço tipo - 3" required>
+                        <input type="text" id="price_type_3" name="price_type_3" placeholder="R$ 0,00 - Preço tipo - 3">
                         <label for="price_type_3">Preço tipo - 3</label>
 
-                        <input type="text" id="price_type_4" name="price_type_4" placeholder="Preço tipo - 4" required>
+                        <input type="text" id="price_type_4" name="price_type_4" placeholder="R$ 0,00 - Preço tipo - 4">
                         <label for="price_type_4">Preço tipo - 4</label>
 
-                        <input type="text" id="price_type_5" name="price_type_5" placeholder="Preço tipo - 5" required>
+                        <input type="text" id="price_type_5" name="price_type_5" placeholder="R$ 0,00 - Preço tipo - 5">
                         <label for="price_type_5">Preço tipo - 5</label>
 
-                        <input type="text" id="price_type_6" name="price_type_6" placeholder="Preço tipo - 6" required>
+                        <input type="text" id="price_type_6" name="price_type_6" placeholder="R$ 0,00 - Preço tipo - 6">
                         <label for="price_type_6">Preço tipo - 6</label>
 
                         <button type="submit" name="cadastrar_produtos">Cadastrar Produtos</button>
