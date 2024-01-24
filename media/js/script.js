@@ -95,8 +95,16 @@ document.addEventListener("DOMContentLoaded", function() {
     // Função para formatar saldo devedor
     function formatarSaldoDevedor(input) {
         const value = input.value.replace(/\D/g, '');
+        
+        // Formatação com separador de milhar e duas casas decimais
+        const formattedValue = parseFloat(value / 100).toLocaleString('pt-BR', {
+            style: 'currency',
+            currency: 'BRL',
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
 
-        input.value = `R$ ${(value / 100).toFixed(2)}`;
+    input.value = formattedValue; 
     }
 
     // Adiciona eventos aos campos
@@ -115,6 +123,15 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById('debit_amount').addEventListener('input', function() {
         formatarSaldoDevedor(this);
     });
+
+    function adicionarEventoInputParaFormatarSaldoDevedor(id) {
+        document.getElementById(id).addEventListener('input', function() {
+            formatarSaldoDevedor(this);
+        });
+    }
+    for (let i = 1; i <= 6; i++) {
+        adicionarEventoInputParaFormatarSaldoDevedor('price_type_' + i);
+    }
 });
 
 
