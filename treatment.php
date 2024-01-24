@@ -61,7 +61,54 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Close the database connection
     $conn->close();
     }
+
+    // Débito pendete
+    elseif (isset($_POST['paymentform'])) {
+        // Check for the specific action based on the provided key
+        if (isset($_POST['update_payment'])) {
+            // Handle payment update logic
+            $client_id_payment = $_POST['client_id_payment'];
+            $payment_date = $_POST['payment_date'];
+            $amount = $_POST['amount'];
+            $type_of_payment = $_POST['type_of_payment'];
+
+            // Perform the database queries to update tables
+            $conn->begin_transaction();
+
+            // Step 1: Update clientpayments
+            $sql_payment = "INSERT INTO clientpayments (client_id, payment_date, amount, type_of_payment) 
+                            VALUES ('$client_id_payment', '$payment_date', '$amount', '$type_of_payment')";
+            $conn->query($sql_payment);
+
+            // Step 2: Deduct payment amount from client's debit_amount in clients table
+            $sql_discount_debit = "UPDATE clients SET debit_amount = debit_amount - '$amount' WHERE client_id = '$client_id_payment'";
+            $conn->query($sql_discount_debit);
+
+            // Commit the transaction
+            $conn->commit();
+
+            echo "Payment updated successfully";
+        } elseif (isset($_POST['get_client_debt'])) {
+            // Handle the request to get client debt
+            $client_id = $_POST['client_id'];
+
+            // Fetch client's debt from the database
+            $result = $conn->query("SELECT debit_amount FROM clients WHERE client_id = '$client_id'");
+
+            if ($result->num_rows > 0) {
+                $row = $result->fetch_assoc();
+                echo $row['debit_amount'];
+            } else {
+                echo "N/A";
+            }
+        } else {
+            // Handle other cases or show an error
+            echo "Invalid request";
+        }
+
+    // Close the database connection
+    $conn->close();
+    }
 }
-
-
+    
 ?>

@@ -10,14 +10,12 @@
     
     <title>Painel de controle</title>
 </head>
-
-<?php
-    $resultadoPositivo = "";
-    $resultadoNegativo = "";
-    include 'cadastrarClientes.php';
-?>
-
 <body>
+    <?php
+        $resultadoPositivo = "";
+        $resultadoNegativo = "";
+        include 'treatment.php';
+    ?>
 
     <header>
         <!-- notificação positiva do php -->
@@ -164,7 +162,50 @@
             <!-- Pagamento -->
             <div class="vitrine vitrinePagamento desativada">
                 <div class="formularios">
-                    <p>Pagamento clientes</p>
+                    <p>Atualize a conta do Cliente</p>
+                    <form name="paymentform" action="index.php" method="post" class="formularioGeral formularioCadastrarClientes">
+                        <select id="client_id_payment" name="client_id_payment" required>
+                            <!-- PHP para gerar a lista de cliente automaticamente -->
+                            <?php
+                            include 'dbConnection.php';
+
+                            // Pegando os clientes do banco de dados.
+                            $result = $conn->query("SELECT client_id, client_name FROM clients");
+
+                            // Verificando se há cliente no banco de dados.
+                            if ($result->num_rows > 0) {
+                                while ($row = $result->fetch_assoc()) {
+                                    // Mostra as opções de clientes cadastrados.
+                                    echo "<option value='{$row['client_id']}'>{$row['client_name']}</option>";
+                                }
+                            } else {
+                                echo "<option value='' disabled>Nenhum cliente encontrado..</option>";
+                            }
+
+                            // Fecha a conexão com o banco de dados.
+                            $conn->close();
+                            ?>
+                        </select>
+                        <label for="client_id_payment">Cliente</label>
+
+                        <label for="current_debt">Divida Atual</label>
+                        <span id="current_debt">N/A</span>
+
+                        <input type="date" id="payment_date" name="payment_date" required>
+                        <label for="payment_date">Data do pagamento</label>
+
+                        <input type="text" id="amount" name="amount" placeholder="R$ 0,00 - Insira valor positivo para pagamento e negativo para desconto" required>
+                        <label for="amount">Valor Pago</label>
+
+                        <input type="text" id="type_of_payment" name="type_of_payment" placeholder="Observação">
+                        <label for="type_of_payment">Observação</label>
+
+                        <!-- Add a hidden input field to identify the action -->
+                        <input type="hidden" name="update_payment" value="1">
+
+                        <button type="submit">Atualizar conta</button>
+                    </form>
+
                 </div>
             </div>
 
@@ -225,6 +266,7 @@
 
         </div>
     </main>
-    <script  src="/laboratorioJoia/media/js/script.js"></script>
+    <script src="/laboratorioJoia/media/js/script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </body>
 </html>

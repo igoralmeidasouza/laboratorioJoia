@@ -124,6 +124,10 @@ document.addEventListener("DOMContentLoaded", function() {
         formatarSaldoDevedor(this);
     });
 
+    document.getElementById('amount').addEventListener('input', function() {
+        formatarSaldoDevedor(this);
+    });
+
     function adicionarEventoInputParaFormatarSaldoDevedor(id) {
         document.getElementById(id).addEventListener('input', function() {
             formatarSaldoDevedor(this);
@@ -165,4 +169,36 @@ document.addEventListener('DOMContentLoaded', function () {
             window.location.href = "index.php";
         }, 6000); 
     } */
+});
+
+// Pegar o valor 
+$(document).ready(function() {
+    // Function to update displayed debt based on selected client
+    function updateDebt() {
+        var clientId = $("#client_id_payment").val();
+
+        // Check if a client is selected
+        if (clientId !== "") {
+            // Fetch client's debt using AJAX
+            $.ajax({
+                url: "checarDebito.php",
+                type: "POST",
+                data: { client_id: clientId },
+                success: function(response) {
+                    $("#current_debt").text(response);
+                }
+            });
+        } else {
+            // If no client is selected, display "N/A"
+            $("#current_debt").text("N/A");
+        }
+    }
+
+    // Bind the updateDebt function to the change event of the client dropdown
+    $("#client_id_payment").change(function() {
+        updateDebt();
+    });
+
+    // Initialize debt display on page load
+    updateDebt();
 });

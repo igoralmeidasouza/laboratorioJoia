@@ -68,18 +68,21 @@ body main {background-color: #ffffff; display: flex; width: 100%; max-width: 132
             /* formularios GERAL */
             body main .bemVindo .vitrine .formularios .formularioGeral {padding-top: 25px; border-top: solid 1px lightgrey;}
                 body main .bemVindo .vitrine .formularios .formularioGeral label {display: block; position: relative; transition: top 0.5s ease-out, font-size 0.3s ease, color 0.3s ease; top: -28px; line-height: 10px; opacity: 0; visibility: hidden; height: 15px; font-size: 8px; left: 10px;}  
-                body main .bemVindo .vitrine .formularios .formularioGeral input, textarea {display: block; width: 100%; padding: 8px; transition: border-color 0.3s ease; border-bottom: solid 1px grey; line-height: 10px; margin-bottom: 5px; font-size: 13px;}
+                body main .bemVindo .vitrine .formularios .formularioGeral input, textarea, select {display: block; width: 100%; padding: 8px; transition: border-color 0.3s ease; border-bottom: solid 1px grey; line-height: 10px; margin-bottom: 5px; font-size: 13px;}
                 body main .bemVindo .vitrine .formularios .formularioGeral textarea {height: 30px; resize: none;}    
 
                     body main .bemVindo .vitrine .formularios .formularioGeral input::placeholder, textarea::placeholder { color: #999; font-size: 12px;}
                     
-                    body main .bemVindo .vitrine .formularios .formularioGeral input:focus, 
+                    body main .bemVindo .vitrine .formularios .formularioGeral input:focus,
+                    body main .bemVindo .vitrine .formularios .formularioGeral select:focus,
                     body main .bemVindo .vitrine .formularios .formularioGeral textarea:focus,
+                    body main .bemVindo .vitrine .formularios .formularioGeral select:not(:placeholder-shown), 
                     body main .bemVindo .vitrine .formularios .formularioGeral textarea:not(:placeholder-shown), 
                     body main .bemVindo .vitrine .formularios .formularioGeral input:not(:placeholder-shown) {border-color: #007bff;}
                     
                     body main .bemVindo .vitrine .formularios .formularioGeral input:focus + label, 
-                    body main .bemVindo .vitrine .formularios .formularioGeral textarea:focus + label, 
+                    body main .bemVindo .vitrine .formularios .formularioGeral textarea:focus + label,
+                    body main .bemVindo .vitrine .formularios .formularioGeral select:not(:placeholder-shown) + label, 
                     body main .bemVindo .vitrine .formularios .formularioGeral textarea:not(:placeholder-shown) + label, 
                     body main .bemVindo .vitrine .formularios .formularioGeral input:not(:placeholder-shown) + label {opacity: 1; visibility: visible; top: -50px; font-size: 10.5px; color: #ffffff; width: max-content; background-color: #0071cd; border-radius: 3px; padding: 0px 6px; line-height: 15px; left: 5px;}
                 
