@@ -127,7 +127,7 @@
                         <input type="email" id="client_email" name="client_email" placeholder="E-mail" required>
                         <label for="client_email">E-mail</label>
 
-                        <input type="phone" id="phone" name="phone" placeholder="Telefone" required>
+                        <input type="tel" id="phone" name="phone" placeholder="Telefone" required>
                         <label for="phone">Telefone</label>
 
                         <input type="text" id="cpf_cnpj" name="cpf_cnpj" placeholder="CPF/ CNPJ" required>

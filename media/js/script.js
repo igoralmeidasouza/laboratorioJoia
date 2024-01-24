@@ -77,8 +77,12 @@ document.addEventListener("DOMContentLoaded", function() {
     // Função para formatar número de telefone
     function formatarNumeroTelefone(input) {
         const value = input.value.replace(/\D/g, '');
-
-        input.value = value.replace(/(\d{2})(\d)(\d{4})(\d{4})/, '($1) $2 $3-$4');
+    
+        if (value.length === 11) {
+            input.value = value.replace(/(\d{2})(\d{1})(\d{4})(\d{4})/, '($1) $2 $3-$4');
+        } else if (value.length === 10) {
+            input.value = value.replace(/(\d{2})(\d{4})(\d{4})/, '($1) $2-$3');
+        }
     }
 
     // Função para formatar CEP
@@ -100,7 +104,7 @@ document.addEventListener("DOMContentLoaded", function() {
         formatarCpfCnpj(this);
     });
 
-    document.getElementById('client_phone').addEventListener('input', function() {
+    document.getElementById('phone').addEventListener('input', function() {
         formatarNumeroTelefone(this);
     });
 
