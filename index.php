@@ -151,7 +151,7 @@
                         <input type="text" id="zipcode" name="zipcode" placeholder="CEP">
                         <label for="zipcode">CEP</label>
 
-                        <input type="text" id="debit_amount" name="debit_amount" placeholder="R$ 0,00 - R$ 0,00 - Possui saldo devedor? Se sim, inserir o valor.">
+                        <input type="text" id="debit_amount" name="debit_amount" placeholder="R$ 0,00 - Possui saldo devedor? Se sim, inserir o valor.">
                         <label for="debit_amount">Saldo Devedor</label>
 
                         <button type="submit" name="cadastrar_clientes">Cadastrar Cliente</button>
