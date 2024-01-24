@@ -1,0 +1,114 @@
+html, body, body div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, figure, footer, header, menu, nav, section, time, mark, audio, video, details, summary {margin: 0;	padding: 0;	border: 0; font-size: 100%; font-style: normal; font-weight: normal; vertical-align: baseline; background: transparent;} main, article, aside, figure, footer, header, nav, section, details, summary,img {display: block;} html {box-sizing: border-box;} *,*:before,*:after {box-sizing: inherit;} img,object,embed {max-width: 100%;} ul {list-style: none;} blockquote, q {quotes: none;} blockquote:before,blockquote:after,q:before,q:after {content: ''; content: none;} a {margin: 0; padding: 0; font-size: 100%; vertical-align: baseline; background: transparent;} del {text-decoration: line-through;} abbr[title], dfn[title] {border-bottom: 1px dotted #000; cursor: help;} table {border-collapse: separate; border-spacing: 0;} th {font-weight: bold; vertical-align: bottom;} td {font-weight: normal; vertical-align: top;} hr {display: block; height: 1px; border: 0; border-top: 1px solid #ccc; margin: 1em 0; padding: 0;} input, select {vertical-align: middle;} input[type="radio"] {vertical-align: text-bottom;} input[type="checkbox"] {vertical-align: bottom;} input,button,textarea,select,optgroup,option{font-family:inherit;font-size:inherit;font-style:inherit;font-weight:inherit; outline:none;}input,button,textarea,fieldset,input,button,textarea,select{border:none; padding:0; margin:0; background:none;}a{text-decoration:none;} table {font-size: inherit; font: 100%;}
+small {font-size: 85%;} strong {font-weight: 800;} td, td img {vertical-align: top;} sub, sup {font-size: 75%; line-height: 0; position: relative;} sup {top: -0.5em;} sub {bottom: -0.25em;} pre, code, kbd, samp {font-family: monospace, sans-serif;}
+body{font: 500 17px "Open Sans"; line-height: 28px; letter-spacing: 0.01px; color: #6a7071; overflow-x: hidden; background: linear-gradient(180deg, rgba(230,239,254,1) 0%, rgba(215,222,232,1) 50%, rgba(222,230,242,1) 100%);}
+
+@keyframes trocaCor { 0% { color: #ffffff; } 50% { color: #4293E0; } 100% { color: #EDEFEF; } }
+
+body header {background-color: #ffffff; display: flex; width: 100%; max-width: 1320px; margin: 30px auto 0 auto; position: relative; border-radius: 25px 25px 0 0;}
+    /* notificação do PHP */
+    body .mensagem {color: #ffffff; font-size: 15px; position: absolute; z-index: 10; left: 50%; top: -17px; padding: 0 16px; border-radius: 5px; box-shadow: 1px 1px 8px 0px rgba(0, 0, 0, 0.5); font-family: 'Readex Pro', sans-serif; transition: all 0.5s ease-in;}
+    body .mensagemPositiva {background-color: #43cd43; opacity: 0; visibility: hidden;}
+    body .mensagemNegativa {background-color: red; opacity: 0; visibility: hidden;}
+
+    body header::after {content: ""; border-bottom: 1px solid #ededed; height: 1px; width: 98%; position: absolute; top: 156px; left: 15px; z-index: 1;}
+
+    body header .dashBoard {justify-content: center; background-color: #101A28; display: flex; flex-direction: row; align-items: center; position: relative; padding: 0 15px; width: 100%; max-width: 271px; padding: 25px 0; border-radius: 25px 0 0 0; box-shadow: 7px 0 7px rgba(0, 0, 0, 0.1);}
+        body header .dashBoard img {width: 35px; height: 35px; object-fit: cover; filter: brightness(150%);}
+        body header .dashBoard p {font-family: 'Ubuntu'; font-size: 25px; text-transform: uppercase; animation: trocaCor 7s linear infinite;}
+
+    body header .logoMarca {display: flex; width: 100%; position: relative; justify-content: center; margin: 0 auto; align-items: center; padding: 25px 0;}
+        body header .logoMarca figure img {width: 100%; height: 100%; max-width: 100px; max-height: 100px;}
+
+        body header .logoMarca .logoTipo {margin-left: 20px;}
+            body header .logoMarca .logoTipo h1 {display: flex; flex-direction: column; font-size: 20px;font-family: 'Readex Pro', sans-serif; font-weight: 300;}
+                body header .logoMarca .logoTipo h1 em {margin-left: 50px; padding-top: 5px; font-size: 35px; color: #4293E0; text-transform: uppercase;}
+            body header .logoMarca .logoTipo address {display: flex; flex-direction: column; margin-top: 10px;}
+                body header .logoMarca .logoTipo address p {margin-left: 50px; font-family: 'Ubuntu'; font-size: 12.5px; line-height: 18px; text-align: center;} 
+
+body main {background-color: #ffffff; display: flex; width: 100%; max-width: 1320px; margin: 0 auto 30px auto; min-height: 700px; position: relative; border-radius: 0 0 25px 25px;}
+
+    body main .menuLateral {width: 100%; max-width: 271px; position: relative; min-height: 400px; padding-top: 25px; background-color: #101A28; border-radius: 0 0 0 25px; box-shadow: 7px 0 7px rgba(0, 0, 0, 0.1);}
+            body main .menuLateral ul {padding: 0 15px; display: flex; flex-direction: column; transition: all 0.2s ease;}
+
+            /* texto "menu" */
+            body main .menuLateral ul .textoMenu {margin-bottom: 10px; cursor:auto ; border: none; font-size: 20px; color: #ffffff; font-family: 'Readex Pro', sans-serif; font-weight: 300; text-align: center;}
+                body main .menuLateral ul .textoMenu:hover {border: none; color: #ffffff;}
+
+            /* 4 botões = vendas / clientes / produtos / extratos */
+            body main .menuLateral ul .menu-item {transition: all 0.5s ease; text-align: center; width: 100%; height: 45px; font: 599 12px/43px 'Open Sans'; text-transform: uppercase; color: #ffffff; cursor: pointer; margin-top: 10px; margin-right: 0.8%; letter-spacing: -0.040em; border: solid 1px #c9d7db; box-sizing: border-box; position: relative; border-radius: 10px;}
+                body main .menuLateral ul .menu-item:hover {border: solid 1px #0071cd; color: #0071cd;}
+
+                    /* sub botões - botão desativado */
+                    body main .menuLateral ul .menu-item .subMenu {opacity: 0; visibility: hidden; transition: all 0.5s ease;}
+                        body main .menuLateral ul .menu-item ul .subBotao {opacity: 0; visibility: hidden; z-index: 1; text-transform: none; height: max-content; line-height: 20px; position: relative;  transition: all 0.5s ease; margin-left: 5px;}
+                            body main .menuLateral ul .menu-item ul .subBotao:hover {margin-left: 10px;}
+                                body main .menuLateral ul .menu-item ul .subBotao::before {content: ""; background: url(../img/icones/setinhaMenu.gif); width: 3px; height: 5px; position: absolute; opacity: 0; top: 7px; transition: all 0.7s ease; left: -10px; filter: brightness(0.5);}
+                                body main .menuLateral ul .menu-item ul .subBotao:hover::before{opacity: 1; left: -7px;}
+
+            /* o botão fica ativo em azul ao clicar */
+            body main .menuLateral ul .ativa {background-color: #0071cd; color: #ffffff; z-index: 1; transition: all 0.2s ease; height: max-content;}
+                body main .menuLateral ul .ativa:hover {color: #ffffff;}
+                    /* sub botões - botão ativado */
+                    body main .menuLateral ul .ativa .subMenu {padding: 7px 15px; border-top: solid 1px #ffffff; opacity: 1; visibility: visible;}
+                        body main .menuLateral ul .ativa ul .subBotao {opacity: 1; visibility: visible; z-index: 1; color: #ffffff; height: 15px; margin-top: 5px; text-align: left; font-size: 12px; transition: all 0.5s ease;}
+                            body main .menuLateral ul .ativa ul .subBotao:first-child {margin-top: 0px;}
+
+    body main .bemVindo {padding-top: 5px; width: 100%; display: flex; position: relative;} 
+        body main .bemVindo .textoBemVindo {position: absolute; font-size: 70px; font-family: 'Open Sans'; color: #ededed; cursor: default; left: 30%; top: 50%;}
+
+        body main .bemVindo .desativada {position: absolute; z-index: 10; opacity: 0; visibility: hidden;}
+        body main .bemVindo .ativa {position: absolute; z-index: 10; opacity: 1; visibility: visible;} 
+
+        body main .bemVindo .vitrine {position: absolute; width: 99%; border: solid 2px #0071cd; padding: 2px; left: 5px; background-color: #ffffff; transition: all 0.5s ease;}
+            body main .bemVindo .vitrine .formularios {display: flex; flex-direction: column; width: 100%; align-content: center; flex-wrap: wrap; margin: 30px 0;}
+                body main .bemVindo .vitrine .formularios p {font-weight: bold; width: max-content; font-family: 'Readex Pro', sans-serif; font-size: 19px; color: #767676; padding-bottom: 3px; position: relative;}
+                    body main .bemVindo .vitrine .formularios p::after {content: ""; display: block; position: absolute; background-color: #4293E0; width: 110%; height: 2px; bottom: -2px;}
+                    body main .bemVindo .vitrine .formularios .formularioGeral {display: flex; flex-direction: column; width: 50%;}
+
+            /* formularios GERAL */
+            body main .bemVindo .vitrine .formularios .formularioGeral {padding-top: 25px; border-top: solid 1px lightgrey;}
+                body main .bemVindo .vitrine .formularios .formularioGeral label {display: block; position: relative; transition: top 0.5s ease-out, font-size 0.3s ease, color 0.3s ease; top: -28px; line-height: 10px; opacity: 0; visibility: hidden; height: 15px;} 
+                body main .bemVindo .vitrine .formularios .formularioGeral input, textarea {display: block; width: 100%; padding: 8px; transition: border-color 0.3s ease; border-bottom: solid 1px grey; line-height: 10px; margin-bottom: 5px; font-size: 13px;}
+                body main .bemVindo .vitrine .formularios .formularioGeral textarea {height: 30px; resize: none;}    
+
+                    body main .bemVindo .vitrine .formularios .formularioGeral input::placeholder, textarea::placeholder { color: #999; font-size: 12px;}
+                    
+                    body main .bemVindo .vitrine .formularios .formularioGeral input:focus, 
+                    body main .bemVindo .vitrine .formularios .formularioGeral textarea:focus,
+                    body main .bemVindo .vitrine .formularios .formularioGeral textarea:not(:placeholder-shown), 
+                    body main .bemVindo .vitrine .formularios .formularioGeral input:not(:placeholder-shown) {border-color: #007bff;}
+                    
+                    body main .bemVindo .vitrine .formularios .formularioGeral input:focus + label, 
+                    body main .bemVindo .vitrine .formularios .formularioGeral textarea:focus + label, 
+                    body main .bemVindo .vitrine .formularios .formularioGeral textarea:not(:placeholder-shown) + label, 
+                    body main .bemVindo .vitrine .formularios .formularioGeral input:not(:placeholder-shown) + label {opacity: 1; visibility: visible; top: -50px; font-size: 10.5px; color: #ffffff; width: max-content; background-color: #0071cd; border-radius: 3px; padding: 0px 6px; line-height: 15px; left: 5px;}
+                
+                body main .bemVindo .vitrine .formularios .formularioGeral button {border: solid 1px #101A28; border-radius: 10px; padding: 9px; text-transform: uppercase; font-weight: 500; cursor: pointer; transition: all 0.5s ease}
+                    body main .bemVindo .vitrine .formularios .formularioGeral button:hover {background-color: #101A28; color: #EDEFEF;}
+
+                    /*  alinha botao número e complemento para ficar na mesma linha */
+                    body main .bemVindo .vitrine .formularios .formularioGeral .numeroComplemento {display: flex; margin-bottom: 12px; width: 100%; position: relative;}
+
+                        body main .bemVindo .vitrine .formularios .formularioGeral .numeroComplemento input {width: 100%;}
+                            body main .bemVindo .vitrine .formularios .formularioGeral .numeroComplemento input:first-child {width: 50%; margin-right: 10%;}
+                            body main .bemVindo .vitrine .formularios .formularioGeral .numeroComplemento input:focus {width: 100%;}
+                                body main .bemVindo .vitrine .formularios .formularioGeral .numeroComplemento input:first-child:focus {width: 50%;}
+
+                        body main .bemVindo .vitrine .formularios .formularioGeral .numeroComplemento label {width: 100%; position: absolute; top: 0; top: 14px;}
+                            body main .bemVindo .vitrine .formularios .formularioGeral .numeroComplemento label:first-child {left: 5px;}
+                            body main .bemVindo .vitrine .formularios .formularioGeral .numeroComplemento label:last-child  {left: 40%;}
+
+                        body main .bemVindo .vitrine .formularios .formularioGeral .numeroComplemento input:focus + label, 
+                        body main .bemVindo .vitrine .formularios .formularioGeral .numeroComplemento input:not(:placeholder-shown) + label {opacity: 1; visibility: visible; top: -12px; left: 5px; font-size: 10.5px; color: #ffffff; width: max-content; background-color: #0071cd; border-radius: 3px; padding: 0px 6px; line-height: 15px;}
+
+                        body main .bemVindo .vitrine .formularios .formularioGeral .numeroComplemento .complemento:focus + label,
+                        body main .bemVindo .vitrine .formularios .formularioGeral .numeroComplemento .complemento:not(:placeholder-shown) + label {opacity: 1; visibility: visible; top: -12px; left: 40%; font-size: 10.5px; color: #ffffff; width: max-content; background-color: #0071cd; border-radius: 3px; padding: 0px 6px; line-height: 15px;}
+
+
+
+                            
+
+
+
+
+
