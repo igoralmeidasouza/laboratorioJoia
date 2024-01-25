@@ -210,6 +210,22 @@
             <div class="vitrine vitrineConsultarProdutos desativada">
                 <div class="formularios">
                     <p>Consultar produtos</p>
+                    <div id="payment-session">
+                        <!-- Os dados de pagamento serão exibidos aqui -->
+                    </div>
+                    <script>
+                        // Use AJAX para carregar os dados do treatment.php
+                        $(document).ready(function() {
+                            $.ajax({
+                                type: "GET",
+                                url: "consultarProdutos.php",
+                                success: function(data) {
+                                    // Inserir os dados na sessão de pagamento
+                                    $("#payment-session").html(data);
+                                }
+                            });
+                        });
+                    </script>
                 </div>
             </div>
 
