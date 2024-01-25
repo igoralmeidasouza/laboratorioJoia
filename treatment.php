@@ -87,7 +87,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Commit the transaction
             $conn->commit();
     
-            echo "Payment updated successfully";
+            //echo "Payment updated successfully";
+            $resultadoPositivo = "Conta atualizada com sucesso!";
+
         } elseif (isset($_POST['get_client_debt'])) {
             // Handle the request to get client debt
             $client_id = $_POST['client_id'];
@@ -103,7 +105,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         } else {
             // Handle other cases or show an error
-            echo "Invalid request";
+            // echo "Invalid request";
+            $resultadoNegativo = "Requisição invalida.";
         }
     
         // Close the database connection

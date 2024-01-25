@@ -203,7 +203,7 @@
                         <!-- Add a hidden input field to identify the action -->
                         <input type="hidden" name="update_payment" value="1">
 
-                        <button type="submit">Atualizar conta</button>
+                        <button type="submit" name="paymentform">Atualizar conta</button>
                     </form>
 
                 </div>
