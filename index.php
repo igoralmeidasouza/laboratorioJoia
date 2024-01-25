@@ -185,13 +185,16 @@
                         </select>
                         <label for="client_id_payment">Cliente</label>
 
-                        <label for="current_debt">Divida Atual</label>
-                        <span id="current_debt">N/A</span>
+                        <!-- <label for="current_debt">Divida Atual</label> -->
+                        <div class="saldoDevedor">
+                            <span class="debito" id="current_debt">N/A</span>
+                            <span class="labelDebito">Divida Atual</span>
+                        </div>
 
                         <input type="date" id="payment_date" name="payment_date" required>
                         <label for="payment_date">Data do pagamento</label>
 
-                        <input type="text" id="amount" name="amount" placeholder="R$ 0,00 - Insira valor positivo para pagamento e negativo para desconto" required>
+                        <input type="text" id="amount" name="amount" placeholder="R$ 0,00 - Insira valor a ser descontado da divida." required>
                         <label for="amount">Valor Pago</label>
 
                         <input type="text" id="type_of_payment" name="type_of_payment" placeholder="Observação">
