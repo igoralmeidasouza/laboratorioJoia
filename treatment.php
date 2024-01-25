@@ -87,7 +87,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Commit the transaction
             $conn->commit();
 
-            echo "Payment updated successfully";
+            echo "Pagamento atualizado com sucesso!";
+
         } elseif (isset($_POST['get_client_debt'])) {
             // Handle the request to get client debt
             $client_id = $_POST['client_id'];
@@ -112,3 +113,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
     
 ?>
+

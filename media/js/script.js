@@ -171,7 +171,7 @@ document.addEventListener('DOMContentLoaded', function () {
     } */
 });
 
-// Pegar o valor 
+// Pegar o valor no BANCO DE DADOS.
 $(document).ready(function() {
     // Function to update displayed debt based on selected client
     function updateDebt() {
@@ -181,7 +181,7 @@ $(document).ready(function() {
         if (clientId !== "") {
             // Fetch client's debt using AJAX
             $.ajax({
-                url: "checarDebito.php",
+                url: "treatment.php",
                 type: "POST",
                 data: { client_id: clientId },
                 success: function(response) {
@@ -202,3 +202,5 @@ $(document).ready(function() {
     // Initialize debt display on page load
     updateDebt();
 });
+
+

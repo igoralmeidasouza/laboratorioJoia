@@ -162,28 +162,25 @@
             <!-- Pagamento -->
             <div class="vitrine vitrinePagamento desativada">
                 <div class="formularios">
-                    <p>Atualize a conta do Cliente</p>
+                    <p>Atualize os Débitos do Cliente</p>
                     <form name="paymentform" action="index.php" method="post" class="formularioGeral formularioCadastrarClientes">
                         <select id="client_id_payment" name="client_id_payment" required>
-                            <!-- PHP para gerar a lista de cliente automaticamente -->
+                            <!-- PHP para gerar a lista de clientes automaticamente -->
                             <?php
-                            include 'dbConnection.php';
+                                // Pegando os clientes do banco de dados.
+                                $result = $conn->query("SELECT client_id, client_name FROM clients");
 
-                            // Pegando os clientes do banco de dados.
-                            $result = $conn->query("SELECT client_id, client_name FROM clients");
-
-                            // Verificando se há cliente no banco de dados.
-                            if ($result->num_rows > 0) {
-                                while ($row = $result->fetch_assoc()) {
-                                    // Mostra as opções de clientes cadastrados.
-                                    echo "<option value='{$row['client_id']}'>{$row['client_name']}</option>";
+                                // Verificando se há cliente no banco de dados.
+                                if ($result->num_rows > 0) {
+                                    while ($row = $result->fetch_assoc()) {
+                                        // Mostra as opções de clientes cadastrados.
+                                        echo "<option value='{$row['client_id']}'>{$row['client_name']}</option>";
+                                    }
+                                } else {
+                                    echo "<option value='' disabled>Nenhum cliente encontrado..</option>";
                                 }
-                            } else {
-                                echo "<option value='' disabled>Nenhum cliente encontrado..</option>";
-                            }
-
-                            // Fecha a conexão com o banco de dados.
-                            $conn->close();
+                                // Fecha a conexão com o banco de dados.
+                                $conn->close();
                             ?>
                         </select>
                         <label for="client_id_payment">Cliente</label>
