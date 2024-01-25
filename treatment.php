@@ -71,17 +71,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $payment_date = $_POST['payment_date'];
             $amount = $_POST['amount'];
             $type_of_payment = $_POST['type_of_payment'];
-    
-            // Perform the database queries to update tables
+
+            $formattedValue = substr($amount, 4);
+            $formattedValue = str_replace(",", ".", $formattedValue);
+            echo $formattedValue;
+
             $conn->begin_transaction();
     
             // Step 1: Update clientpayments
             $sql_payment = "INSERT INTO clientpayments (client_id, payment_date, amount, type_of_payment) 
-                            VALUES ('$client_id_payment', '$payment_date', '$amount', '$type_of_payment')";
+                            VALUES ('$client_id_payment', '$payment_date', '$formattedValue', '$type_of_payment')";
             $conn->query($sql_payment);
     
             // Step 2: Deduct payment amount from client's debit_amount in clients table
-            $sql_discount_debit = "UPDATE clients SET debit_amount = debit_amount - '$amount' WHERE client_id = '$client_id_payment'";
+            $sql_discount_debit = "UPDATE clients SET debit_amount = debit_amount - '$formattedValue' WHERE client_id = '$client_id_payment'";
             $conn->query($sql_discount_debit);
     
             // Commit the transaction
