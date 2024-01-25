@@ -181,7 +181,7 @@ $(document).ready(function() {
         if (clientId !== "") {
             // Fetch client's debt using AJAX
             $.ajax({
-                url: "treatment.php",
+                url: "checarDebito.php",
                 type: "POST",
                 data: { client_id: clientId },
                 success: function(response) {
