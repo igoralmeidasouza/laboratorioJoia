@@ -56,7 +56,7 @@
                 <li class="vendas menu-item desativada tamanhoAtivo">
                     <p>Vendas</p>
                     <ul class="subMenu">
-                        <li class="subBotao" data-target="vitrineVenda">Realizar Venda</li>
+                        <li class="subBotao" data-target="vitrineVenda" onclick="controleCarrinho()">Realizar Venda</li>
                         <li class="subBotao" data-target="vitrineHistoricoDeVenda">Histórico de Venda</li>
                     </ul>
                 </li>
@@ -89,7 +89,24 @@
             <div class="vitrine vitrineVenda desativada">
                 <div class="formularios">
                     <p>Realizar venda</p>
-
+                    <!-- <li onclick="controleCarrinho()">butao</li> -->
+                    <form id="salesForm" class="">
+                        <!-- Client Dropdown -->
+                        <label for="client">Select Client:</label>
+                        <select id="client" name="client">
+                            <!-- Clients will be displayed here -->
+                        </select>
+                        <!-- Product Dropdown -->
+                        <label for="product">Select Product:</label>
+                        <select id="product" name="product" onchange="getProductDetails()">
+                            <!-- Populate this dynamically with product options -->
+                        </select>
+                        <!-- Price Dropdown -->
+                        <label for="price">Select Price:</label>
+                        <select id="price" name="price" >
+                            <!-- Prices will be displayed here onchange="updatePriceDisplay()"-->
+                        </select>
+                    </form>
                 </div>
             </div>
 

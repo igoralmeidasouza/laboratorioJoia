@@ -235,3 +235,54 @@ function updatePriceDropdown() {
     }
 }
 
+// Carrinho de vendas
+function controleCarrinho(){
+    getClients();
+    getProducts();
+}
+
+function getClients() {
+    // Make an Ajax request to get client options
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            // Update the client dropdown with options
+            document.getElementById("client").innerHTML = xhr.responseText;
+        }
+    };
+    xhr.open("POST", "treatment.php", true);
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.send("get_clients=true");
+}
+function getProducts() {
+    // Make an Ajax request to get product options
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            // Update the product dropdown with options
+            document.getElementById("product").innerHTML = xhr.responseText;
+
+            // After populating the products, get details for the default product (if any)
+            getProductDetails();
+        }
+    };
+    xhr.open("POST", "treatment.php", true);
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.send("get_products=true");
+}
+function getProductDetails() {
+    var selectedProduct = document.getElementById("product").value;
+
+    // Make an Ajax request to get details for the selected product
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            // Update the price dropdown with the received prices
+            document.getElementById("price").innerHTML = xhr.responseText;
+        }
+    };
+    xhr.open("POST", "treatment.php", true);
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.send("treatment=true&product=" + selectedProduct);
+}
+

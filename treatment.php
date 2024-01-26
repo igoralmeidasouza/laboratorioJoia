@@ -123,8 +123,71 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
         // Close the database connection
         $conn->close();
-    
+    }
+
+    elseif (isset($_POST['get_clients'])) {
+        // Query the database to get client options
+        $clientQuery = "SELECT client_id, client_name FROM clients";
+        $clientResult = $conn->query($clientQuery);
+
+        // Generate HTML for client options
+        $clientOptions = "";
+        while ($clientRow = $clientResult->fetch_assoc()) {
+            $clientId = $clientRow['client_id'];
+            $clientName = $clientRow['client_name'];
+            $clientOptions .= "<option value='$clientId'>$clientName</option>";
+        }
+
+        // Return the HTML with client options to the Ajax request
+        echo $clientOptions;
     }
     
-}
+    // Handling POST request for getting details
+    elseif (isset($_POST['product'])) {
+        // Get the selected product from the Ajax request
+        $selectedProduct = $_POST['product'];
+
+        // Query the database to get prices for the selected product
+        $query = "SELECT price_type_1, price_type_2, price_type_3, price_type_4, price_type_5, price_type_6 FROM products WHERE product_id = $selectedProduct";
+
+        // Execute the query and fetch prices
+        $result = $conn->query($query);
+
+        // Process the result and generate HTML for the prices
+        $pricesHTML = "";
+        while ($row = $result->fetch_assoc()) {
+            foreach ($row as $price) {
+                $pricesHTML .= "<option value='" . $price . "'>" . "R$ ". $price . "</option>";
+            }
+        }
+
+        // Return the HTML with prices to the Ajax request
+        echo $pricesHTML;
+        } elseif (isset($_POST['get_products'])) {
+            // Handling POST request for getting product options
+            $productQuery = "SELECT product_id, product_name FROM products";
+            $productResult = $conn->query($productQuery);
+    
+            // Generate HTML for product options
+            $productOptions = "";
+            while ($productRow = $productResult->fetch_assoc()) {
+                $productId = $productRow['product_id'];
+                $productName = $productRow['product_name'];
+                $productOptions .= "<option value='$productId'>$productName</option>";
+            }
+    
+            // Return the HTML with product options to the Ajax request
+            echo $productOptions;
+        } else {
+            // Return an error for unknown request
+            echo json_encode(['error' => 'Invalid request']);
+        }
+    } else {
+        // Return an error for unsupported request method
+        //echo json_encode(['error' => 'Unsupported request method']); erro trol
+    }
+    
+    // Close the database connection
+    $conn->close();
+
 ?>
