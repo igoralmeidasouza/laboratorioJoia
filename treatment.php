@@ -77,8 +77,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $amount = $_POST['amount'];
             $type_of_payment = $_POST['type_of_payment'];
 
-            $formattedValue = substr($amount, 4);
+            // Retira o "R$" e ajusta as pontuações para o banco de dados ficar no formato de number.
+            $formattedValue = str_replace (".", "", $amount);
             $formattedValue = str_replace(",", ".", $formattedValue);
+            $formattedValue = substr($formattedValue, 4);
 
             $conn->begin_transaction();
     
