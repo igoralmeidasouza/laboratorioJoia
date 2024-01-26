@@ -2,14 +2,14 @@
     include 'dbConnection.php'; // Conexão com o banco de dados
     
     // Consulta os produtos
-    $sql = "SELECT * FROM Products";
+    $sql = "SELECT * FROM products";
     $result = $conn->query($sql);
 
     // Verifica se a consulta retornou resultados
     if ($result->num_rows > 0) {
         // Exibe os dados em uma tabela
         echo "<table border='1'>";
-        echo "<tr><th>ID</th><th>Nome</th><th>Descrição</th><th>Preço Tipo 1</th><th>Preço Tipo 2</th><th>Preço Tipo 3</th><th>Preço Tipo 4</th><th>Preço Tipo 5</th><th>Preço Tipo 6</th></tr>";
+        echo "<tr><th>ID</th><th>Nome</th><th>Descrição</th><th>Preço 1</th><th>Preço 2</th><th>Preço 3</th><th>Preço 4</th><th>Preço 5</th><th>Preço 6</th></tr>";
 
         while ($row = $result->fetch_assoc()) {
             echo "<tr>";
