@@ -124,10 +124,6 @@ document.addEventListener("DOMContentLoaded", function() {
         formatarSaldoDevedor(this);
     });
 
-    document.getElementById('amount').addEventListener('input', function() {
-        formatarSaldoDevedor(this);
-    });
-
     function adicionarEventoInputParaFormatarSaldoDevedor(id) {
         document.getElementById(id).addEventListener('input', function() {
             formatarSaldoDevedor(this);

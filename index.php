@@ -140,8 +140,8 @@
                             <input type="number" id="number" name="number" placeholder="Número">
                             <label for="number">Nº</label>
                                 
-                            <input class="complemento" type="text" id="complement" name="complement" placeholder="Complemento">
-                            <label for="complement">Complemento</label>
+                            <input class="complemento" type="text" id="complemento" name="complemento" placeholder="Complemento">
+                            <label for="complemento">Complemento</label>
                         </div>
 
                         <input type="text" id="neighborhood" name="neighborhood" placeholder="Bairro">

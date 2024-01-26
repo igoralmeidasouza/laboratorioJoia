@@ -13,17 +13,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Colete os dados do formulário
         $client_name = $_POST['client_name'];
         $client_email = $_POST['client_email'];
+        $telefone = $_POST['phone'];
         $cpf_cnpj = $_POST['cpf_cnpj'];
         $address = $_POST['address'];
         $number = $_POST['number'];
+        $complemento = $_POST['complemento'];
         $neighborhood = $_POST['neighborhood'];
         $city = $_POST['city'];
         $zipcode = $_POST['zipcode'];
         $debit_amount = $_POST['debit_amount'];
+        $formattedValue1 = substr($debit_amount, 3);
+        $debit_amount = str_replace(",", ".", $formattedValue1);
 
         // Execute a consulta ao banco de dados para inserir o novo cliente
-        $sql = "INSERT INTO clients (client_name, client_email, cpf_cnpj, address, number, neighborhood, city, zipcode, debit_amount) 
-                VALUES ('$client_name', '$client_email', '$cpf_cnpj', '$address', '$number', '$neighborhood', '$city', '$zipcode', '$debit_amount')";
+        $sql = "INSERT INTO clients (client_name, client_email, phone, cpf_cnpj, address, number, complement, neighborhood, city, zipcode, debit_amount) 
+                VALUES ('$client_name', '$client_email', '$telefone', '$cpf_cnpj', '$address', '$number', '$complemento', '$neighborhood', '$city', '$zipcode', '$debit_amount')";
 
         if ($conn->query($sql) === TRUE) {
         $resultadoPositivo = "Cliente adicionado com sucesso!";
