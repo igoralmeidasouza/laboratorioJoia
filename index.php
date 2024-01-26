@@ -220,7 +220,7 @@
             <div class="vitrine vitrineConsultarProdutos desativada">
                 <div class="formularios">
                     <p>Consultar produtos</p>
-                    <div id="payment-session">
+                    <div id="payment-session" class="tabelaGeral tabelaConsultarProdutos">
                         <!-- Os dados de pagamento serão exibidos aqui -->
                         <?php
                         include 'dbConnection.php'; // Conexão com o banco de dados
@@ -240,12 +240,12 @@
                                 echo "<td>" . $row["product_id"] . "</td>";
                                 echo "<td>" . $row["product_name"] . "</td>";
                                 echo "<td>" . $row["product_description"] . "</td>";
-                                echo "<td>" . $row["price_type_1"] . "</td>";
-                                echo "<td>" . $row["price_type_2"] . "</td>";
-                                echo "<td>" . $row["price_type_3"] . "</td>";
-                                echo "<td>" . $row["price_type_4"] . "</td>";
-                                echo "<td>" . $row["price_type_5"] . "</td>";
-                                echo "<td>" . $row["price_type_6"] . "</td>";
+                                echo "<td>" . "R$ ". $row["price_type_1"] . "</td>";
+                                echo "<td>" . "R$ ". $row["price_type_2"] . "</td>";
+                                echo "<td>" . "R$ ". $row["price_type_3"] . "</td>";
+                                echo "<td>" . "R$ ". $row["price_type_4"] . "</td>";
+                                echo "<td>" . "R$ ". $row["price_type_5"] . "</td>";
+                                echo "<td>" . "R$ ". $row["price_type_6"] . "</td>";
                                 echo "</tr>";
                             }
 
