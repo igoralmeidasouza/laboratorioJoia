@@ -212,11 +212,12 @@ function updatePriceDropdown() {
     if (productId !== "") {
         // Fetch product prices using AJAX
         $.ajax({
-            url: "get_prices.php", // Replace with the actual endpoint
+            url: "checarPrecosProdutos.php",
             type: "POST",
-            data: { product_id: productId },
+            data: { product_id: selectedProductId }, // Use the correct variable holding the selected product ID
             success: function(response) {
                 // Parse the JSON response
+                console.log('Response:', response);
                 var prices = JSON.parse(response);
 
                 // Clear previous options
@@ -234,11 +235,11 @@ function updatePriceDropdown() {
     }
 }
 
-// Bind the updatePriceDropdown function to the change event of the product dropdown
 $("#product_id").change(function() {
     updatePriceDropdown();
 });
 
-// Initialize price dropdown on page load
-updatePriceDropdown();
-
+// Call the updatePriceDropdown function on page load
+$(document).ready(function() {
+    updatePriceDropdown();
+});

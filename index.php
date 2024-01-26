@@ -116,9 +116,9 @@
                             include 'dbConnection.php';
 
                             $result_products = $conn->query("SELECT product_id, product_name FROM products");
-
                             if ($result_products->num_rows > 0) {
                                 while ($row_products = $result_products->fetch_assoc()) {
+                                    
                                     echo "<option value='{$row_products['product_id']}'>{$row_products['product_name']}</option>";
                                 }
                             } else {
