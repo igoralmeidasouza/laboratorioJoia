@@ -199,4 +199,42 @@ $(document).ready(function() {
     updateDebt();
 });
 
+//Codigo auxiliar para atualizar os preços na aba de vendas
+// Function to update price dropdown based on selected product
+function updatePriceDropdown() {
+    var productId = $("#product_id").val();
+
+    // Check if a product is selected
+    if (productId !== "") {
+        // Fetch product prices using AJAX
+        $.ajax({
+            url: "get_prices.php", // Replace with the actual endpoint
+            type: "POST",
+            data: { product_id: productId },
+            success: function(response) {
+                // Parse the JSON response
+                var prices = JSON.parse(response);
+
+                // Clear previous options
+                $("#price_type").empty();
+
+                // Populate price dropdown with new options
+                for (var i = 0; i < prices.length; i++) {
+                    $("#price_type").append('<option value="' + prices[i] + '">' + prices[i] + '</option>');
+                }
+            }
+        });
+    } else {
+        // If no product is selected, clear the price dropdown
+        $("#price_type").empty();
+    }
+}
+
+// Bind the updatePriceDropdown function to the change event of the product dropdown
+$("#product_id").change(function() {
+    updatePriceDropdown();
+});
+
+// Initialize price dropdown on page load
+updatePriceDropdown();
 
