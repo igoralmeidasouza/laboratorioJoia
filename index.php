@@ -88,47 +88,62 @@
             <div class="vitrine vitrineVenda desativada">
                 <div class="formularios">
                     <p>Realizar venda</p>
-                    <form name="paymentform" action="payment.php" method="post">
-                        <label for="client_id_payment">Client:</label>
-                        <select id="client_id_payment" name="client_id_payment" required>
-                            <!-- PHP to generate the list of clients dynamically -->
+                    <form name="executarVendas_form" action="executarVendas.php" method="post" class="formularioGeral">
+                        <label for="client_id">Select Client:</label>
+                        <select id="client_id" name="client_id" required>
+                            <!-- PHP para gerar a lista de clientes dinamicamente -->
                             <?php
                             include 'dbConnection.php';
 
-                            // Fetch clients from the database
-                            $result = $conn->query("SELECT client_id, client_name FROM clients");
+                            $result_clients = $conn->query("SELECT client_id, client_name FROM clients");
 
-                            // Check if there are clients
-                            if ($result->num_rows > 0) {
-                                while ($row = $result->fetch_assoc()) {
-                                    // Display each client as an option
-                                    echo "<option value='{$row['client_id']}'>{$row['client_name']}</option>";
+                            if ($result_clients->num_rows > 0) {
+                                while ($row_clients = $result_clients->fetch_assoc()) {
+                                    echo "<option value='{$row_clients['client_id']}'>{$row_clients['client_name']}</option>";
                                 }
                             } else {
                                 echo "<option value='' disabled>No clients found</option>";
                             }
 
-                            // Close the database connection
                             $conn->close();
                             ?>
                         </select>
 
-                        <label for="current_debt">Current Debt:</label>
-                        <span id="current_debt">N/A</span>
+                        <label for="product_id">Select Product:</label>
+                        <select id="product_id" name="product_id" required>
+                            <!-- PHP para gerar a lista de produtos dinamicamente -->
+                            <?php
+                            include 'dbConnection.php';
 
-                        <label for="payment_date">Payment Date:</label>
-                        <input type="date" id="payment_date" name="payment_date" required>
+                            $result_products = $conn->query("SELECT product_id, product_name FROM products");
 
-                        <label for="amount">Amount:</label>
-                        <input type="text" id="amount" name="amount" placeholder="Enter positive amount for payment, negative for discount" required>
+                            if ($result_products->num_rows > 0) {
+                                while ($row_products = $result_products->fetch_assoc()) {
+                                    echo "<option value='{$row_products['product_id']}'>{$row_products['product_name']}</option>";
+                                }
+                            } else {
+                                echo "<option value='' disabled>No products found</option>";
+                            }
 
-                        <label for="type_of_payment">Observation:</label>
-                        <input type="text" id="type_of_payment" name="type_of_payment">
+                            $conn->close();
+                            ?>
+                        </select>
 
-                        <!-- Add a hidden input field to identify the action -->
-                        <input type="hidden" name="update_payment" value="1">
+                        <label for="price_type">Select Price Type:</label>
+                        <select id="price_type" name="price_type" required>
+                            <!-- Options will be dynamically added using JavaScript -->
+                        </select>
 
-                        <button type="submit">Update Payment</button>
+                        <label for="quantity">Quantity:</label>
+                        <input type="number" id="quantity" name="quantity" min="1" value="1" required>
+
+                        <button type="button" onclick="addToCart()">Add to Cart</button>
+
+                        <!-- Div para mostrar os itens no carrinho -->
+                        <div id="cart_items"></div>
+
+                        <button type="submit" name="executar_vendas">Execute Sale</button>
+                    </form>
                     </form>
                 </div>
             </div>
