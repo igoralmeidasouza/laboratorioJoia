@@ -87,8 +87,48 @@
             <!--  Realizar Venda -->
             <div class="vitrine vitrineVenda desativada">
                 <div class="formularios">
-                    <form action="">
-                        <p>Realizar venda</p>
+                    <p>Realizar venda</p>
+                    <form name="paymentform" action="payment.php" method="post">
+                        <label for="client_id_payment">Client:</label>
+                        <select id="client_id_payment" name="client_id_payment" required>
+                            <!-- PHP to generate the list of clients dynamically -->
+                            <?php
+                            include 'dbConnection.php';
+
+                            // Fetch clients from the database
+                            $result = $conn->query("SELECT client_id, client_name FROM clients");
+
+                            // Check if there are clients
+                            if ($result->num_rows > 0) {
+                                while ($row = $result->fetch_assoc()) {
+                                    // Display each client as an option
+                                    echo "<option value='{$row['client_id']}'>{$row['client_name']}</option>";
+                                }
+                            } else {
+                                echo "<option value='' disabled>No clients found</option>";
+                            }
+
+                            // Close the database connection
+                            $conn->close();
+                            ?>
+                        </select>
+
+                        <label for="current_debt">Current Debt:</label>
+                        <span id="current_debt">N/A</span>
+
+                        <label for="payment_date">Payment Date:</label>
+                        <input type="date" id="payment_date" name="payment_date" required>
+
+                        <label for="amount">Amount:</label>
+                        <input type="text" id="amount" name="amount" placeholder="Enter positive amount for payment, negative for discount" required>
+
+                        <label for="type_of_payment">Observation:</label>
+                        <input type="text" id="type_of_payment" name="type_of_payment">
+
+                        <!-- Add a hidden input field to identify the action -->
+                        <input type="hidden" name="update_payment" value="1">
+
+                        <button type="submit">Update Payment</button>
                     </form>
                 </div>
             </div>
@@ -96,8 +136,8 @@
             <!--  Histórico de Vendas -->
             <div class="vitrine vitrineHistoricoDeVenda desativada">
                 <div class="formularios">
+                    <p>Histórico de Vendas</p>
                     <form action="">
-                        <p>Histórico de Vendas</p>
                     </form>
                 </div>
             </div>
