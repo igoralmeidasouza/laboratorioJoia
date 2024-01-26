@@ -89,7 +89,6 @@
                 <div class="formularios">
                     <p>Realizar venda</p>
                     <form name="executarVendas_form" action="executarVendas.php" method="post" class="formularioGeral">
-                        <label for="client_id">Select Client:</label>
                         <select id="client_id" name="client_id" required>
                             <!-- PHP para gerar a lista de clientes dinamicamente -->
                             <?php
@@ -108,8 +107,8 @@
                             $conn->close();
                             ?>
                         </select>
+                        <label for="client_id">Select Client:</label>
 
-                        <label for="product_id">Select Product:</label>
                         <select id="product_id" name="product_id" required>
                             <!-- PHP para gerar a lista de produtos dinamicamente -->
                             <?php
@@ -128,14 +127,15 @@
                             $conn->close();
                             ?>
                         </select>
+                        <label for="product_id">Select Product:</label>
 
-                        <label for="price_type">Select Price Type:</label>
                         <select id="price_type" name="price_type" required>
+                        <label for="price_type">Select Price Type:</label>
                             <!-- Options will be dynamically added using JavaScript -->
                         </select>
 
-                        <label for="quantity">Quantity:</label>
                         <input type="number" id="quantity" name="quantity" min="1" value="1" required>
+                        <label for="quantity">Quantity:</label>
 
                         <button type="button" onclick="addToCart()">Add to Cart</button>
 
