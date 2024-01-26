@@ -2,6 +2,7 @@
 include 'dbConnection.php'; // Conexão com o banco de dados
 
 
+
 // Verifique se o formulário foi enviado
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -74,7 +75,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $formattedValue = substr($amount, 4);
             $formattedValue = str_replace(",", ".", $formattedValue);
-            echo $formattedValue;
 
             $conn->begin_transaction();
     
