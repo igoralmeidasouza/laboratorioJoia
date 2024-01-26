@@ -243,7 +243,7 @@ function controleCarrinho(){
 
 function getClients() {
     // Make an Ajax request to get client options
-    var xhr = new XMLHttpRequest();
+    let xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4 && xhr.status == 200) {
             // Update the client dropdown with options
@@ -256,7 +256,7 @@ function getClients() {
 }
 function getProducts() {
     // Make an Ajax request to get product options
-    var xhr = new XMLHttpRequest();
+    let xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4 && xhr.status == 200) {
             // Update the product dropdown with options
@@ -271,10 +271,10 @@ function getProducts() {
     xhr.send("get_products=true");
 }
 function getProductDetails() {
-    var selectedProduct = document.getElementById("product").value;
+    let selectedProduct = document.getElementById("product").value;
 
     // Make an Ajax request to get details for the selected product
-    var xhr = new XMLHttpRequest();
+    let xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4 && xhr.status == 200) {
             // Update the price dropdown with the received prices
