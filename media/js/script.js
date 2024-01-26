@@ -235,11 +235,3 @@ function updatePriceDropdown() {
     }
 }
 
-$("#product_id").change(function() {
-    updatePriceDropdown();
-});
-
-// Call the updatePriceDropdown function on page load
-$(document).ready(function() {
-    updatePriceDropdown();
-});

@@ -17,6 +17,7 @@
         $resultadoPositivo = "";
         $resultadoNegativo = "";
         include 'treatment.php';
+        include 'dbConnection.php';
     ?>
 
     <header>
@@ -88,63 +89,7 @@
             <div class="vitrine vitrineVenda desativada">
                 <div class="formularios">
                     <p>Realizar venda</p>
-                    <form name="executarVendas_form" action="executarVendas.php" method="post" class="formularioGeral">
-                        <select id="client_id" name="client_id" required>
-                            <!-- PHP para gerar a lista de clientes dinamicamente -->
-                            <?php
-                            include 'dbConnection.php';
 
-                            $result_clients = $conn->query("SELECT client_id, client_name FROM clients");
-
-                            if ($result_clients->num_rows > 0) {
-                                while ($row_clients = $result_clients->fetch_assoc()) {
-                                    echo "<option value='{$row_clients['client_id']}'>{$row_clients['client_name']}</option>";
-                                }
-                            } else {
-                                echo "<option value='' disabled>No clients found</option>";
-                            }
-
-                            $conn->close();
-                            ?>
-                        </select>
-                        <label for="client_id">Select Client:</label>
-
-                        <select id="product_id" name="product_id" required>
-                            <!-- PHP para gerar a lista de produtos dinamicamente -->
-                            <?php
-                            include 'dbConnection.php';
-
-                            $result_products = $conn->query("SELECT product_id, product_name FROM products");
-                            if ($result_products->num_rows > 0) {
-                                while ($row_products = $result_products->fetch_assoc()) {
-                                    
-                                    echo "<option value='{$row_products['product_id']}'>{$row_products['product_name']}</option>";
-                                }
-                            } else {
-                                echo "<option value='' disabled>No products found</option>";
-                            }
-
-                            $conn->close();
-                            ?>
-                        </select>
-                        <label for="product_id">Select Product:</label>
-
-                        <select id="price_type" name="price_type" required>
-                        <label for="price_type">Select Price Type:</label>
-                            <!-- Options will be dynamically added using JavaScript -->
-                        </select>
-
-                        <input type="number" id="quantity" name="quantity" min="1" value="1" required>
-                        <label for="quantity">Quantity:</label>
-
-                        <button type="button" onclick="addToCart()">Add to Cart</button>
-
-                        <!-- Div para mostrar os itens no carrinho -->
-                        <div id="cart_items"></div>
-
-                        <button type="submit" name="executar_vendas">Execute Sale</button>
-                    </form>
-                    </form>
                 </div>
             </div>
 
@@ -161,6 +106,8 @@
             <div class="vitrine vitrineConultarClientes desativada">
                 <div class="formularios">
                     <p>Consultar Clientes</p>
+                    <div id="" class="tabelaGeral tabelaConsultarClientes">
+                    </div>
                 </div>
             </div>
 
@@ -275,32 +222,38 @@
             <div class="vitrine vitrineConsultarProdutos desativada">
                 <div class="formularios">
                     <p>Consultar produtos</p>
-                    <div id="payment-session" class="tabelaGeral tabelaConsultarProdutos">
+                    <div id="" class="tabelaGeral tabelaConsultarProdutos">
                         <!-- Os dados de pagamento serão exibidos aqui -->
                         <?php
-                        include 'dbConnection.php'; // Conexão com o banco de dados
+                        include 'dbConnection.php';
                         
                         // Consulta os produtos
                         $sql = "SELECT * FROM products";
-                        $result = $conn->query($sql);
+                        $resultProducts = $conn->query($sql);
 
                         // Verifica se a consulta retornou resultados
-                        if ($result->num_rows > 0) {
+                        if ($resultProducts->num_rows > 0) {
                             // Exibe os dados em uma tabela
                             echo "<table border='1'>";
                             echo "<tr><th>ID</th><th>Nome</th><th>Descrição</th><th>Preço 1</th><th>Preço 2</th><th>Preço 3</th><th>Preço 4</th><th>Preço 5</th><th>Preço 6</th></tr>";
 
-                            while ($row = $result->fetch_assoc()) {
+                            while ($row = $resultProducts->fetch_assoc()) {
                                 echo "<tr>";
                                 echo "<td>" . $row["product_id"] . "</td>";
                                 echo "<td>" . $row["product_name"] . "</td>";
                                 echo "<td>" . $row["product_description"] . "</td>";
-                                echo "<td>" . "R$ ". $row["price_type_1"] . "</td>";
-                                echo "<td>" . "R$ ". $row["price_type_2"] . "</td>";
-                                echo "<td>" . "R$ ". $row["price_type_3"] . "</td>";
-                                echo "<td>" . "R$ ". $row["price_type_4"] . "</td>";
-                                echo "<td>" . "R$ ". $row["price_type_5"] . "</td>";
-                                echo "<td>" . "R$ ". $row["price_type_6"] . "</td>";
+                                $preço_1 = str_replace (".",",", $row["price_type_1"]);
+                                echo "<td>" . "R$ ". $preço_1. "</td>";
+                                $preço_2 = str_replace (".",",", $row["price_type_3"]);
+                                echo "<td>" . "R$ ". $preço_2. "</td>";
+                                $preço_3 = str_replace (".",",", $row["price_type_3"]);
+                                echo "<td>" . "R$ ". $preço_3. "</td>";
+                                $preço_4 = str_replace (".",",", $row["price_type_4"]);
+                                echo "<td>" . "R$ ". $preço_4. "</td>";
+                                $preço_5 = str_replace (".",",", $row["price_type_5"]);
+                                echo "<td>" . "R$ ". $preço_5. "</td>";
+                                $preço_6 = str_replace (".",",", $row["price_type_6"]);
+                                echo "<td>" . "R$ ". $preço_6. "</td>";
                                 echo "</tr>";
                             }
 
@@ -308,6 +261,7 @@
                         } else {
                             echo "Nenhum produto encontrado.";
                         }
+                    $conn->close();
                     ?>
                     </div>
                 </div>
