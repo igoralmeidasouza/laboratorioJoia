@@ -199,8 +199,14 @@
                         <input type="text" id="amount" name="amount" placeholder="R$ 0,00 - Insira valor a ser descontado da divida." required>
                         <label for="amount">Valor Pago</label>
 
-                        <input type="text" id="type_of_payment" name="type_of_payment" placeholder="Observação">
-                        <label for="type_of_payment">Observação</label>
+                        <!--<input type="text" id="type_of_payment" name="type_of_payment" placeholder="Observação"> -->
+                        <select type="text" id="type_of_payment" name="type_of_payment">
+                            <option value="PIX">PIX</option>
+                            <option value="Cartão de Crédito">Cartão de Crédito</option>
+                            <option value="Cartão de Débito">Cartão de Débito</option>
+                            <option value="Dinheiro">Dinheiro</option>
+                        </select>
+                        <label for="type_of_payment">Método de pagamento</label>
 
                         <!-- Add a hidden input field to identify the action -->
                         <input type="hidden" name="update_payment" value="1">
