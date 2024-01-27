@@ -349,22 +349,23 @@ function updateCartDisplay() {
     let cartHTML = "<h3>Cart Contents:</h3>";
 
     if (cartItems.length > 0) {
+        cartHTML += "<table><tr><td>Cliente</td><td>Produto</td><td>Quantidade</td><td>Paciente</td><td>Preço Total</td></tr>";
         for (let i = 0; i < cartItems.length; i++) {
             let item = cartItems[i];
             let total1 = item.total;
             let tott = total1.toFixed(2).replace(/\./g, ','); // Convertendo para string com vírgula
 
-            cartHTML += "<p data-client='" + item.client +
+            cartHTML += "<span data-client='" + item.client +
                         "' data-product='" + item.product +
                         "' data-quantity='" + item.quantity +
                         "' data-paciente='" + item.paciente +
                         "' data-total='" + tott + "'>" +
-                        "<strong>Client:</strong> " + item.clientName +
-                        " | <strong>Product:</strong> " + item.productName +
-                        " | <strong>Quantity:</strong> " + item.quantity +
-                        " | <strong>Paciente:</strong> " + item.paciente +
-                        " | <strong>Total:</strong> R$ " + tott +
-                        " | <button onclick=\"removeCartItem(" + i + ")\">Remove</button></p>";
+                        "<tr><td>" + item.clientName + "</td>" +
+                        "<td>" + item.productName + "</td>" +
+                        "<td>" + item.quantity + "</td>" +
+                        "<td>" + item.paciente + "</td>" +
+                        "<td> R$ " + tott + "</td>" + 
+                        "<td><button onclick=\"removeCartItem(" + i + ")\">Remove</button></span></td></tr></table>";
         }
 
         let totalValue = cartItems.reduce(function (sum, item) {
@@ -372,9 +373,9 @@ function updateCartDisplay() {
         }, 0);
 
         let totalValueString = totalValue.toFixed(2).replace(/\./g, ','); // Convertendo para string com vírgula
-        cartHTML += "<p><strong>Total Cart Value:</strong> R$ " + totalValueString + "</p>";
+        cartHTML += "<span><strong>Total Cart Value:</strong> R$ " + totalValueString + "</span>";
     } else {
-        cartHTML += "<p>Your cart is empty.</p>";
+        cartHTML += "<span>Your cart is empty.</span>";
     }
 
     cartDisplay.innerHTML = cartHTML;
