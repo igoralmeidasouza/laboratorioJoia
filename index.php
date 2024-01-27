@@ -118,6 +118,8 @@
 
                         <!-- Add to Cart Button -->
                         <button type="button" onclick="addToCart()">Add to Cart</button>
+                        <!-- Botão para limpar o carrinho -->
+                        <button type="button" onclick="clearCart()">Clear Cart</button>
 
                         <!-- Display Area for Cart Contents -->
                         <div id="cartDisplay">

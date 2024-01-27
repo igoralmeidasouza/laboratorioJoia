@@ -353,9 +353,9 @@ function updateCartDisplay() {
             let item = cartItems[i];
             let total1 = item.total;
             let tott = total1.toFixed(2).replace(/\./g, ','); // Convertendo para string com vírgula
-
+                
             cartHTML += "<p data-client='" + item.client +
-                        "' data-product='" + item.product +
+                        "'> data-product='" + item.product +
                         "' data-quantity='" + item.quantity +
                         "' data-paciente='" + item.paciente +
                         "' data-total='" + tott + "'>" +
@@ -413,4 +413,13 @@ function executeSale() {
     xhr.open("POST", "treatment.php", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.send("carrinhoValores=" + JSON.stringify(formData));
+    clearCart()
+}
+
+function clearCart() {
+    // Limpa o array de itens do carrinho
+    cartItems = [];
+
+    // Atualiza a exibição do carrinho
+    updateCartDisplay();
 }
