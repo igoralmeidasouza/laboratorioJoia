@@ -356,7 +356,7 @@ function updateCartDisplay() {
             let tott = total1.toFixed(2).replace(/\./g, ','); // Convertendo para string com vírgula
                 
             cartHTML += "<span data-client='" + item.client +
-                        "'> data-product='" + item.product +
+                        "' data-product='" + item.product +
                         "' data-quantity='" + item.quantity +
                         "' data-paciente='" + item.paciente +
                         "' data-total='" + tott + "'>" +
