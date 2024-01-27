@@ -89,23 +89,23 @@
             <div class="vitrine vitrineVenda desativada">
                 <div class="formularios">
                     <p>Realizar venda</p>
-                    <!-- <li onclick="controleCarrinho()">butao</li> -->
-                    <form id="salesForm" class="">
+                    <form id="salesForm" class="formularioGeral formularioCadastrarClientes">
                         <!-- Client Dropdown -->
-                        <label for="client">Select Client:</label>
                         <select id="client" name="client">
-                            <!-- Clients will be displayed here -->
                         </select>
+                        <label for="client">Selecione o cliente</label>
+
                         <!-- Product Dropdown -->
-                        <label for="product">Select Product:</label>
                         <select id="product" name="product" onchange="getProductDetails()">
                             <!-- Populate this dynamically with product options -->
                         </select>
+                        <label for="product">Selecione o produto</label>
+
                         <!-- Price Dropdown -->
-                        <label for="price">Select Price:</label>
                         <select id="price" name="price" >
                             <!-- Prices will be displayed here onchange="updatePriceDisplay()"-->
                         </select>
+                        <label for="price">Selecione o preço</label>
                     </form>
                 </div>
             </div>
