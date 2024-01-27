@@ -89,7 +89,7 @@
             <div class="vitrine vitrineVenda desativada">
                 <div class="formularios">
                     <p>Realizar venda</p>
-                    <form id="salesForm" class="formularioGeral formularioCadastrarClientes">
+                    <form id="salesForm" class="formularioGeral formularioRealizarVenda">
                         <!-- Client Dropdown -->
                         <select id="client" name="client">
                             <!-- Clients will be displayed here -->

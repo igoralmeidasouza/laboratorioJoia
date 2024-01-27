@@ -349,7 +349,7 @@ function updateCartDisplay() {
     let cartHTML = "<h3>Cart Contents:</h3>";
 
     if (cartItems.length > 0) {
-        cartHTML += "<table><tr><td>Cliente</td><td>Produto</td><td>Quantidade</td><td>Paciente</td><td>Preço Total</td></tr>";
+        cartHTML += "<table><tr><td>Cliente</td><td>Produto</td><td>Qt.</td><td>Paciente</td><td>Preço Total</td><td></td></tr>";
         for (let i = 0; i < cartItems.length; i++) {
             let item = cartItems[i];
             let total1 = item.total;
@@ -365,8 +365,9 @@ function updateCartDisplay() {
                         "<td>" + item.quantity + "</td>" +
                         "<td>" + item.paciente + "</td>" +
                         "<td> R$ " + tott + "</td>" + 
-                        "<td><button onclick=\"removeCartItem(" + i + ")\">Remove</button></span></td></tr></table>";
+                        "<td><button onclick=\"removeCartItem(" + i + ")\">Remove</button></span></td></tr>";
         }
+        cartHTML += "</table>";
 
         let totalValue = cartItems.reduce(function (sum, item) {
             return sum + item.total;
