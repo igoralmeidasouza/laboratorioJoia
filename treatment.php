@@ -181,7 +181,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }elseif (isset($_POST['carrinhoValores'])) {
         // Retrieve data from the POST request
         $data = json_decode($_POST['carrinhoValores'], true);
-        
         // Extract variables from the data
         $selectedClient = $data['client'];
         $selectedProduct = $data['product'];
@@ -193,7 +192,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Agora você pode usar $selectedClient, $selectedProduct, $quantity,
         // $selectedPaciente, $total e $cartItems em sua lógica
         // ...
-
+        
         // Exemplo: Adicionar dados à tabela de histórico de vendas (saleshistory)
         $insertHistoryQuery = "INSERT INTO saleshistory (client_id, sale_date, total_amount) VALUES ($selectedClient, NOW(), $total)";
         $conn->query($insertHistoryQuery);
@@ -218,17 +217,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $conn->query($insertPaymentQuery);
         */
         // Exemplo: Responder com uma mensagem de sucesso
-        echo json_encode(['success' => true]);
-        } else {
-            // Return an error for unknown request
-            echo json_encode(['error' => 'Invalid request']);
-        }
+        echo json_encode(['success' => true, 'data' => $data]);
     } else {
-        // Return an error for unsupported request method
-        //echo json_encode(['error' => 'Unsupported request method']); erro trol
+        // Return an error for unknown request
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode(['success' => false, 'error' => 'Invalid request']);
     }
     
-    // Close the database connection
-    $conn->close();
+} else {
+    // Return an error for unsupported request method
+    //echo json_encode(['error' => 'Unsupported request method']); erro trol
+}
+
+// Close the database connection
+$conn->close();
 
 ?>

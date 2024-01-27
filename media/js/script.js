@@ -393,30 +393,94 @@ function executeSale() {
     let totalValue = cartItems.reduce(function (sum, item) {
         return sum + item.total;
     }, 0);
-
+    
     let formData = {
         client: selectedClient,
         product: selectedProduct,
         quantity: quantity,
         paciente: selectedPaciente,
-        total: totalValue,  // Adicione esta linha
+        total: totalValue,
         cart: cartItems
         // Adicione outros dados do formulário conforme necessário
     };
+    console.log(formData);
 
     let xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-            // Trate a resposta, se necessário
-            let response = xhr.responseText;
-            // Exemplo: Exiba uma mensagem de sucesso
-            alert(response);
+        if (xhr.readyState == 4) {
+            if (xhr.status == 200) {
+                try {
+                    console.log(xhr.responseText);
+                    let response = JSON.parse(xhr.responseText);
+
+                    if (response.success) {
+                        // Chamar a função para abrir uma nova guia com o extrato
+                        openInvoiceTab(response.data);
+                    } else {
+                        alert("Erro ao processar a venda: " + response.error);
+                    }
+                } catch (error) {
+                    console.error('Erro ao fazer parse da resposta JSON', error);
+                }
+            } else {
+                alert("Erro na solicitação. Status: " + xhr.status);
+            }
         }
     };
+
     xhr.open("POST", "treatment.php", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.send("carrinhoValores=" + JSON.stringify(formData));
-    clearCart()
+}
+
+function openInvoiceTab(data) {
+    console.log(data);
+
+    // Construir o HTML com os dados do extrato
+    let totalValue = data.total;
+    let totalValueString = totalValue.toFixed(2).replace(/\./g, ','); // Convertendo para string com vírgula
+
+    let itemsHTML = data.cart.map(item => `
+        <p><strong>Client:</strong> ${item.clientName}</p>
+        <p><strong>Product:</strong> ${item.productName}</p>
+        <p><strong>Quantity:</strong> ${item.quantity}</p>
+        <p><strong>Paciente:</strong> ${item.paciente}</p>
+        <p><strong>Total:</strong> R$ ${item.total.toFixed(2).replace(/\./g, ',')}</p>
+        <hr>
+    `).join('');
+
+    let invoiceHTML = `
+        <html>
+            <head>
+                <title>Extrato de Compra</title>
+            </head>
+            <body>
+                <h2>Extrato de Compra</h2>
+                ${itemsHTML}
+                <p><strong>Total:</strong> R$ ${totalValueString}</p>
+                <!-- Adicione outros detalhes conforme necessário -->
+            </body>
+        </html>
+    `;
+
+    // Abrir uma nova guia com o extrato
+    let invoiceWindow = window.open('', '_blank');
+
+    // Verificar se a janela foi aberta com sucesso
+    if (invoiceWindow) {
+        invoiceWindow.document.write(invoiceHTML);
+        invoiceWindow.document.close();
+        clearCart()
+        /*
+        // Fechar a janela após algum tempo (por exemplo, 5 segundos)
+        setTimeout(function () {
+            invoiceWindow.close();
+        }, 5000);  // 5000 milissegundos = 5 segundos
+        */
+    } else {
+        // Lidar com o caso em que a janela não foi aberta
+        console.error('Falha ao Abrir Nova Janela, verificar se operação foi feita na aba de historico');
+    }
 }
 
 function clearCart() {
