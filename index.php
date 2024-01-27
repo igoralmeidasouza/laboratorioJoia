@@ -90,45 +90,64 @@
                 <div class="formularios">
                     <p>Realizar venda</p>
                     <form id="salesForm" class="formularioGeral formularioRealizarVenda">
-                        <!-- Client Dropdown -->
-                        <select id="client" name="client">
-                            <!-- Clients will be displayed here -->
-                        </select>
-                        <label for="client">Selecione o Cliente</label>
 
-                        <!-- Product Dropdown -->
-                        <select id="product" name="product" onchange="getProductDetails()">
-                            <!-- Populate this dynamically with product options -->
-                        </select>
-                        <label for="product">Selecione o Produto</label>
-                        
-                        <!-- Price Dropdown -->
-                        <select id="price" name="price" >
-                            <!-- Prices will be displayed here onchange="updatePriceDisplay()"-->
-                        </select>
-                        <label for="price">Selecione o Preço</label>
-                        
-                        <!-- Quantity Input -->
-                        <input type="number" id="quantity" name="quantity" value="1" min="1">
-                        <label for="quantity">Quantidade:</label>
-                        
-                        <!-- Paciente (Patient) Input -->
-                        <input type="text" id="paciente" name="paciente" placeholder="Insira o nome do Paciente">
-                        <label for="paciente">Insira o nome do Paciente</label>
+                        <div class="inputMesmaLinha">
 
+                            <div class="containerInputLabel">
+                                <!-- Client Dropdown -->
+                                <select id="client" name="client">
+                                    <!-- Clients will be displayed here -->
+                                </select>
+                                <label for="client">Cliente</label>
+                            </div>
 
-                        <!-- Add to Cart Button -->
-                        <button type="button" onclick="addToCart()">Adicionar ao carrinho</button>
-                        <!-- Botão para limpar o carrinho -->
-                        <button type="button" onclick="clearCart()">Clear Cart</button>
+                            <div class="containerInputLabel">
+                                <!-- Product Dropdown -->
+                                <select id="product" name="product" onchange="getProductDetails()">
+                                    <!-- Populate this dynamically with product options -->
+                                </select>
+                                <label for="product">Produto</label>
+                            </div>
+                            
+                            <div class="containerInputLabel">
+                                <!-- Price Dropdown -->
+                                <select id="price" name="price" >
+                                    <!-- Prices will be displayed here onchange="updatePriceDisplay()"-->
+                                </select>
+                                <label for="price">Preço</label>
+                            </div>
 
-                        <!-- Display Area for Cart Contents -->
-                        <div id="cartDisplay" class="tabelaGeral tabelaConsultarProdutos">
+                            <div class="containerInputLabel">
+                                <!-- Quantity Input -->
+                                <input type="number" id="quantity" name="quantity" value="1" min="1">
+                                <label for="quantity">Qt</label>
+                            </div>
+
+                            <div class="containerInputLabel">
+                                <!-- Paciente (Patient) Input -->
+                                <input type="text" id="paciente" name="paciente" placeholder="Insira o nome do Paciente">
+                                <label for="paciente">Insira o nome do Paciente</label>
+                            </div>
+
+                            <!-- Botão adicionar items no carrinho -->
+                            <div class="botaoCarrinho" onclick="addToCart()">
+                                <span>adicionar</span>
+                                <svg width="20" height="20" viewBox="0 0 24 24" xmlns="https://www.w3.org/2000/svg" class="IconHeaderCart" size="20">
+                                    <path d="M7.19975 19.2C5.8798 19.2 4.81184 20.28 4.81184 21.6C4.81184 22.92 5.8798 24 7.19975 24C8.51971 24 9.59967 22.92 9.59967 21.6C9.59967 20.28 8.51971 19.2 7.19975 19.2ZM0 0V2.4H2.39992L6.71977 11.508L5.09982 14.448C4.90783 14.784 4.79984 15.18 4.79984 15.6C4.79984 16.92 5.8798 18 7.19975 18H21.5993V15.6H7.70374C7.53574 15.6 7.40375 15.468 7.40375 15.3L7.43974 15.156L8.51971 13.2H17.4594C18.3594 13.2 19.1513 12.708 19.5593 11.964L23.8552 4.176C23.9542 3.99286 24.004 3.78718 23.9997 3.57904C23.9955 3.37089 23.9373 3.16741 23.8309 2.98847C23.7245 2.80952 23.5736 2.66124 23.3927 2.55809C23.2119 2.45495 23.0074 2.40048 22.7992 2.4H5.05183L3.92387 0H0ZM19.1993 19.2C17.8794 19.2 16.8114 20.28 16.8114 21.6C16.8114 22.92 17.8794 24 19.1993 24C20.5193 24 21.5993 22.92 21.5993 21.6C21.5993 20.28 20.5193 19.2 19.1993 19.2Z" fill="white" data-darkreader-inline-fill="" style="--darkreader-inline-fill: #e8e6e3;"></path></g>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <!-- Botão para limpar o carrinho
+                        <button type="button" onclick="clearCart()">Clear Cart</button> -->
+
+                        <!-- Conteudo do carrinho -->
+                        <div id="cartDisplay" class="tabelaGeral tabelaCarrinho">
                             <!-- Cart contents will be displayed here -->
                         </div>
                         
-                        <!-- Botão para executar a venda -->
-                        <button type="button" onclick="executeSale()">Executar Venda</button>
+                        <!-- Botão para executar a venda 
+                        <button type="button" onclick="executeSale()">Executar Venda</button> -->
                     </form>
                 </div>
             </div>
@@ -178,7 +197,7 @@
                         <input type="text" id="address" name="address" placeholder="Endereço">
                         <label for="address">Endereço</label>
 
-                        <div class="numeroComplemento">
+                        <div class="inputMesmaLinha">
                             <input type="number" id="number" name="number" placeholder="Número">
                             <label for="number">Nº</label>
                                 

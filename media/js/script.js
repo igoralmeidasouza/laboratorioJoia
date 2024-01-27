@@ -346,7 +346,8 @@ function removeCartItem(index, event) {
 
 function updateCartDisplay() {
     let cartDisplay = document.getElementById("cartDisplay");
-    let cartHTML = "<h3>Cart Contents:</h3>";
+    let cartHTML = "<div class="+'headerTabela'+"><h3>Conteudo do carrinho</h3>";
+    cartHTML += "<button type="+'button'+" onclick="+'clearCart()'+"><em>X </em>Limpar Carrinho</button></div>";
 
     if (cartItems.length > 0) {
         cartHTML += "<table><tr><td>Cliente</td><td>Produto</td><td>Qt.</td><td>Paciente</td><td>Preço Total</td><td></td></tr>";
@@ -374,11 +375,11 @@ function updateCartDisplay() {
         }, 0);
 
         let totalValueString = totalValue.toFixed(2).replace(/\./g, ','); // Convertendo para string com vírgula
-        cartHTML += "<span><strong>Total Cart Value:</strong> R$ " + totalValueString + "</span>";
+        cartHTML += "<span><strong>Total da compra:</strong> R$ " + totalValueString + "</span>";
     } else {
         cartHTML += "<span>Your cart is empty.</span>";
     }
-
+    cartHTML += "<button type="+'button'+" onclick="+'executeSale()'+">Executar Venda</button>";
     cartDisplay.innerHTML = cartHTML;
 }
 

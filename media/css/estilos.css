@@ -97,22 +97,22 @@ body main {background-color: #ffffff; display: flex; width: 100%; max-width: 132
                     body main .bemVindo .vitrine .formularios .formularioGeral button:hover {background-color: #101A28; color: #EDEFEF;}
 
                     /*  alinha botao número e complemento para ficar na mesma linha */
-                    body main .bemVindo .vitrine .formularios .formularioGeral .numeroComplemento {display: flex; margin-bottom: 12px; width: 100%; position: relative;}
+                    body main .bemVindo .vitrine .formularios .formularioGeral .inputMesmaLinha {display: flex; margin-bottom: 12px; width: 100%; position: relative;}
 
-                        body main .bemVindo .vitrine .formularios .formularioGeral .numeroComplemento input {width: 100%;}
-                            body main .bemVindo .vitrine .formularios .formularioGeral .numeroComplemento input:first-child {width: 50%; margin-right: 10%;}
-                            body main .bemVindo .vitrine .formularios .formularioGeral .numeroComplemento input:focus {width: 100%;}
-                                body main .bemVindo .vitrine .formularios .formularioGeral .numeroComplemento input:first-child:focus {width: 50%;}
+                        body main .bemVindo .vitrine .formularios .formularioGeral .inputMesmaLinha input {width: 100%;}
+                            body main .bemVindo .vitrine .formularios .formularioGeral .inputMesmaLinha input:first-child {width: 50%; margin-right: 10%;}
+                            body main .bemVindo .vitrine .formularios .formularioGeral .inputMesmaLinha input:focus {width: 100%;}
+                                body main .bemVindo .vitrine .formularios .formularioGeral .inputMesmaLinha input:first-child:focus {width: 50%;}
 
-                        body main .bemVindo .vitrine .formularios .formularioGeral .numeroComplemento label {width: 100%; position: absolute; top: 0; top: 14px;}
-                            body main .bemVindo .vitrine .formularios .formularioGeral .numeroComplemento label:first-child {left: 5px;}
-                            body main .bemVindo .vitrine .formularios .formularioGeral .numeroComplemento label:last-child  {left: 40%;}
+                        body main .bemVindo .vitrine .formularios .formularioGeral .inputMesmaLinha label {width: 100%; position: absolute; top: 0; top: 14px;}
+                            body main .bemVindo .vitrine .formularios .formularioGeral .inputMesmaLinha label:first-child {left: 5px;}
+                            body main .bemVindo .vitrine .formularios .formularioGeral .inputMesmaLinha label:last-child  {left: 40%;}
 
-                        body main .bemVindo .vitrine .formularios .formularioGeral .numeroComplemento input:focus + label, 
-                        body main .bemVindo .vitrine .formularios .formularioGeral .numeroComplemento input:not(:placeholder-shown) + label {opacity: 1; visibility: visible; top: -12px; left: 5px; font-size: 10.5px; color: #ffffff; width: max-content; background-color: #0071cd; border-radius: 3px; padding: 0px 6px; line-height: 15px;}
+                        body main .bemVindo .vitrine .formularios .formularioGeral .inputMesmaLinha input:focus + label, 
+                        body main .bemVindo .vitrine .formularios .formularioGeral .inputMesmaLinha input:not(:placeholder-shown) + label {opacity: 1; visibility: visible; top: -12px; left: 5px; font-size: 10.5px; color: #ffffff; width: max-content; background-color: #0071cd; border-radius: 3px; padding: 0px 6px; line-height: 15px;}
 
-                        body main .bemVindo .vitrine .formularios .formularioGeral .numeroComplemento .complemento:focus + label,
-                        body main .bemVindo .vitrine .formularios .formularioGeral .numeroComplemento .complemento:not(:placeholder-shown) + label {opacity: 1; visibility: visible; top: -12px; left: 40%; font-size: 10.5px; color: #ffffff; width: max-content; background-color: #0071cd; border-radius: 3px; padding: 0px 6px; line-height: 15px;}
+                        body main .bemVindo .vitrine .formularios .formularioGeral .inputMesmaLinha .complemento:focus + label,
+                        body main .bemVindo .vitrine .formularios .formularioGeral .inputMesmaLinha .complemento:not(:placeholder-shown) + label {opacity: 1; visibility: visible; top: -12px; left: 40%; font-size: 10.5px; color: #ffffff; width: max-content; background-color: #0071cd; border-radius: 3px; padding: 0px 6px; line-height: 15px;}
 
             /* Tabela conultar Geral */
             body main .bemVindo .vitrine .formularios .tabelaGeral {display: flex;}
@@ -123,6 +123,38 @@ body main {background-color: #ffffff; display: flex; width: 100%; max-width: 132
             /* Tabela consultar Clientes*/
             body main .bemVindo .vitrine .formularios .tabelaConsultarClientes table tbody tr td, th  {font-size: 11.5px;}
                 body main .bemVindo .vitrine .formularios .tabelaConsultarClientes table tbody tr td:nth-child(1) {max-width: 20px;}
+
+                /* Sessão - realizar vendas */
+                body main .bemVindo .vitrine .formularios .formularioRealizarVenda {width: 90%;}
+                    body main .bemVindo .vitrine .formularios .formularioRealizarVenda .tabelaCarrinho {display: flex; flex-direction: column;}
+                        body main .bemVindo .vitrine .formularios .formularioRealizarVenda .tabelaCarrinho .headerTabela {display: flex; justify-content: space-between; margin-top: 20px; padding-top: 15px; border-top: solid 1px lightgrey;}
+                            body main .bemVindo .vitrine .formularios .formularioRealizarVenda .tabelaCarrinho .headerTabela h3 {font-weight: bold; width: max-content; font-family: 'Readex Pro', sans-serif; font-size: 19px; color: #767676; padding-bottom: 3px; position: relative;}
+                            body main .bemVindo .vitrine .formularios .formularioRealizarVenda .tabelaCarrinho .headerTabela h3::after {content: ""; display: block; position: absolute; background-color: #4293E0; width: 110%; height: 2px; bottom: -2px;}
+                        body main .bemVindo .vitrine .formularios .formularioRealizarVenda .tabelaCarrinho .headerTabela button {border: solid 1px #ff0404; border-radius: 10px; padding: 5px; text-transform: uppercase; font-weight: 500; cursor: pointer; transition: all 0.5s ease; font-size: 12px;}
+                            body main .bemVindo .vitrine .formularios .formularioRealizarVenda .tabelaCarrinho .headerTabela button:hover {background-color: transparent; color: #ff0404; border: solid 1px #101A28;}
+                            body main .bemVindo .vitrine .formularios .formularioRealizarVenda .tabelaCarrinho .headerTabela button em {color: #ff0404; font-weight: bold;}
+                                
+
+                    body main .bemVindo .vitrine .formularios .formularioRealizarVenda .inputMesmaLinha .containerInputLabel {position: relative; display: flex; margin-right: 10px; width: 100%;}
+                        body main .bemVindo .vitrine .formularios .formularioRealizarVenda .inputMesmaLinha .containerInputLabel:nth-child(1) {width: 100%; max-width: 200px;}
+                        body main .bemVindo .vitrine .formularios .formularioRealizarVenda .inputMesmaLinha .containerInputLabel:nth-child(2) {width: 100%; max-width: 200px;}
+                        body main .bemVindo .vitrine .formularios .formularioRealizarVenda .inputMesmaLinha .containerInputLabel:nth-child(3) {width: 100%; max-width: 100px;}
+                        body main .bemVindo .vitrine .formularios .formularioRealizarVenda .inputMesmaLinha .containerInputLabel:nth-child(4) {width: 100%; max-width: 50px;}
+
+                            body main .bemVindo .vitrine .formularios .formularioRealizarVenda .inputMesmaLinha .containerInputLabel label {position: absolute; left: 3px; top: -6px;}
+                            body main .bemVindo .vitrine .formularios .formularioRealizarVenda .inputMesmaLinha .containerInputLabel input {width: 100%;}
+                                body main .bemVindo .vitrine .formularios .formularioRealizarVenda .inputMesmaLinha .containerInputLabel input:first-child:focus {width: 100%;}
+                                body main .bemVindo .vitrine .formularios .formularioRealizarVenda .inputMesmaLinha .containerInputLabel input:focus + label, 
+                                body main .bemVindo .vitrine .formularios .formularioRealizarVenda .inputMesmaLinha .containerInputLabel input:not(:placeholder-shown) + label {top: -6px; opacity: 1; visibility: visible;}
+                            
+                            /* botão carrinho*/
+                            body main .bemVindo .vitrine .formularios .formularioRealizarVenda .inputMesmaLinha .botaoCarrinho {max-width: 40px; width: 100%; height: 37px; cursor: pointer; border: solid 1px #6081af; border-radius: 10px; padding: 12px 5px 5px 5px; transition: all 0.3s ease-in; position: relative;}
+                            body main .bemVindo .vitrine .formularios .formularioRealizarVenda .inputMesmaLinha .botaoCarrinho:hover {border: solid 1px #198119;}
+                                body main .bemVindo .vitrine .formularios .formularioRealizarVenda .inputMesmaLinha .botaoCarrinho span {position: absolute; font-size: 10.5px; color: #ffffff; width: max-content; background-color: #0071cd; border-radius: 3px; padding: 0px 6px; line-height: 15px; top: -6px; left: -9px; transition: all 0.3s ease-in;}
+                                    body main .bemVindo .vitrine .formularios .formularioRealizarVenda .inputMesmaLinha .botaoCarrinho:hover span {background-color: #198119;} 
+                                body main .bemVindo .vitrine .formularios .formularioRealizarVenda .inputMesmaLinha .botaoCarrinho svg {width: 90%; transition: all 0.2s ease-in; }
+                                    body main .bemVindo .vitrine .formularios .formularioRealizarVenda .inputMesmaLinha .botaoCarrinho svg path {fill: #6081af; transition: all 0.3s ease-in; }
+                                        body main .bemVindo .vitrine .formularios .formularioRealizarVenda .inputMesmaLinha .botaoCarrinho:hover svg path{fill: #198119;}
 
 
                             
