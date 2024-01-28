@@ -156,10 +156,11 @@ body main {background-color: #ffffff; display: flex; width: 100%; max-width: 132
                             body main .bemVindo .vitrine .formularios .formularioRealizarVenda .tabelaCarrinho .headerTabela button:hover {background-color: transparent; color: #ff0404; border: solid 1px #101A28;}
                             body main .bemVindo .vitrine .formularios .formularioRealizarVenda .tabelaCarrinho .headerTabela button em {color: #ff0404; font-weight: bold;}
                         
-                            body main .bemVindo .vitrine .formularios .formularioRealizarVenda .tabelaCarrinho table {margin: 25px 0;}
-                        body main .bemVindo .vitrine .formularios .formularioRealizarVenda .tabelaCarrinho table tr td button {border: none;border-radius: 10px; padding: 5px; text-transform: uppercase; font-weight: 500; cursor: pointer; transition: all 0.5s ease; font-size: 12px;}
-                            body main .bemVindo .vitrine .formularios .formularioRealizarVenda .tabelaCarrinho table tr td button:hover {background-color: transparent; color: #ff0404;}
-                            body main .bemVindo .vitrine .formularios .formularioRealizarVenda .tabelaCarrinho table tr td button em {color: #ff0404; font-weight: bold;}
+                        body main .bemVindo .vitrine .formularios .formularioRealizarVenda .tabelaCarrinho table {margin: 25px 0;}
+                            body main .bemVindo .vitrine .formularios .formularioRealizarVenda .tabelaCarrinho table tr th {text-align: left;}
+                                body main .bemVindo .vitrine .formularios .formularioRealizarVenda .tabelaCarrinho table tr td button {border: none;border-radius: 10px; padding: 5px; text-transform: uppercase; font-weight: 500; cursor: pointer; transition: all 0.5s ease; font-size: 12px;}
+                                    body main .bemVindo .vitrine .formularios .formularioRealizarVenda .tabelaCarrinho table tr td button:hover {background-color: transparent; color: #ff0404;}
+                                    body main .bemVindo .vitrine .formularios .formularioRealizarVenda .tabelaCarrinho table tr td button em {color: #ff0404; font-weight: bold;}
 
 
                             
