@@ -455,12 +455,14 @@ function openInvoiceTab(data) {
         <html>
             <head>
                 <title>Extrato de Compra</title>
+                <link rel="stylesheet" href="media/css/estilos.css">
             </head>
             <body>
-                <h2>Extrato de Compra</h2>
+            <div id="cartDisplay" class="tabelaGeral tabelaCarrinho"><div class="headerTabela"><h3>Conteudo do carrinho</h3></div>
                 ${itemsHTML}
                 <span><strong>Total do pedido:</strong> R$ ${totalValueString}</span>
                 <!-- Adicione outros detalhes conforme necessário -->
+            </div>
             </body>
         </html>
     `;
