@@ -436,7 +436,12 @@ function executeSale() {
 
 function openInvoiceTab(data) {
     console.log(data);
+    // Cria um objeto Date para obter a data atual
+    let dataAtual = new Date();
 
+    // Formata a data no formato desejado
+    let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    let dataFormatada = dataAtual.toLocaleDateString('pt-BR', options);
     // Construir o HTML com os dados do extrato
     let nomeCliente = data.cart[0].clientName; 
     let saldoDevedorClient =  data.clientData.debit_amount;
@@ -527,3 +532,22 @@ function clearCart() {
     // Atualiza a exibição do carrinho
     updateCartDisplay();
 }
+
+function displayCowsay() {
+    var cowsayResponse = `
+_________________
+< e o emprego la? >
+-----------------
+\\   ^__^
+ \\  (oo)\\_______
+    (__)\\       )\\/\\
+        ||----w |
+        ||     ||
+    `;
+
+    // Print Cowsay response to console
+    console.log(cowsayResponse);
+}
+
+// Call the function to display Cowsay response in console
+displayCowsay();

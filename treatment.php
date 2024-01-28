@@ -192,7 +192,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $cartItems = $data['cart'];
     
         // Your existing logic for inserting data into the database
-    
+        $insertHistoryQuery = "INSERT INTO saleshistory (client_id, sale_date, total_amount) VALUES ($selectedClient, NOW(), $total)";
+        $conn->query($insertHistoryQuery);
+        $saleId = $conn->insert_id;
+        //echo "Last Inserted sale_id: " . $saleId . "<br>";
+        
+
+        // Iterar sobre os itens do carrinho e adicionar à tabela de detalhes de vendas (salesdetails)
+        foreach ($cartItems as $cartItem) {
+            $productId = $cartItem['product'];
+            $itemQuantity = $cartItem['quantity'];
+            $itemTotal = $cartItem['total'];
+
+            $insertDetailsQuery = "INSERT INTO salesdetails (sale_id, product_id, quantity, price, observation) VALUES ($saleId, $productId, $itemQuantity, $itemTotal, '$selectedPaciente')";
+            $conn->query($insertDetailsQuery);
+        }
+
+        // Atualizar o débito do cliente na tabela de clientes (clients)
+        $updateClientQuery = "UPDATE clients SET debit_amount = debit_amount + $total WHERE client_id = $selectedClient";
+        $conn->query($updateClientQuery);
+
         // Example: Fetch client data from the database
         $fetchClientQuery = "SELECT * FROM clients WHERE client_id = $selectedClient";
         $result = $conn->query($fetchClientQuery);
@@ -201,6 +220,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($result) {
             $clientData = $result->fetch_assoc(); // Adjust this based on your database structure
             $data['clientData'] = $clientData;
+            $data['lastSaleId'] = $saleId;
         } else {
             $data['clientData'] = null;
         }
