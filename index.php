@@ -30,10 +30,10 @@
             <span><?php echo $resultadoNegativo; ?></span>
         </div>
 
-        <div class="dashBoard">
+        <a href="#" class="dashBoard">
             <img src="media/img/icones/iconePainelDeControle.svg" alt="">
             <p>dashBoard</p>
-        </div>
+        </a>
         <div class="logoMarca">
             <figure>
                 <img src="media/img/denteJoia.png" alt="">

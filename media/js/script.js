@@ -441,11 +441,13 @@ function openInvoiceTab(data) {
     let dataAtual = new Date();
 
     // Formata a data no formato desejado
-    let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    let options = {  year: 'numeric', month: 'numeric', day: 'numeric' };
     let dataFormatada = dataAtual.toLocaleDateString('pt-BR', options);
     // Construir o HTML com os dados do extrato
     let nomeCliente = data.cart[0].clientName; 
     let saldoDevedorClient =  data.clientData.debit_amount;
+    let emailClient = data.clientData.client_email;
+    let contatoClient = data.clientData.phone;
 
     //let nomePaciente = item.paciente;
     let totalValue = data.total;
@@ -493,8 +495,10 @@ function openInvoiceTab(data) {
 
                         <div class="dadosContainer">
                             <span>Cliente: ${nomeCliente}</span>
-                            <span>Paciênte: ${data.paciente}</span>
+                            <span>E-mail: ${emailClient}</span>
+                            <span>Contato: ${contatoClient}</span>
                         </div>
+                        <span class="pacienteContainer">Paciênte: ${data.paciente}</span>
                         
                         <table class="tabelaExtrato">
                             ${itemsHTML}
@@ -502,8 +506,8 @@ function openInvoiceTab(data) {
 
                         <div class="saldoClientContainer">
                             <span>Total do Pedido: <em>R$ ${totalValueString}</em></span>
-                            <span> Saldo Anterior: <em>R$ ${saldoAnterior.toFixed(2)}</em></span>
-                            <span> Saldo Atual: <em>R$ ${saldoDevedorClient}</em></span>
+                            <span> Saldo Devedor Anterior: <em>R$ ${saldoAnterior.toFixed(2)}</em></span>
+                            <span> Saldo Devedor Atual: <em>R$ ${saldoDevedorClient}</em></span>
                         </div>
                     </div>
                 </div>

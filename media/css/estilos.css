@@ -178,14 +178,16 @@ body main {background-color: #ffffff; display: flex; width: 100%; max-width: 132
 
     /* pagina de impressão - about:blank */
     main .impressaoContainer {display: flex; margin: 20 auto; width: 100%; max-width: 900px; justify-content: center;}
-        main .impressaoContainer .impressaoTabela {display: flex; flex-direction: column; font-family: 'Ubuntu'; width: 100%;}
+        main .impressaoContainer .impressaoTabela {display: flex; flex-direction: column; font-family: 'Ubuntu'; width: 100%; color: #101A28;}
 
-            main .impressaoContainer .impressaoTabela .dadosVenda {display: flex; justify-content: space-between; margin: 20px 0;}
-                main .impressaoContainer .impressaoTabela .dadosVenda p {font-size: 22px; text-transform: capitalize;}
+            main .impressaoContainer .impressaoTabela .dadosVenda {display: flex; border-bottom: 1px solid lightgrey; justify-content: space-between; padding-bottom: 20px;}
+                main .impressaoContainer .impressaoTabela .dadosVenda p {font-size: 20px; text-transform: capitalize;}
 
-            main .impressaoContainer .impressaoTabela .dadosContainer {display: flex;}
+            main .impressaoContainer .impressaoTabela .dadosContainer {display: flex; justify-content: space-between; padding: 15px 0; margin-bottom: 10px; font-size: 16px; font-family: 'Open Sans'; border-bottom: 1px solid lightgrey;}
 
-            main .impressaoContainer .impressaoTabela .tabelaExtrato {margin: 20px 0;}
+            main .impressaoContainer .impressaoTabela .pacienteContainer {color: #2d6ead; font-weight: 600; font-family: 'Readex Pro';}
+
+            main .impressaoContainer .impressaoTabela .tabelaExtrato {margin: 25px 0;}
                 main .impressaoContainer .impressaoTabela .tabelaExtrato tbody tr th, 
                 main .impressaoContainer .impressaoTabela .tabelaExtrato tbody tr td {font-size: 20px; padding: 2px 10px; text-align: center; border-bottom: solid 1px #4293E0;}
                 
@@ -196,8 +198,9 @@ body main {background-color: #ffffff; display: flex; width: 100%; max-width: 132
                     main .impressaoContainer .impressaoTabela .tabelaExtrato tbody tr td:last-child {text-align: right;}
 
             main .impressaoContainer .impressaoTabela .saldoClientContainer {display: flex; flex-direction: column; align-items: flex-end;}
-                main .impressaoContainer .impressaoTabela .saldoClientContainer span {width: 100%; display: flex; font-size: 22px; justify-content: flex-end;}
-                    main .impressaoContainer .impressaoTabela .saldoClientContainer span em {display: flex; flex-direction: row; width: 100%; max-width: 120px; justify-content: flex-end;}
+                main .impressaoContainer .impressaoTabela .saldoClientContainer span {width: 100%; display: flex; font-size: 20px; justify-content: flex-end; border-top: 1px solid lightgrey; padding: 10px 0}
+                    main .impressaoContainer .impressaoTabela .saldoClientContainer span:first-child {padding-bottom: 20px; border-top: none; padding-top: 0;}
+                    main .impressaoContainer .impressaoTabela .saldoClientContainer span em {display: flex; flex-direction: row; width: 100%; max-width: 132px; justify-content: flex-end;}
 
                             
 
