@@ -350,7 +350,7 @@ function updateCartDisplay() {
     cartHTML += "<button type="+'button'+" onclick="+'clearCart()'+"><em>X </em>Limpar Carrinho</button></div>";
 
     if (cartItems.length > 0) {
-        cartHTML += "<table><tr><td>Cliente</td><td>Produto</td><td>Preço</td><td>Qt.</td><td>Paciente</td><td>Preço Total</td><td></td></tr>";
+        cartHTML += "<table><tr><td>Cliente</td><td>Produto</td><td></td><td>Qt.</td><td>Paciente</td><td>Preço Total</td><td></td></tr>";
         for (let i = 0; i < cartItems.length; i++) {
             let item = cartItems[i];
             let total1 = item.total;
@@ -440,14 +440,15 @@ function openInvoiceTab(data) {
     // Construir o HTML com os dados do extrato
     let totalValue = data.total;
     let totalValueString = totalValue.toFixed(2).replace(/\./g, ','); // Convertendo para string com vírgula
-
-    let itemsHTML = data.cart.map(item => `
-        <p><strong>Client:</strong> ${item.clientName}</p>
-        <p><strong>Product:</strong> ${item.productName}</p>
-        <p><strong>Quantity:</strong> ${item.quantity}</p>
-        <p><strong>Paciente:</strong> ${item.paciente}</p>
-        <p><strong>Total:</strong> R$ ${item.total.toFixed(2).replace(/\./g, ',')}</p>
-        <hr>
+    let itemsHTML = "<table><tr><td>Cliente</td><td>Produto</td><td>Preço</td><td>Qt.</td><td>Paciente</td><td>Preço Total</td><td></td></tr>";
+    itemsHTML += data.cart.map(item => `
+        <tr><td>${item.clientName}</td>
+        <td> ${item.productName}</td>
+        <td>${item.price}</td>
+        <td>${item.quantity}</td>
+        <td> ${item.paciente}</td>
+        <td> R$ ${item.total.toFixed(2).replace(/\./g, ',')}</td><td><tr></table>
+        <!--<hr>-->
     `).join('');
 
     let invoiceHTML = `
@@ -458,7 +459,7 @@ function openInvoiceTab(data) {
             <body>
                 <h2>Extrato de Compra</h2>
                 ${itemsHTML}
-                <p><strong>Total:</strong> R$ ${totalValueString}</p>
+                <span><strong>Total do pedido:</strong> R$ ${totalValueString}</span>
                 <!-- Adicione outros detalhes conforme necessário -->
             </body>
         </html>
