@@ -350,7 +350,7 @@ function updateCartDisplay() {
     cartHTML += "<button type="+'button'+" onclick="+'clearCart()'+"><em>X </em>Limpar Carrinho</button></div>";
 
     if (cartItems.length > 0) {
-        cartHTML += "<table><tr><td>Cliente</td><td>Produto</td><td>Qt.</td><td>Paciente</td><td>Preço Total</td><td></td></tr>";
+        cartHTML += "<table><tr><td>Cliente</td><td>Produto</td><td>Preço</td><td>Qt.</td><td>Paciente</td><td>Preço Total</td><td></td></tr>";
         for (let i = 0; i < cartItems.length; i++) {
             let item = cartItems[i];
             let total1 = item.total;
@@ -363,6 +363,7 @@ function updateCartDisplay() {
                         "' data-total='" + tott + "'>" +
                         "<tr><td>" + item.clientName + "</td>" +
                         "<td>" + item.productName + "</td>" +
+                        "<td>" + item.price + "</td>" +
                         "<td>" + item.quantity + "</td>" +
                         "<td>" + item.paciente + "</td>" +
                         "<td> R$ " + tott + "</td>" + 
