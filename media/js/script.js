@@ -350,7 +350,7 @@ function updateCartDisplay() {
     cartHTML += "<button type="+'button'+" onclick="+'clearCart()'+"><em>X </em>Limpar Carrinho</button></div>";
 
     if (cartItems.length > 0) {
-        cartHTML += "<table><tr><td>Cliente</td><td>Produto</td><td></td><td>Qt.</td><td>Paciente</td><td>Preço Total</td><td></td></tr>";
+        cartHTML += "<table><tr><td>Cliente</td><td>Produto</td><td> (u)</td><td>Qt.</td><td>Paciente</td><td>Preço Total</td><td></td></tr>";
         for (let i = 0; i < cartItems.length; i++) {
             let item = cartItems[i];
             let total1 = item.total;
@@ -363,11 +363,11 @@ function updateCartDisplay() {
                         "' data-total='" + tott + "'>" +
                         "<tr><td>" + item.clientName + "</td>" +
                         "<td>" + item.productName + "</td>" +
-                        "<td>" + item.price + "</td>" +
+                        "<td> R$ " + item.price + "</td>" +
                         "<td>" + item.quantity + "</td>" +
                         "<td>" + item.paciente + "</td>" +
                         "<td> R$ " + tott + "</td>" + 
-                        "<td><button onclick=\"removeCartItem(" + i + ")\">Remove</button></span></td></tr>";
+                        "<td><button onclick=\"removeCartItem(" + i + ")\"><em>X </em>Remover</button></span></td></tr>";
         }
         cartHTML += "</table>";
 
@@ -380,7 +380,7 @@ function updateCartDisplay() {
     } else {
         cartHTML += "<span>Your cart is empty.</span>";
     }
-    cartHTML += "<button type="+'button'+" onclick="+'executeSale()'+">Executar Venda</button>";
+    cartHTML += "<button type="+'button'+" onclick="+'executeSale()'+">Finalizar Pedido</button>";
     cartDisplay.innerHTML = cartHTML;
 }
 
