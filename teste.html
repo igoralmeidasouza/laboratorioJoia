@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <title>Extrato de Compra</title>
+        <link rel="stylesheet" href="media/css/estilos.css">
+    </head>
+    <body>
+    <header>
+        <div class="logoMarca">
+            <figure>
+                <img src="media/img/denteJoia.png" alt="">
+            </figure>
+            <div class="logoTipo">
+                <h1>L.J. - Laboratório de <em>Prótese Dentária Joia</em></h1>
+                <address>
+                    <p>RUA VICENTE PEREIRA DE ASSUNÇÃO, 134 | CEP - 04658000 - VL CONTÂNCIA</p>
+                    <p>CONTATO: (11) 99836-17314 (11) 94945-2727</p>
+                </address>
+            </div>
+        </div>
+    </header>
+        <main>
+            <div class="impressaoContainer">
+                <div class="impressaoTabela">
+                    <p>Resumo do Pedido:</p>
+                    <div class="">
+                        <span>Cliente: ${item.clientName}</span>
+                        <span>Paciênte: ${item.paciente}</span>
+                        <?php procure no banco de dados ${item.clientName} na tabela cliente ?>
+                    </div>
+                    <table>
+                        ${itemsHTML}
+                    </table>
+                    <span>Total do pedido: R$ ${totalValueString}</span>
+                </div>
+            </div>
+        </main>
+    </body>
+</html>

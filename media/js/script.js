@@ -438,31 +438,92 @@ function openInvoiceTab(data) {
     console.log(data);
 
     // Construir o HTML com os dados do extrato
+    let nomeCliente = data.cart[0].clientName; 
+    //let nomePaciente = item.paciente;
     let totalValue = data.total;
     let totalValueString = totalValue.toFixed(2).replace(/\./g, ','); // Convertendo para string com vírgula
-    let itemsHTML = "<table><tr><td>Cliente</td><td>Produto</td><td>Preço</td><td>Qt.</td><td>Paciente</td><td>Preço Total</td><td></td></tr>";
+    let itemsHTML = "<tr><th>Produto</th><th>Produto (u)</th><th>Qt.</th><th>Preço Total</th><th></th></tr>";
     itemsHTML += data.cart.map(item => `
-        <tr><td>${item.clientName}</td>
-        <td> ${item.productName}</td>
-        <td>${item.price}</td>
-        <td>${item.quantity}</td>
-        <td> ${item.paciente}</td>
-        <td> R$ ${item.total.toFixed(2).replace(/\./g, ',')}</td></tr></table>
+            <tr>
+                <td> ${item.productName}</td>
+                <td R$ >${item.price}</td>
+                <td>${item.quantity}</td>
+                <td> R$ ${item.total.toFixed(2).replace(/\./g, ',')}</td>
+            </tr>
         <!--<hr>-->
     `).join('');
 
     let invoiceHTML = `
-        <html>
+            <html>
             <head>
                 <title>Extrato de Compra</title>
                 <link rel="stylesheet" href="media/css/estilos.css">
             </head>
             <body>
-            <div id="cartDisplay" class="tabelaGeral tabelaCarrinho"><div class="headerTabela"><h3>Conteudo do carrinho</h3></div>
-                ${itemsHTML}
-                <span><strong>Total do pedido:</strong> R$ ${totalValueString}</span>
-                <!-- Adicione outros detalhes conforme necessário -->
-            </div>
+            <header>
+                <div class="logoMarca">
+                    <figure>
+                        <img src="media/img/denteJoia.png" alt="">
+                    </figure>
+                    <div class="logoTipo">
+                        <h1>L.J. - Laboratório de <em>Prótese Dentária Joia</em></h1>
+                        <address>
+                            <p>RUA VICENTE PEREIRA DE ASSUNÇÃO, 134 | CEP - 04658000 - VL CONTÂNCIA</p>
+                            <p>CONTATO: (11) 99836-17314 (11) 94945-2727</p>
+                        </address>
+                    </div>
+                </div>
+            </header>
+                <main>
+                    <div class="impressaoContainer">
+                        <div class="impressaoTabela">
+                            <p>Resumo do Pedido:</p>
+                            <div class="">
+                                <span>Cliente: ${nomeCliente}</span>
+                                <span>Paciênte: ${data.paciente}</span>
+                            </div>
+                            <table>
+                                ${itemsHTML}
+                            </table>
+                            <span>Total do pedido: R$ ${totalValueString}</span>
+                            // Nome do cliente a ser pesquisado (você pode obter isso de um formulário, por exemplo)
+                            </php
+                                $nomeCliente = "${nomeCliente}";
+
+                                // Preparar a consulta SQL
+                                $sql = "SELECT * FROM Clients WHERE client_name LIKE ?";
+
+                                // Preparar a instrução SQL
+                                $stmt = $conn->prepare($sql);
+
+                                // Vincular o parâmetro e definir o valor do nome do cliente
+                                $stmt->bind_param("s", $param_nomeCliente);
+                                $param_nomeCliente = "%" . $nomeCliente . "%";
+
+                                // Executar a consulta
+                                $stmt->execute();
+
+                                // Obter resultados
+                                $result = $stmt->get_result();
+
+                                // Verificar se há resultados
+                                if ($result->num_rows > 0) {
+                                    // Exibir os resultados
+                                    while ($row = $result->fetch_assoc()) {
+                                        echo "ID: " . $row["client_id"] . " - Nome: " . $row["client_name"] . " - Email: " . $row["client_email"] . "<br>";
+                                        // Adicione outros campos conforme necessário
+                                    }
+                                } else {
+                                    echo "Nenhum cliente encontrado com esse nome.";
+                                }
+
+                                // Fechar a instrução e a conexão
+                                $stmt->close();
+                                $conn->close();
+                                ?>
+                        </div>
+                    </div>
+                </main>
             </body>
         </html>
     `;
