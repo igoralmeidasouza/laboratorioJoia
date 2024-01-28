@@ -47,18 +47,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     /* Cadastrar produto */
     elseif (isset($_POST['cadastrar_produtos'])) {
         // Collect form data
+
         $product_name = $_POST['product_name'];
         $product_description = $_POST['product_description'];
-        $price_type_1 = $_POST['price_type_1'];
-        $price_type_2 = $_POST['price_type_2'];
-        $price_type_3 = $_POST['price_type_3'];
-        $price_type_4 = $_POST['price_type_4'];
-        $price_type_5 = $_POST['price_type_5'];
-        $price_type_6 = $_POST['price_type_6'];
-    
+        //i retrieved the price 1 without using the formatPrice()
+        $price_type_1 = formatPrice($_POST['price_type_1']);
+        $price_type_2 = formatPrice($_POST['price_type_2']);
+        $price_type_3 = formatPrice($_POST['price_type_3']);
+        $price_type_4 = formatPrice($_POST['price_type_4']);
+        $price_type_5 = formatPrice($_POST['price_type_5']);
+        $price_type_6 = formatPrice($_POST['price_type_6']);
         // Perform the database query to insert the new product
         $sql = "INSERT INTO products (product_name, product_description, price_type_1, price_type_2, price_type_3, price_type_4, price_type_5, price_type_6) 
-                VALUES ('$product_name', '$product_description', '$price_type_1', '$price_type_2', '$price_type_3', '$price_type_4', '$price_type_5', '$price_type_6')";
+                VALUES ('$product_name', '$product_description', $price_type_1, $price_type_2, $price_type_3, $price_type_4, $price_type_5, $price_type_6)";
     
         if ($conn->query($sql) === TRUE) {
             $resultadoPositivo = "Produto cadastrado com sucesso!";
@@ -68,6 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     // Close the database connection
     $conn->close();
+
     }
 
     // Débito pendete
@@ -228,8 +230,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Return an error for unsupported request method
     //echo json_encode(['error' => 'Unsupported request method']); erro trol
 }
+function formatPrice($price) {
+    // Remove non-numeric characters and convert to float
+    $cleanedPrice = preg_replace("/[^0-9,]/", "", $price); // Remove anything that is not a digit or comma
+    $floatPrice = floatval(str_replace(',', '.', $cleanedPrice)); // Convert to float, replace comma with dot
+    return $floatPrice;
+}
+
+
+
+
 
 // Close the database connection
-$conn->close();
+//$conn->close();
 
 ?>
