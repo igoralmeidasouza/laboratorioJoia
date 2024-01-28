@@ -249,6 +249,7 @@ function getClients() {
         if (xhr.readyState == 4 && xhr.status == 200) {
             // Update the client dropdown with options
             document.getElementById("client").innerHTML = xhr.responseText;
+            document.getElementById("clientDropdown").innerHTML = xhr.responseText;
         }
     };
     xhr.open("POST", "treatment.php", true);
@@ -525,9 +526,76 @@ function clearCart() {
     // Atualiza a exibição do carrinho
     updateCartDisplay();
 }
+function getFilteredData() {
+    // Chama a função para obter a lista de clientes
+    
+    let startDate = document.getElementById("startDate").value;
+    let endDate = document.getElementById("endDate").value;
+    let selectedClient = document.getElementById("clientDropdown").value;
+
+    // Crie um objeto FormData para enviar os dados
+    let formData = new FormData();
+    formData.append('startDate', startDate);
+    formData.append('endDate', endDate);
+    formData.append('client', selectedClient);
+
+    // Crie uma instância XMLHttpRequest
+    let xhr = new XMLHttpRequest();
+
+    // Defina a função de retorno de chamada para processar a resposta
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+            if (xhr.status == 200) {
+                // Trate a resposta, se necessário
+                let response = JSON.parse(xhr.responseText);
+
+                if (response.error) {
+                    // Trate o erro, se houver
+                    console.error('Erro na consulta: ' + response.error);
+                } else {
+                    // Exiba os dados filtrados (você pode ter uma função separada para isso)
+                    displayFilteredData(response);
+                }
+            } else {
+                // Trate o erro de solicitação
+                console.error('Erro na solicitação. Status: ' + xhr.status);
+            }
+        }
+    };
+
+    // Abra a conexão e envie a solicitação para o arquivo PHP
+    xhr.open("POST", "treatment.php", true);
+    xhr.send(formData);
+}
+
+function updateFilteredData(data) {
+    // Ajuste esta função para atualizar a sua página com os resultados
+    let outputDiv = document.getElementById("filteredData");
+    outputDiv.innerHTML = "<h3>Resultados da Consulta</h3>";
+
+    if (data && data.length > 0) {
+        // Exemplo: Exibindo os resultados em uma tabela
+        let tableHTML = "<table><thead><tr><th>ID</th><th>Data</th><th>Total</th></tr></thead><tbody>";
+
+        data.forEach(function(row) {
+            tableHTML += "<tr><td>" + row.sale_id + "</td><td>" + row.sale_date + "</td><td>" + row.total_amount + "</td></tr>";
+        });
+
+        tableHTML += "</tbody></table>";
+        outputDiv.innerHTML += tableHTML;
+    } else {
+        outputDiv.innerHTML += "<p>Nenhum resultado encontrado.</p>";
+    }
+}
+
+function displayFilteredData(data) {
+    // Implement your logic to display the data in the HTML
+    // For example, you can update the content of a div with the id "filteredData"
+    document.getElementById("filteredData").innerHTML = JSON.stringify(data);
+}
 
 function displayCowsay() {
-    var cowsayResponse = `
+    let cowsayResponse = `
 _________________
 < e o emprego la? >
 -----------------

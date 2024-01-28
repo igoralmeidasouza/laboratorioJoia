@@ -77,7 +77,7 @@
                         <li class="subBotao" data-target="vitrineCadastrarProdutos">Cadastrar Produtos</li>
                     </ul>
                 </li>
-                <li class="extratos menu-item desativada" data-target="vitrineExtratos">
+                <li class="extratos menu-item desativada" data-target="vitrineExtratos" onclick="getClients()">
                     <p>Extratos</p>
                 </li>
             </ul>
@@ -369,8 +369,29 @@
 
             <!-- Extrato -->
             <div class="vitrine vitrineExtratos desativada">
+
                 <div class="formularios">
                     <p>extrato</p>
+                    <form name="extratoFinal" class="formularioGeral formularioCadastrarProdutos" id="extratoForm">
+                        <h2>Extrato com Filtro</h2>
+
+                        <label for="startDate">Data de Início:</label>
+                        <input type="date" id="startDate" name="startDate" required>
+
+                        <label for="endDate">Data de Término:</label>
+                        <input type="date" id="endDate" name="endDate" required>
+                            <!-- Adicionando o filtro de cliente -->
+                        <label for="client">Cliente:</label>
+                        <select id="clientDropdown" name="client">
+                            <!-- Opções do dropdown podem ser preenchidas dinamicamente a partir do PHP -->
+                        </select>
+                        <button name="extratoFinal" type="button" onclick="getFilteredData()">Filtrar</button>
+
+                        <!-- Aqui você pode exibir a tabela com os dados filtrados -->
+                        <div id="filteredData">
+                            <!-- Os dados filtrados serão exibidos aqui -->
+                        </div>
+                    </form>
                 </div>
             </div>
 

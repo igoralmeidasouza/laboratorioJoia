@@ -227,6 +227,44 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
         // Example: Respond with a success message and the modified data
         echo json_encode(['success' => true, 'data' => $data]);
+
+    } elseif (isset($_POST['startDate'])) {
+        // Verifica se o formulário foi enviado via POST para a ação 'extratoFinal'
+        // Coloque aqui a lógica para processar a consulta do extrato com filtro
+        // Certifique-se de validar e sanitizar as entradas do usuário, como as datas
+        
+        $startDate = $_POST['startDate'];
+        $endDate = $_POST['endDate'];
+        
+        // Verifica se o filtro de cliente foi enviado
+        if (isset($_POST['client']) && !empty($_POST['client'])) {
+            $clientId = $_POST['client'];
+            // Prepara a consulta SQL com cláusula WHERE para filtrar por data e cliente
+            $sql = "SELECT * FROM saleshistory WHERE sale_date BETWEEN '$startDate' AND '$endDate' AND client_id = $clientId";
+        } else {
+            // Caso não tenha filtro de cliente, consulta apenas por data
+            $sql = "SELECT * FROM saleshistory WHERE sale_date BETWEEN '$startDate' AND '$endDate'";
+        }
+        // Executa a consulta
+        $result = $conn->query($sql);
+        // Verifica se a consulta foi bem-sucedida
+        if ($result) {
+            $filteredData = [];
+    
+            // Processa os resultados
+            while ($row = $result->fetch_assoc()) {
+                $filteredData[] = $row;
+            }
+    
+            // Libera os resultados
+            $result->free();
+    
+            // Retorna os resultados em formato JSON
+            echo json_encode($filteredData);
+        } else {
+            // Retorna um erro em formato JSON
+            echo json_encode(['error' => 'Erro na consulta']);
+        }
     } else {
         // Return an error for unknown request
         header('Content-Type: application/json; charset=utf-8');
