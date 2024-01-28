@@ -59,7 +59,12 @@ body main {background-color: #ffffff; display: flex; width: 100%; max-width: 132
         body main .bemVindo .desativada {position: absolute; z-index: 10; opacity: 0; visibility: hidden;}
         body main .bemVindo .ativa {position: absolute; z-index: 10; opacity: 1; visibility: visible;} 
 
-        body main .bemVindo .vitrine {position: absolute; width: 99%; border: solid 2px #0071cd; padding: 2px; left: 5px; background-color: #ffffff; transition: all 0.5s ease; height: 100%; min-height: 668px; border-radius: 10px;}
+        body main .bemVindo .vitrine {position: absolute; width: 99%; border: solid 2px #0071cd; padding: 2px; left: 5px; background-color: #ffffff; transition: all 0.5s ease; height: 100%; min-height: 668px; border-radius: 10px; overflow: auto;}
+            /* barra de rolagem */
+            body main .bemVindo .vitrine::-webkit-scrollbar {width: 5px;}
+            body main .bemVindo .vitrine::-webkit-scrollbar-thumb {background-color: #3498db; border-radius: 6px; height: 95%;}
+            body main .bemVindo .vitrine::-webkit-scrollbar-track {background-color: #f2f2f2;}
+
             body main .bemVindo .vitrine .formularios {display: flex; flex-direction: column; width: 100%; align-content: center; flex-wrap: wrap; margin: 30px 0;}
                 body main .bemVindo .vitrine .formularios p {font-weight: bold; width: max-content; font-family: 'Readex Pro', sans-serif; font-size: 19px; color: #767676; padding-bottom: 3px; position: relative;}
                     body main .bemVindo .vitrine .formularios p::after {content: ""; display: block; position: absolute; background-color: #4293E0; width: 110%; height: 2px; bottom: -2px;}
