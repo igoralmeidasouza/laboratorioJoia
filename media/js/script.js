@@ -376,11 +376,11 @@ function updateCartDisplay() {
         }, 0);
 
         let totalValueString = totalValue.toFixed(2).replace(/\./g, ','); // Convertendo para string com vírgula
-        cartHTML += "<span><strong>Total da compra:</strong> R$ " + totalValueString + "</span>";
+        cartHTML += "<span class="+'valorTotal'+"><em>Total da compra:</em> R$ " + totalValueString + "</span>";
     } else {
         cartHTML += "<span>Your cart is empty.</span>";
     }
-    cartHTML += "<button type="+'button'+" onclick="+'executeSale()'+">Finalizar Pedido</button>";
+    cartHTML += "<button class="+'botaoVendas'+" type="+'button'+" onclick="+'executeSale()'+">Finalizar Pedido</button>";
     cartDisplay.innerHTML = cartHTML;
 }
 
@@ -447,7 +447,7 @@ function openInvoiceTab(data) {
         <td>${item.price}</td>
         <td>${item.quantity}</td>
         <td> ${item.paciente}</td>
-        <td> R$ ${item.total.toFixed(2).replace(/\./g, ',')}</td><td><tr></table>
+        <td> R$ ${item.total.toFixed(2).replace(/\./g, ',')}</td></tr></table>
         <!--<hr>-->
     `).join('');
 
