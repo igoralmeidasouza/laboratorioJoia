@@ -436,7 +436,12 @@ function executeSale() {
 
 function openInvoiceTab(data) {
     console.log(data);
+    // Cria um objeto Date para obter a data atual
+    let dataAtual = new Date();
 
+    // Formata a data no formato desejado
+    let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    let dataFormatada = dataAtual.toLocaleDateString('pt-BR', options);
     // Construir o HTML com os dados do extrato
     let nomeCliente = data.cart[0].clientName; 
     //let nomePaciente = item.paciente;
