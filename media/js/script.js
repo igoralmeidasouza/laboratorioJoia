@@ -454,7 +454,7 @@ function openInvoiceTab(data) {
     itemsHTML += data.cart.map(item => `
             <tr>
                 <td> ${item.productName}</td>
-                <td R$ >${item.price}</td>
+                <td> R$ ${item.price}</td>
                 <td>${item.quantity}</td>
                 <td> R$ ${item.total.toFixed(2).replace(/\./g, ',')}</td>
             </tr>
@@ -462,41 +462,43 @@ function openInvoiceTab(data) {
     `).join('');
 
     let invoiceHTML = `
-    <html>
+        <html>
         <head>
             <title>Extrato de Compra</title>
             <link rel="stylesheet" href="media/css/estilos.css">
         </head>
         <body>
-        <header>
-            <div class="logoMarca">
-                <figure>
-                    <img src="media/img/denteJoia.png" alt="">
-                </figure>
-                <div class="logoTipo">
-                    <h1>L.J. - Laboratório de <em>Prótese Dentária Joia</em></h1>
-                    <address>
-                        <p>RUA VICENTE PEREIRA DE ASSUNÇÃO, 134 | CEP - 04658000 - VL CONTÂNCIA</p>
-                        <p>CONTATO: (11) 99836-17314 (11) 94945-2727</p>
-                    </address>
+            <header>
+                <div class="logoMarca">
+                    <figure>
+                        <img src="media/img/denteJoia.png" alt="">
+                    </figure>
+                    <div class="logoTipo">
+                        <h1>L.J. - Laboratório de <em>Prótese Dentária Joia</em></h1>
+                        <address>
+                            <p>RUA VICENTE PEREIRA DE ASSUNÇÃO, 134 | CEP - 04658000 - VL CONTÂNCIA</p>
+                            <p>CONTATO: (11) 99836-17314 (11) 94945-2727</p>
+                        </address>
+                    </div>
                 </div>
-            </div>
-        </header>
+            </header>
             <main>
                 <div class="impressaoContainer">
                     <div class="impressaoTabela">
-                        <p>Resumo do Pedido:</p>
-                        <div class="">
+                        <p>Resumo do Pedido: ######</p>
+                        <div class="dadosContainer">
                             <span>Cliente: ${nomeCliente}</span>
                             <span>Paciênte: ${data.paciente}</span>
                         </div>
-                        <table>
+                        
+                        <table class="tabelaExtrato">
                             ${itemsHTML}
                         </table>
+
                         <div class="saldoClientContainer">
-                            <span>Total do pedido: R$ ${totalValueString}</span>
-                            <span> Saldo Anterior: R$ ${saldoAnterior.toFixed(2)}</span>
-                            <span> Saldo Atual: R$ ${saldoDevedorClient}</span>
+                            <span>Total do pedido: <em>R$ ${totalValueString}</em></span>
+                            <span> Saldo Anterior: <em>R$ ${saldoAnterior.toFixed(2)}</em></span>
+                            <span> Saldo Atual: <em>R$ ${saldoDevedorClient}</em></span>
                         </div>
                     </div>
                 </div>
