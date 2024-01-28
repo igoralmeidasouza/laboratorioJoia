@@ -21,13 +21,17 @@
         <main>
             <div class="impressaoContainer">
                 <div class="impressaoTabela">
-                    <p>Resumo do Pedido:</p>
+                    <div class="dadosVenda">
+                        <p>Resumo do Pedido: #${data.lastSaleId}</p>
+                        <p>Data: ${dataFormatada}</p>
+                    </div>
+
                     <div class="dadosContainer">
                         <span>Cliente: ${nomeCliente}</span>
                         <span>Paciênte: ${data.paciente}</span>
                     </div>
-
-                    <table>
+                    
+                    <table class="tabelaExtrato">
                         ${itemsHTML}
                     </table>
 

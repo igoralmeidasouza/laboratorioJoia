@@ -347,11 +347,11 @@ function removeCartItem(index, event) {
 
 function updateCartDisplay() {
     let cartDisplay = document.getElementById("cartDisplay");
-    let cartHTML = "<div class="+'headerTabela'+"><h3>Conteudo do carrinho</h3>";
+    let cartHTML = "<div class="+'headerTabela'+"><h3>Conteúdo do Carrinho</h3>";
     cartHTML += "<button type="+'button'+" onclick="+'clearCart()'+"><em>X </em>Limpar Carrinho</button></div>";
 
     if (cartItems.length > 0) {
-        cartHTML += "<table><tr><th>Cliente</th><th>Produto</th><th>Produto (u)</th><th>Qt.</th><th>Paciente</th><th>Preço Total</th><th></th></tr>";
+        cartHTML += "<table class="+'tabelaVenda'+"><tr><th>Cliente</th><th>Produto</th><th>Produto (u)</th><th>Qt.</th><th>Paciente</th><th>Preço Total</th><th></th></tr>";
         for (let i = 0; i < cartItems.length; i++) {
             let item = cartItems[i];
             let total1 = item.total;
@@ -379,7 +379,7 @@ function updateCartDisplay() {
         let totalValueString = totalValue.toFixed(2).replace(/\./g, ','); // Convertendo para string com vírgula
         cartHTML += "<span class="+'valorTotal'+"><em>Total da compra:</em> R$ " + totalValueString + "</span>";
     } else {
-        cartHTML += "<span>Your cart is empty.</span>";
+        cartHTML += "<span>Seu carrinho está vazio.</span>";
     }
     cartHTML += "<button class="+'botaoVendas'+" type="+'button'+" onclick="+'executeSale()'+">Finalizar Pedido</button>";
     cartDisplay.innerHTML = cartHTML;
@@ -463,7 +463,7 @@ function openInvoiceTab(data) {
     `).join('');
 
     let invoiceHTML = `
-        <html>
+    <html>
         <head>
             <title>Extrato de Compra</title>
             <link rel="stylesheet" href="media/css/estilos.css">
@@ -486,7 +486,11 @@ function openInvoiceTab(data) {
             <main>
                 <div class="impressaoContainer">
                     <div class="impressaoTabela">
-                        <p>Resumo do Pedido: ######</p>
+                        <div class="dadosVenda">
+                            <p>Resumo do Pedido: #${data.lastSaleId}</p>
+                            <p>Data: ${dataFormatada}</p>
+                        </div>
+
                         <div class="dadosContainer">
                             <span>Cliente: ${nomeCliente}</span>
                             <span>Paciênte: ${data.paciente}</span>
@@ -497,7 +501,7 @@ function openInvoiceTab(data) {
                         </table>
 
                         <div class="saldoClientContainer">
-                            <span>Total do pedido: <em>R$ ${totalValueString}</em></span>
+                            <span>Total do Pedido: <em>R$ ${totalValueString}</em></span>
                             <span> Saldo Anterior: <em>R$ ${saldoAnterior.toFixed(2)}</em></span>
                             <span> Saldo Atual: <em>R$ ${saldoDevedorClient}</em></span>
                         </div>
