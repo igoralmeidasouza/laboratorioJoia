@@ -228,27 +228,22 @@
                     <p>Atualize os Débitos do Cliente</p>
                     <form name="paymentform" action="index.php" method="post" class="formularioGeral formularioCadastrarClientes">
                         <select id="client_id_payment" name="client_id_payment" required>
-                            <!-- PHP para gerar a lista de clientes automaticamente -->
                             <?php
                                 // Pegando os clientes do banco de dados.
                                 $result = $conn->query("SELECT client_id, client_name FROM clients");
 
-                                // Verificando se há cliente no banco de dados.
                                 if ($result->num_rows > 0) {
                                     while ($row = $result->fetch_assoc()) {
-                                        // Mostra as opções de clientes cadastrados.
                                         echo "<option value='{$row['client_id']}'>{$row['client_name']}</option>";
                                     }
                                 } else {
                                     echo "<option value='' disabled>Nenhum cliente encontrado..</option>";
                                 }
-                                // Fecha a conexão com o banco de dados.
                                 $conn->close();
                             ?>
                         </select>
                         <label for="client_id_payment">Cliente</label>
 
-                        <!-- <label for="current_debt">Divida Atual</label> -->
                         <div class="saldoDevedor">
                             <span class="debito" id="current_debt">N/A</span>
                             <span class="labelDebito">Divida Atual</span>
@@ -260,7 +255,6 @@
                         <input type="text" id="amount" name="amount" placeholder="R$ 0,00 - Insira valor a ser descontado da divida." required>
                         <label for="amount">Valor Pago</label>
 
-                        <!--<input type="text" id="type_of_payment" name="type_of_payment" placeholder="Observação"> -->
                         <select type="text" id="type_of_payment" name="type_of_payment">
                             <option value="PIX">PIX</option>
                             <option value="Cartão de Crédito">Cartão de Crédito</option>
@@ -269,7 +263,6 @@
                         </select>
                         <label for="type_of_payment">Método de pagamento</label>
 
-                        <!-- Add a hidden input field to identify the action -->
                         <input type="hidden" name="update_payment" value="1">
 
                         <button type="submit" name="paymentform">Atualizar conta</button>
@@ -282,7 +275,6 @@
                 <div class="formularios">
                     <p>Consultar produtos</p>
                     <div id="" class="tabelaGeral tabelaConsultarProdutos">
-                        <!-- Os dados de pagamento serão exibidos aqui -->
                         <?php
                         include 'dbConnection.php';
                         
@@ -290,9 +282,7 @@
                         $sql = "SELECT * FROM products";
                         $resultProducts = $conn->query($sql);
 
-                        // Verifica se a consulta retornou resultados
                         if ($resultProducts->num_rows > 0) {
-                            // Exibe os dados em uma tabela
                             echo "<table border='1'>";
                             echo "<tr><th>ID</th><th>Nome</th><th>Descrição</th><th>Preço 1</th><th>Preço 2</th><th>Preço 3</th><th>Preço 4</th><th>Preço 5</th><th>Preço 6</th></tr>";
 
@@ -375,16 +365,18 @@
                     <form name="extratoFinal" class="formularioGeral formularioCadastrarProdutos" id="extratoForm">
                         <h2>Extrato com Filtro</h2>
 
-                        <label for="startDate">Data de Início:</label>
                         <input type="date" id="startDate" name="startDate" required>
+                        <label for="startDate">Data de Início:</label>
 
-                        <label for="endDate">Data de Término:</label>
                         <input type="date" id="endDate" name="endDate" required>
+                        <label for="endDate">Data de Término:</label>
+                        
                             <!-- Adicionando o filtro de cliente -->
-                        <label for="client">Cliente:</label>
                         <select id="clientDropdown" name="client">
                             <!-- Opções do dropdown podem ser preenchidas dinamicamente a partir do PHP -->
                         </select>
+                        <label for="client">Cliente:</label>
+
                         <button name="extratoFinal" type="button" onclick="getFilteredData()">Filtrar</button>
 
                         <!-- Aqui você pode exibir a tabela com os dados filtrados -->
