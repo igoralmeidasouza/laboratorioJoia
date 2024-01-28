@@ -180,7 +180,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Return the HTML with product options to the Ajax request
         echo $productOptions;
 
-    }elseif (isset($_POST['carrinhoValores'])) {
+    } elseif (isset($_POST['carrinhoValores'])) {
         // Retrieve data from the POST request
         $data = json_decode($_POST['carrinhoValores'], true);
         // Extract variables from the data
@@ -190,41 +190,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $selectedPaciente = $data['paciente'];
         $total = $data['total'];
         $cartItems = $data['cart'];
-
-        // Agora você pode usar $selectedClient, $selectedProduct, $quantity,
-        // $selectedPaciente, $total e $cartItems em sua lógica
-        // ...
-        
-        // Exemplo: Adicionar dados à tabela de histórico de vendas (saleshistory)
-        $insertHistoryQuery = "INSERT INTO saleshistory (client_id, sale_date, total_amount) VALUES ($selectedClient, NOW(), $total)";
-        $conn->query($insertHistoryQuery);
-        $saleId = $conn->insert_id;
-
-        // Iterar sobre os itens do carrinho e adicionar à tabela de detalhes de vendas (salesdetails)
-        foreach ($cartItems as $cartItem) {
-            $productId = $cartItem['product'];
-            $itemQuantity = $cartItem['quantity'];
-            $itemTotal = $cartItem['total'];
-
-            $insertDetailsQuery = "INSERT INTO salesdetails (sale_id, product_id, quantity, price, observation) VALUES ($saleId, $productId, $itemQuantity, $itemTotal, '$selectedPaciente')";
-            $conn->query($insertDetailsQuery);
+    
+        // Your existing logic for inserting data into the database
+    
+        // Example: Fetch client data from the database
+        $fetchClientQuery = "SELECT * FROM clients WHERE client_id = $selectedClient";
+        $result = $conn->query($fetchClientQuery);
+    
+        // Check if the query was successful
+        if ($result) {
+            $clientData = $result->fetch_assoc(); // Adjust this based on your database structure
+            $data['clientData'] = $clientData;
+        } else {
+            $data['clientData'] = null;
         }
-
-        // Atualizar o débito do cliente na tabela de clientes (clients)
-        $updateClientQuery = "UPDATE clients SET debit_amount = debit_amount + $total WHERE client_id = $selectedClient";
-        $conn->query($updateClientQuery);
-        /*
-        // Adicionar o pagamento do cliente à tabela de pagamentos (clientpayments)
-        $insertPaymentQuery = "INSERT INTO clientpayments (client_id, payment_date, amount, type_of_payment) VALUES ($selectedClient, NOW(), $total, 'Sale Payment')";
-        $conn->query($insertPaymentQuery);
-        */
-        // Exemplo: Responder com uma mensagem de sucesso
+    
+        // Example: Respond with a success message and the modified data
         echo json_encode(['success' => true, 'data' => $data]);
     } else {
         // Return an error for unknown request
         header('Content-Type: application/json; charset=utf-8');
         echo json_encode(['success' => false, 'error' => 'Invalid request']);
     }
+    
     
 } else {
     // Return an error for unsupported request method
