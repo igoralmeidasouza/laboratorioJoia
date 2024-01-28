@@ -13,17 +13,6 @@
     <title>Painel de controle</title>
 </head>
 <body>
-    <!--
- _________________
-< e o emprego la? >
- -----------------
-        \   ^__^
-         \  (oo)\_______
-            (__)\       )\/\
-                ||----w |
-                ||     ||
-
--->
     <?php
         $resultadoPositivo = "";
         $resultadoNegativo = "";

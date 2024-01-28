@@ -525,3 +525,22 @@ function clearCart() {
     // Atualiza a exibição do carrinho
     updateCartDisplay();
 }
+
+function displayCowsay() {
+    var cowsayResponse = `
+_________________
+< e o emprego la? >
+-----------------
+\\   ^__^
+ \\  (oo)\\_______
+    (__)\\       )\\/\\
+        ||----w |
+        ||     ||
+    `;
+
+    // Print Cowsay response to console
+    console.log(cowsayResponse);
+}
+
+// Call the function to display Cowsay response in console
+displayCowsay();
