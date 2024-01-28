@@ -126,15 +126,6 @@ body main {background-color: #ffffff; display: flex; width: 100%; max-width: 132
 
                 /* Sessão - realizar vendas */
                 body main .bemVindo .vitrine .formularios .formularioRealizarVenda {width: 90%;}
-                    body main .bemVindo .vitrine .formularios .formularioRealizarVenda .tabelaCarrinho {display: flex; flex-direction: column;}
-                        body main .bemVindo .vitrine .formularios .formularioRealizarVenda .tabelaCarrinho .headerTabela {display: flex; justify-content: space-between; margin-top: 20px; padding-top: 15px; border-top: solid 1px lightgrey;}
-                            body main .bemVindo .vitrine .formularios .formularioRealizarVenda .tabelaCarrinho .headerTabela h3 {font-weight: bold; width: max-content; font-family: 'Readex Pro', sans-serif; font-size: 19px; color: #767676; padding-bottom: 3px; position: relative;}
-                            body main .bemVindo .vitrine .formularios .formularioRealizarVenda .tabelaCarrinho .headerTabela h3::after {content: ""; display: block; position: absolute; background-color: #4293E0; width: 110%; height: 2px; bottom: -2px;}
-                        body main .bemVindo .vitrine .formularios .formularioRealizarVenda .tabelaCarrinho .headerTabela button {border: solid 1px #ff0404; border-radius: 10px; padding: 5px; text-transform: uppercase; font-weight: 500; cursor: pointer; transition: all 0.5s ease; font-size: 12px;}
-                            body main .bemVindo .vitrine .formularios .formularioRealizarVenda .tabelaCarrinho .headerTabela button:hover {background-color: transparent; color: #ff0404; border: solid 1px #101A28;}
-                            body main .bemVindo .vitrine .formularios .formularioRealizarVenda .tabelaCarrinho .headerTabela button em {color: #ff0404; font-weight: bold;}
-                                
-
                     body main .bemVindo .vitrine .formularios .formularioRealizarVenda .inputMesmaLinha .containerInputLabel {position: relative; display: flex; margin-right: 10px; width: 100%;}
                         body main .bemVindo .vitrine .formularios .formularioRealizarVenda .inputMesmaLinha .containerInputLabel:nth-child(1) {width: 100%; max-width: 200px;}
                         body main .bemVindo .vitrine .formularios .formularioRealizarVenda .inputMesmaLinha .containerInputLabel:nth-child(2) {width: 100%; max-width: 200px;}
@@ -155,6 +146,20 @@ body main {background-color: #ffffff; display: flex; width: 100%; max-width: 132
                                 body main .bemVindo .vitrine .formularios .formularioRealizarVenda .inputMesmaLinha .botaoCarrinho svg {width: 90%; transition: all 0.2s ease-in; }
                                     body main .bemVindo .vitrine .formularios .formularioRealizarVenda .inputMesmaLinha .botaoCarrinho svg path {fill: #6081af; transition: all 0.3s ease-in; }
                                         body main .bemVindo .vitrine .formularios .formularioRealizarVenda .inputMesmaLinha .botaoCarrinho:hover svg path{fill: #198119;}
+
+                /* sessão - conteudo do carrinho*/
+                body main .bemVindo .vitrine .formularios .formularioRealizarVenda .tabelaCarrinho {display: flex; flex-direction: column;}
+                        body main .bemVindo .vitrine .formularios .formularioRealizarVenda .tabelaCarrinho .headerTabela {display: flex; justify-content: space-between; margin-top: 20px; padding-top: 15px; border-top: solid 1px lightgrey;}
+                            body main .bemVindo .vitrine .formularios .formularioRealizarVenda .tabelaCarrinho .headerTabela h3 {font-weight: bold; width: max-content; font-family: 'Readex Pro', sans-serif; font-size: 19px; color: #767676; padding-bottom: 3px; position: relative;}
+                            body main .bemVindo .vitrine .formularios .formularioRealizarVenda .tabelaCarrinho .headerTabela h3::after {content: ""; display: block; position: absolute; background-color: #4293E0; width: 110%; height: 2px; bottom: -2px;}
+                        body main .bemVindo .vitrine .formularios .formularioRealizarVenda .tabelaCarrinho .headerTabela button {border: solid 1px #ff0404; border-radius: 10px; padding: 5px; text-transform: uppercase; font-weight: 500; cursor: pointer; transition: all 0.5s ease; font-size: 12px;}
+                            body main .bemVindo .vitrine .formularios .formularioRealizarVenda .tabelaCarrinho .headerTabela button:hover {background-color: transparent; color: #ff0404; border: solid 1px #101A28;}
+                            body main .bemVindo .vitrine .formularios .formularioRealizarVenda .tabelaCarrinho .headerTabela button em {color: #ff0404; font-weight: bold;}
+                        
+                            body main .bemVindo .vitrine .formularios .formularioRealizarVenda .tabelaCarrinho table {margin: 25px 0;}
+                        body main .bemVindo .vitrine .formularios .formularioRealizarVenda .tabelaCarrinho table tr td button {border: none;border-radius: 10px; padding: 5px; text-transform: uppercase; font-weight: 500; cursor: pointer; transition: all 0.5s ease; font-size: 12px;}
+                            body main .bemVindo .vitrine .formularios .formularioRealizarVenda .tabelaCarrinho table tr td button:hover {background-color: transparent; color: #ff0404;}
+                            body main .bemVindo .vitrine .formularios .formularioRealizarVenda .tabelaCarrinho table tr td button em {color: #ff0404; font-weight: bold;}
 
 
                             
