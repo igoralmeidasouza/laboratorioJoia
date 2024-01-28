@@ -350,7 +350,7 @@ function updateCartDisplay() {
     cartHTML += "<button type="+'button'+" onclick="+'clearCart()'+"><em>X </em>Limpar Carrinho</button></div>";
 
     if (cartItems.length > 0) {
-        cartHTML += "<table><tr><td>Cliente</td><td>Produto</td><td> (u)</td><td>Qt.</td><td>Paciente</td><td>Preço Total</td><td></td></tr>";
+        cartHTML += "<table><tr><th>Cliente</th><th>Produto</th><th>Produto (u)</th><th>Qt.</th><th>Paciente</th><th>Preço Total</th><th></th></tr>";
         for (let i = 0; i < cartItems.length; i++) {
             let item = cartItems[i];
             let total1 = item.total;
@@ -376,11 +376,11 @@ function updateCartDisplay() {
         }, 0);
 
         let totalValueString = totalValue.toFixed(2).replace(/\./g, ','); // Convertendo para string com vírgula
-        cartHTML += "<span><strong>Total da compra:</strong> R$ " + totalValueString + "</span>";
+        cartHTML += "<span class="+'valorTotal'+"><em>Total da compra:</em> R$ " + totalValueString + "</span>";
     } else {
         cartHTML += "<span>Your cart is empty.</span>";
     }
-    cartHTML += "<button type="+'button'+" onclick="+'executeSale()'+">Finalizar Pedido</button>";
+    cartHTML += "<button class="+'botaoVendas'+" type="+'button'+" onclick="+'executeSale()'+">Finalizar Pedido</button>";
     cartDisplay.innerHTML = cartHTML;
 }
 
@@ -447,7 +447,7 @@ function openInvoiceTab(data) {
         <td>${item.price}</td>
         <td>${item.quantity}</td>
         <td> ${item.paciente}</td>
-        <td> R$ ${item.total.toFixed(2).replace(/\./g, ',')}</td><td><tr></table>
+        <td> R$ ${item.total.toFixed(2).replace(/\./g, ',')}</td></tr></table>
         <!--<hr>-->
     `).join('');
 

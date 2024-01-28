@@ -126,7 +126,7 @@
                             <div class="containerInputLabel">
                                 <!-- Paciente (Patient) Input -->
                                 <input type="text" id="paciente" name="paciente" placeholder="Insira o nome do Paciente">
-                                <label for="paciente">Insira o nome do Paciente</label>
+                                <label for="paciente">Nome do Paciente</label>
                             </div>
 
                             <!-- Botão adicionar items no carrinho -->
