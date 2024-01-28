@@ -439,10 +439,13 @@ function openInvoiceTab(data) {
 
     // Construir o HTML com os dados do extrato
     let nomeCliente = data.cart[0].clientName; 
+    let saldoDevedorClient =  data.clientData.debit_amount;
+
     //let nomePaciente = item.paciente;
     let totalValue = data.total;
+    let saldoAnterior = saldoDevedorClient - totalValue;
     let totalValueString = totalValue.toFixed(2).replace(/\./g, ','); // Convertendo para string com vírgula
-    let itemsHTML = "<tr><th>Produto</th><th>Produto (u)</th><th>Qt.</th><th>Preço Total</th><th></th></tr>";
+    let itemsHTML = "<tr><th>Produto</th><th>Produto (u)</th><th>Qt.</th><th>Preço Total</th></tr>";
     itemsHTML += data.cart.map(item => `
             <tr>
                 <td> ${item.productName}</td>
@@ -454,43 +457,47 @@ function openInvoiceTab(data) {
     `).join('');
 
     let invoiceHTML = `
-            <html>
-            <head>
-                <title>Extrato de Compra</title>
-                <link rel="stylesheet" href="media/css/estilos.css">
-            </head>
-            <body>
-            <header>
-                <div class="logoMarca">
-                    <figure>
-                        <img src="media/img/denteJoia.png" alt="">
-                    </figure>
-                    <div class="logoTipo">
-                        <h1>L.J. - Laboratório de <em>Prótese Dentária Joia</em></h1>
-                        <address>
-                            <p>RUA VICENTE PEREIRA DE ASSUNÇÃO, 134 | CEP - 04658000 - VL CONTÂNCIA</p>
-                            <p>CONTATO: (11) 99836-17314 (11) 94945-2727</p>
-                        </address>
-                    </div>
+    <html>
+        <head>
+            <title>Extrato de Compra</title>
+            <link rel="stylesheet" href="media/css/estilos.css">
+        </head>
+        <body>
+        <header>
+            <div class="logoMarca">
+                <figure>
+                    <img src="media/img/denteJoia.png" alt="">
+                </figure>
+                <div class="logoTipo">
+                    <h1>L.J. - Laboratório de <em>Prótese Dentária Joia</em></h1>
+                    <address>
+                        <p>RUA VICENTE PEREIRA DE ASSUNÇÃO, 134 | CEP - 04658000 - VL CONTÂNCIA</p>
+                        <p>CONTATO: (11) 99836-17314 (11) 94945-2727</p>
+                    </address>
                 </div>
-            </header>
-                <main>
-                    <div class="impressaoContainer">
-                        <div class="impressaoTabela">
-                            <p>Resumo do Pedido:</p>
-                            <div class="">
-                                <span>Cliente: ${nomeCliente}</span>
-                                <span>Paciênte: ${data.paciente}</span>
-                            </div>
-                            <table>
-                                ${itemsHTML}
-                            </table>
+            </div>
+        </header>
+            <main>
+                <div class="impressaoContainer">
+                    <div class="impressaoTabela">
+                        <p>Resumo do Pedido:</p>
+                        <div class="">
+                            <span>Cliente: ${nomeCliente}</span>
+                            <span>Paciênte: ${data.paciente}</span>
+                        </div>
+                        <table>
+                            ${itemsHTML}
+                        </table>
+                        <div class="saldoClientContainer">
                             <span>Total do pedido: R$ ${totalValueString}</span>
+                            <span> Saldo Anterior: R$ ${saldoAnterior.toFixed(2)}</span>
+                            <span> Saldo Atual: R$ ${saldoDevedorClient}</span>
                         </div>
                     </div>
-                </main>
-            </body>
-        </html>
+                </div>
+            </main>
+        </body>
+    </html>
     `;
 
     // Abrir uma nova guia com o extrato

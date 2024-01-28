@@ -175,6 +175,10 @@ body main {background-color: #ffffff; display: flex; width: 100%; max-width: 132
 
                             body main .bemVindo .vitrine .formularios .formularioRealizarVenda .tabelaCarrinho .botaoVendas {width: 100%; max-width: 300px; margin: 0 auto;}
 
+    /* pagina de impressão */
+    main .impressaoContainer {display: flex; margin: 0 auto;}
+        main .impressaoContainer .impressaoTabela {display: flex; flex-direction: column; font-family: 'Ubuntu';}
+            main .impressaoContainer .impressaoTabela p {}
 
                             
 

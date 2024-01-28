@@ -23,14 +23,17 @@
                 <div class="impressaoTabela">
                     <p>Resumo do Pedido:</p>
                     <div class="">
-                        <span>Cliente: ${item.clientName}</span>
-                        <span>Paciênte: ${item.paciente}</span>
-                        <?php procure no banco de dados ${item.clientName} na tabela cliente ?>
+                        <span>Cliente: ${nomeCliente}</span>
+                        <span>Paciênte: ${data.paciente}</span>
                     </div>
                     <table>
                         ${itemsHTML}
                     </table>
-                    <span>Total do pedido: R$ ${totalValueString}</span>
+                    <div class="saldoClientContainer">
+                        <span>Total do pedido: R$ ${totalValueString}</span>
+                        <span> Saldo Anterior: R$ ${saldoAnterior.toFixed(2)}</span>
+                        <span> Saldo Atual: R$ ${saldoDevedorClient}</span>
+                    </div>
                 </div>
             </div>
         </main>
