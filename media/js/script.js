@@ -491,41 +491,6 @@ function openInvoiceTab(data) {
                                 ${itemsHTML}
                             </table>
                             <span>Total do pedido: R$ ${totalValueString}</span>
-                            // Nome do cliente a ser pesquisado (você pode obter isso de um formulário, por exemplo)
-                            </php
-                                $nomeCliente = "${nomeCliente}";
-
-                                // Preparar a consulta SQL
-                                $sql = "SELECT * FROM Clients WHERE client_name LIKE ?";
-
-                                // Preparar a instrução SQL
-                                $stmt = $conn->prepare($sql);
-
-                                // Vincular o parâmetro e definir o valor do nome do cliente
-                                $stmt->bind_param("s", $param_nomeCliente);
-                                $param_nomeCliente = "%" . $nomeCliente . "%";
-
-                                // Executar a consulta
-                                $stmt->execute();
-
-                                // Obter resultados
-                                $result = $stmt->get_result();
-
-                                // Verificar se há resultados
-                                if ($result->num_rows > 0) {
-                                    // Exibir os resultados
-                                    while ($row = $result->fetch_assoc()) {
-                                        echo "ID: " . $row["client_id"] . " - Nome: " . $row["client_name"] . " - Email: " . $row["client_email"] . "<br>";
-                                        // Adicione outros campos conforme necessário
-                                    }
-                                } else {
-                                    echo "Nenhum cliente encontrado com esse nome.";
-                                }
-
-                                // Fechar a instrução e a conexão
-                                $stmt->close();
-                                $conn->close();
-                                ?>
                         </div>
                     </div>
                 </main>
