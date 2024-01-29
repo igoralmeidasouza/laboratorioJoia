@@ -618,7 +618,7 @@ function updateFilteredData(data) {
     console.log(`Data do pagamento: ${paymentDate}`);
     console.log(`Valor do pagamento: ${amount}`);
     console.log(`Tipo de pagamento: ${typeOfPayment}`);
- */
+ 
   // ... exibir outras propriedades da venda
 if (Array.isArray(dataArray) && dataArray.length > 0) {
     // Exemplo: Exibindo os resultados em uma tabela
