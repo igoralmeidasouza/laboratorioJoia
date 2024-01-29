@@ -25,7 +25,7 @@ body header {background-color: #ffffff; display: flex; width: 100%; max-width: 1
             body header .logoMarca .logoTipo address {display: flex; flex-direction: column; margin-top: 10px;}
                 body header .logoMarca .logoTipo address p {margin-left: 50px; font-family: 'Ubuntu'; font-size: 12.5px; line-height: 18px; text-align: center;} 
 
-body main {background-color: #ffffff; display: flex; width: 100%; max-width: 1320px; margin: 0 auto 30px auto; min-height: 700px; position: relative; border-radius: 0 0 25px 25px;}
+body main {background-color: #ffffff; display: flex; width: 100%; max-width: 1320px; margin: 0 auto 20px auto; min-height: 700px; position: relative; border-radius: 0 0 25px 25px;}
 
     body main .menuLateral {width: 100%; max-width: 271px; position: relative; min-height: 400px; padding-top: 25px; background-color: #101A28; border-radius: 0 0 0 25px; box-shadow: 7px 0 7px rgba(0, 0, 0, 0.1);}
             body main .menuLateral ul {padding: 0 15px; display: flex; flex-direction: column; transition: all 0.2s ease;}
@@ -59,10 +59,10 @@ body main {background-color: #ffffff; display: flex; width: 100%; max-width: 132
         body main .bemVindo .desativada {position: absolute; z-index: 10; opacity: 0; visibility: hidden;}
         body main .bemVindo .ativa {position: absolute; z-index: 10; opacity: 1; visibility: visible;} 
 
-        body main .bemVindo .vitrine {position: absolute; width: 99%; border: solid 2px #0071cd; padding: 2px; left: 5px; background-color: #ffffff; transition: all 0.5s ease; height: 100%; min-height: 668px; border-radius: 10px; overflow: auto;}
+        body main .bemVindo .vitrine {position: absolute; width: 99%; border: solid 2px #0071cd; padding: 2px; left: 5px; background-color: #ffffff; transition: all 0.5s ease; height: 100%; min-height: 650px; border-radius: 10px; overflow: auto;}
             /* barra de rolagem */
-            body main .bemVindo .vitrine::-webkit-scrollbar {width: 5px;}
             body main .bemVindo .vitrine::-webkit-scrollbar-thumb {background-color: #3498db; border-radius: 6px; height: 95%;}
+            body main .bemVindo .vitrine::-webkit-scrollbar {width: 5px;}
             body main .bemVindo .vitrine::-webkit-scrollbar-track {background-color: #f2f2f2;}
 
             body main .bemVindo .vitrine .formularios {display: flex; flex-direction: column; width: 100%; align-content: center; flex-wrap: wrap; margin: 30px 0;}
