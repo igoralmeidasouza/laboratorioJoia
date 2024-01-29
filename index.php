@@ -327,7 +327,7 @@
             <div class="vitrine vitrineCadastrarProdutos desativada">
                 <div class="formularios">
                     <p>Cadastrar produtos</p>
-                    <form action="index.php" name="cadastrar_produtos" method="POST" class="formularioGeral formularioCadastrarProdutos">
+                    <form action="index.php" name="cadastrar_produtos" method="POST" class="formularioGeral formularioExtrato">
                         <input type="text" id="product_name" name="product_name" placeholder="Nome do Produto" required>
                         <label for="product_name">Nome do Produto</label>
 
@@ -361,7 +361,7 @@
             <div class="vitrine vitrineExtratos desativada">
 
                 <div class="formularios">
-                    <p>extrato</p>
+                    <p>Extrato</p>
                     <form name="extratoFinal" class="formularioGeral formularioCadastrarProdutos" id="extratoForm">
 
                         <input type="date" id="startDate" name="startDate" required>
