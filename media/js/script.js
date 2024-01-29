@@ -588,6 +588,7 @@ function getFilteredData() {
 
 function updateFilteredData(data) {
     // Ajuste esta função para atualizar a sua página com os resultados
+    let dataArray = Object.values(data);
     let outputDiv = document.getElementById("filteredData");
     outputDiv.innerHTML = "<span>Resultados da Consulta</span>";
     console.log(data); //esse console.log mostra a estrutura completa do object no console, vai ser o array que aparece
