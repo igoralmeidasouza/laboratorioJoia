@@ -621,34 +621,38 @@ function updateFilteredData(data) {
     console.log(`Tipo de pagamento: ${typeOfPayment}`);
  
   // ... exibir outras propriedades da venda
-if (Array.isArray(dataArray) && dataArray.length > 0) {
+  if (Array.isArray(dataArray) && dataArray.length > 0) {
     // Exemplo: Exibindo os resultados em uma tabela
-    let tableHTML = "<section>";
-    tableHTML += "<table><thead><tr><th>ID</th><th>Data</th><th>Observação</th><th>Valor</th><th>Saldo</th></tr></thead><tbody>";
+    let outputDiv = document.getElementById("filteredData");
+    outputDiv.innerHTML = "<h3>Resultados da Consulta</h3>";
+
+    // Adiciona o cabeçalho fora do loop
+    let tableHTML = "<table><thead><tr><th>ID</th><th>Data</th><th>Observação</th><th>Produtos</th><th>Preço(U)</th><th>Total</th><th>Saldo</th></tr></thead><tbody>";
 
     dataArray.forEach(function(row) {
         // Verifica se é um pagamento ou um pedido
         if (row.hasOwnProperty('payment_id')) {
             // É um pagamento
-            tableHTML += "<tr><td>" + row.payment_id + "</td><td>" + row.payment_date + "</td><td>" + row.type_of_payment + "</td><td>" + row.amount + "</td><td>" + (row.debit_amount ? row.debit_amount : '') + "</td></tr>";
+            tableHTML += "<tr><td>" + row.payment_id + "</td><td>" + row.payment_date + "</td><td>" + row.type_of_payment + "</td><td></td><td></td><td>" + row.amount + "</td><td>" + (row.debit_amount ? row.debit_amount : '') + "</td></tr>";
         } else {
             // É um pedido
-            tableHTML += "<tr><td>" + row.sale_id + "</td><td>" + row.sale_date + "</td><td>" + (row.observation) + "</td><td>" + row.total_amount + "</td><td>" + (row.debit_amount ? row.debit_amount : '') + "</td></tr>";
+            tableHTML += "<tr><td>" + row.sale_id + "</td><td>" + row.sale_date + "</td><td>" + (row.type_of_payment ? row.type_of_payment : row.observation) + "</td><td></td><td></td><td>" + row.total_amount + "</td><td>" + (row.debit_amount ? row.debit_amount : '') + "</td></tr>";
 
             // Detalhes do pedido
-            if (Array.isArray(row.details) && row.details.length > 0) {
-                row.details.forEach(function(detail) {
-                    tableHTML += "<tr><td></td><td></td><td>" + detail.product_name + "</td><td>" + (detail.quantity * detail.price) + "</td><td></td></tr>";
+            if (Array.isArray(row.products) && row.products.length > 0) {
+                row.products.forEach(function(product) {
+                    tableHTML += "<tr><td></td><td></td><td></td><td>" + product.product_name + "</td><td>" + product.price + "</td><td>" + (product.quantity * product.price) + "</td><td></td></tr>";
                 });
             }
         }
     });
 
-        tableHTML += "</tbody></table>";
-        outputDiv.innerHTML = tableHTML;
-    } else {
-        outputDiv.innerHTML = "<p>Nenhum resultado encontrado.</p>";
-    }
+    tableHTML += "</tbody></table>";
+    outputDiv.innerHTML += tableHTML;
+} else {
+    outputDiv.innerHTML = "<p>Nenhum resultado encontrado.</p>";
+}
+
 }
 /* essa função faz exencialmente a mesma coisa da updateFilteredData()
 function displayFilteredData(data) {
