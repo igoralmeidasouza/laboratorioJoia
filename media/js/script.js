@@ -545,7 +545,6 @@ function clearCart() {
 }
 function getFilteredData() {
     // Chama a função para obter a lista de clientes
-    
     let startDate = document.getElementById("startDate").value;
     let endDate = document.getElementById("endDate").value;
     let selectedClient = document.getElementById("clientDropdown").value;
@@ -586,74 +585,91 @@ function getFilteredData() {
     xhr.send(formData);
 }
 
+// Supondo que você já tenha a função updateFilteredData configurada
+
 function updateFilteredData(data) {
-    // Ajuste esta função para atualizar a sua página com os resultados
+    // Converte o objeto data em uma array
     let dataArray = Object.values(data);
-    let outputDiv = document.getElementById("filteredData");
-    outputDiv.innerHTML = "<span>Resultados da Consulta</span>";
-    console.log(data); //esse console.log mostra a estrutura completa do object no console, vai ser o array que aparece
-      // Extrair dados da primeira venda
-    let firstSale = data[0];
 
-    //  exemlpo Acessar propriedades da primeira venda
-    let saleId = firstSale.sale_id;
-    let clientId = firstSale.client_id;
-    let saleDate = firstSale.sale_date;
-    // ... outras propriedades da venda
+    // Inicializa a string HTML da tabela
+    let tableHTML = "<table><thead><tr><th>ID</th><th>Data</th><th>Observação</th><th>Produtos</th><th>Preço (U)</th><th>Total</th><th>Saldo</th></tr></thead><tbody>";
 
-    // exemplo Exibir os dados
-    console.log(`ID da venda: ${saleId}`);
-    console.log(`ID do cliente: ${clientId}`);
-    console.log(`Data da venda: ${saleDate}`);
-      // Extrair dados do primeiro pagamento
-    let firstPayment = data.payments[0];
+    // Cria um objeto para rastrear pedidos agrupados por sale_id
+    let groupedOrders = {};
 
-    // exemplo Acessar propriedades do primeiro pagamento
-    let paymentId = firstPayment.payment_id;
-    let paymentDate = firstPayment.payment_date;
-    let amount = firstPayment.amount;
-    let typeOfPayment = firstPayment.type_of_payment;
+    // Loop através dos dados e agrupa os pedidos pelo sale_id
+    for (let key in dataArray) {
+        if (dataArray.hasOwnProperty(key) && typeof dataArray[key] === 'object' && dataArray[key].length === undefined) {
+            const saleId = dataArray[key].sale_id;
 
-    // exemplo Exibir os dados
-    console.log(`ID do pagamento: ${paymentId}`);
-    console.log(`Data do pagamento: ${paymentDate}`);
-    console.log(`Valor do pagamento: ${amount}`);
-    console.log(`Tipo de pagamento: ${typeOfPayment}`);
- 
-  // ... exibir outras propriedades da venda
-  if (Array.isArray(dataArray) && dataArray.length > 0) {
-    // Exemplo: Exibindo os resultados em uma tabela
-    let outputDiv = document.getElementById("filteredData");
-    outputDiv.innerHTML = "<h3>Resultados da Consulta</h3>";
-
-    // Adiciona o cabeçalho fora do loop
-    let tableHTML = "<table><tr><th>ID</th><th>Data</th><th>Observação</th><th>Produtos</th><th>Preço (u)</th><th>Total</th><th>Saldo</th></tr>";
-
-    dataArray.forEach(function(row) {
-        // Verifica se é um pagamento ou um pedido
-        if (row.hasOwnProperty('payment_id')) {
-            // É um pagamento
-            tableHTML += "<tr><td>" + row.payment_id + "</td><td>" + row.payment_date + "</td><td>" + row.type_of_payment + "</td><td></td><td></td><td>" + row.amount + "</td><td>" + (row.debit_amount ? row.debit_amount : '') + "</td></tr>";
-        } else {
-            // É um pedido
-            tableHTML += "<tr><td>" + row.sale_id + "</td><td>" + row.sale_date + "</td><td>" + (row.type_of_payment ? row.type_of_payment : row.observation) + "</td><td></td><td></td><td>" + row.total_amount + "</td><td>" + (row.debit_amount ? row.debit_amount : '') + "</td></tr>";
-
-            // Detalhes do pedido
-            if (Array.isArray(row.products) && row.products.length > 0) {
-                row.products.forEach(function(product) {
-                    tableHTML += "<tr><td></td><td></td><td></td><td>" + product.product_name + "</td><td>" + product.price + "</td><td>" + (product.quantity * product.price) + "</td><td></td></tr>";
+            // Se o sale_id já existir no objeto, adiciona o produto ao array existente
+            if (groupedOrders.hasOwnProperty(saleId)) {
+                groupedOrders[saleId].products.push({
+                    product_name: dataArray[key].product_name,
+                    price: dataArray[key].price,
+                    quantity: dataArray[key].quantity,
                 });
+            } else {
+                // Se o sale_id não existir, cria uma nova entrada no objeto
+                groupedOrders[saleId] = {
+                    sale_id: dataArray[key].sale_id,
+                    sale_date: dataArray[key].sale_date,
+                    observation: dataArray[key].observation,
+                    products: [{
+                        product_name: dataArray[key].product_name,
+                        price: dataArray[key].price,
+                        quantity: dataArray[key].quantity,
+                    }],
+                    total_amount: dataArray[key].total_amount,
+                    debit_amount: dataArray[key].debit_amount,
+                };
             }
         }
-    });
+    }
 
-    tableHTML += "</table>";
-    outputDiv.innerHTML += tableHTML;
-} else {
-    outputDiv.innerHTML = "<p>Nenhum resultado encontrado.</p>";
+    // Loop através dos pedidos agrupados e adiciona as linhas à tabela
+    for (let saleId in groupedOrders) {
+        if (groupedOrders.hasOwnProperty(saleId)) {
+            let order = groupedOrders[saleId];
+
+            // Adiciona uma nova linha à tabela
+            tableHTML += "<tr>";
+            tableHTML += "<td>" + order.sale_id + "</td>";
+            tableHTML += "<td>" + order.sale_date + "</td>";
+            tableHTML += "<td>" + order.observation + "</td>";
+
+            // Adiciona os produtos à célula "Produtos"
+            tableHTML += "<td>";
+            for (let i = 0; i < order.products.length; i++) {
+                tableHTML += order.products[i].product_name + "<br>";
+            }
+            tableHTML += "</td>";
+
+            // Adiciona o preço e a quantidade na célula "Preço (U)"
+            tableHTML += "<td>";
+            for (let i = 0; i < order.products.length; i++) {
+                tableHTML += "R$ " + order.products[i].price + " x " + order.products[i].quantity + "<br>";
+            }
+            tableHTML += "</td>";
+
+            // Adiciona o "R$" na frente do valor na célula "Total"
+            tableHTML += "<td>R$ " + order.total_amount + "</td>";
+
+            tableHTML += "<td>" + order.debit_amount + "</td>";
+            tableHTML += "</tr>";
+        }
+    }
+
+    // Fecha a tabela
+    tableHTML += "</tbody></table>";
+
+    // Adiciona a tabela ao elemento desejado no DOM (outputDiv no seu caso)
+    document.getElementById("filteredData").innerHTML = tableHTML;
 }
 
-}
+
+
+
 /* essa função faz exencialmente a mesma coisa da updateFilteredData()
 function displayFilteredData(data) {
     // Implement your logic to display the data in the HTML

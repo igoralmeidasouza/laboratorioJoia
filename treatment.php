@@ -229,7 +229,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo json_encode(['success' => true, 'data' => $data]);
 
     } elseif (isset($_POST['startDate'])) {
-        // Verifica se o formulário foi enviado via POST para a ação 'extratoFinal'
         // Coloque aqui a lógica para processar a consulta do extrato com filtro
         // Certifique-se de validar e sanitizar as entradas do usuário, como as datas
         
