@@ -590,49 +590,71 @@ function updateFilteredData(data) {
     // Ajuste esta função para atualizar a sua página com os resultados
     let outputDiv = document.getElementById("filteredData");
     outputDiv.innerHTML = "<h3>Resultados da Consulta</h3>";
+    let dataArray = Object.values(data)
+    console.log(data);
+    console.log(typeof data);
+    console.log(Array.isArray(data));
+    /*
     console.log(data); //esse console.log mostra a estrutura completa do object no console, vai ser o array que aparece
       // Extrair dados da primeira venda
     let firstSale = data[0];
 
-    // Acessar propriedades da primeira venda
+    //  exemlpo Acessar propriedades da primeira venda
     let saleId = firstSale.sale_id;
     let clientId = firstSale.client_id;
     let saleDate = firstSale.sale_date;
     // ... outras propriedades da venda
 
-    // Exibir os dados
+    // exemplo Exibir os dados
     console.log(`ID da venda: ${saleId}`);
     console.log(`ID do cliente: ${clientId}`);
     console.log(`Data da venda: ${saleDate}`);
       // Extrair dados do primeiro pagamento
     let firstPayment = data.payments[0];
 
-    // Acessar propriedades do primeiro pagamento
+    // exemplo Acessar propriedades do primeiro pagamento
     let paymentId = firstPayment.payment_id;
     let paymentDate = firstPayment.payment_date;
     let amount = firstPayment.amount;
     let typeOfPayment = firstPayment.type_of_payment;
 
-    // Exibir os dados
+    // exemplo Exibir os dados
     console.log(`ID do pagamento: ${paymentId}`);
     console.log(`Data do pagamento: ${paymentDate}`);
     console.log(`Valor do pagamento: ${amount}`);
     console.log(`Tipo de pagamento: ${typeOfPayment}`);
-
+ */
   // ... exibir outras propriedades da venda
-    if (data && data.length > 0) {
-        // Exemplo: Exibindo os resultados em uma tabela
-        let tableHTML = "<table><thead><tr><th>ID</th><th>Data</th><th>Total</th></tr></thead><tbody>";
+if (Array.isArray(dataArray) && dataArray.length > 0) {
+    // Exemplo: Exibindo os resultados em uma tabela
+    let tableHTML = "<section>";
+    tableHTML += "<table><thead><tr><th>ID</th><th>Data</th><th>Observação</th><th>Valor</th><th>Saldo</th></tr></thead><tbody>";
 
-        data.forEach(function(row) {
-            tableHTML += "<tr><td>" + row.sale_id + "</td><td>" + row.sale_date + "</td><td>" + row.total_amount + "</td></tr>";
-        });
+    dataArray.forEach(function(row) {
+        // Verifica se é um pagamento ou um pedido
+        if (row.hasOwnProperty('payment_id')) {
+            // É um pagamento
+            tableHTML += "<tr><td>" + row.payment_id + "</td><td>" + row.payment_date + "</td><td>" + row.type_of_payment + "</td><td>" + row.amount + "</td><td>" + (row.debit_amount ? row.debit_amount : '') + "</td></tr>";
+        } else {
+            // É um pedido
+            tableHTML += "<tr><td>" + row.sale_id + "</td><td>" + row.sale_date + "</td><td>" + (row.observation) + "</td><td>" + row.total_amount + "</td><td>" + (row.debit_amount ? row.debit_amount : '') + "</td></tr>";
 
-        tableHTML += "</tbody></table>";
-        outputDiv.innerHTML = tableHTML;
-    } else {
-        outputDiv.innerHTML = "<p>Nenhum resultado encontrado.</p>";
-    }
+            // Detalhes do pedido
+            if (Array.isArray(row.details) && row.details.length > 0) {
+                row.details.forEach(function(detail) {
+                    tableHTML += "<tr><td></td><td></td><td>" + detail.product_name + "</td><td>" + (detail.quantity * detail.price) + "</td><td></td></tr>";
+                });
+            }
+        }
+    });
+
+    tableHTML += "</tbody></table>";
+    outputDiv.innerHTML = tableHTML;
+} else {
+    outputDiv.innerHTML = "<p>Nenhum resultado encontrado.</p>";
+}
+
+
 }
 /* essa função faz exencialmente a mesma coisa da updateFilteredData()
 function displayFilteredData(data) {
