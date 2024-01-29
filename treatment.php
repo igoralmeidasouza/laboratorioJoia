@@ -240,16 +240,59 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (isset($_POST['client']) && !empty($_POST['client'])) {
             $clientId = $_POST['client'];
             // Prepara a consulta SQL com cláusula WHERE para filtrar por data e cliente
-            $sql = "SELECT * FROM saleshistory WHERE sale_date BETWEEN '$startDate' AND '$endDate' AND client_id = $clientId";
+            $sql = "SELECT saleshistory.*, clients.client_name, clients.debit_amount, 
+                    salesdetails.quantity, salesdetails.price, salesdetails.observation,
+                    products.product_name
+                    FROM saleshistory
+                    LEFT JOIN clients ON saleshistory.client_id = clients.client_id
+                    LEFT JOIN salesdetails ON saleshistory.sale_id = salesdetails.sale_id
+                    LEFT JOIN products ON salesdetails.product_id = products.product_id
+                    WHERE saleshistory.sale_date BETWEEN '$startDate' AND '$endDate' 
+                    AND saleshistory.client_id = $clientId";
+    
+             // Consulta para obter os pagamentos
+            $paymentsQuery = "SELECT * FROM clientpayments WHERE payment_date BETWEEN '$startDate' AND '$endDate' AND client_id = $clientId";
+            
         } else {
             // Caso não tenha filtro de cliente, consulta apenas por data
-            $sql = "SELECT * FROM saleshistory WHERE sale_date BETWEEN '$startDate' AND '$endDate'";
+            $sql = "SELECT saleshistory.*, clients.client_name, clients.debit_amount, 
+                    salesdetails.quantity, salesdetails.price, salesdetails.observation,
+                    products.product_name
+                    FROM saleshistory
+                    LEFT JOIN clients ON saleshistory.client_id = clients.client_id
+                    LEFT JOIN salesdetails ON saleshistory.sale_id = salesdetails.sale_id
+                    LEFT JOIN products ON salesdetails.product_id = products.product_id
+                    WHERE saleshistory.sale_date BETWEEN '$startDate' AND '$endDate'";
         }
+    
         // Executa a consulta
+        $paymentsResult = $conn->query($paymentsQuery);
         $result = $conn->query($sql);
+        $filteredData = [];
+        if ($paymentsResult) {
+            // Inicializa um array para armazenar os dados dos pagamentos
+            $paymentsData = [];
+        
+            // Processa os resultados dos pagamentos
+            while ($paymentRow = $paymentsResult->fetch_assoc()) {
+                $paymentsData[] = [
+                    'payment_id' => $paymentRow['payment_id'],
+                    'payment_date' => $paymentRow['payment_date'],
+                    'amount' => $paymentRow['amount'],
+                    'type_of_payment' => $paymentRow['type_of_payment'],
+                    // Adicione outros campos conforme necessário
+                ];
+            }
+        
+            // Libera os resultados da consulta de pagamentos
+            $paymentsResult->free();
+        
+            // Adiciona os dados dos pagamentos ao array final
+            $filteredData['payments'] = $paymentsData;
         // Verifica se a consulta foi bem-sucedida
+        }
         if ($result) {
-            $filteredData = [];
+            
     
             // Processa os resultados
             while ($row = $result->fetch_assoc()) {

@@ -563,7 +563,8 @@ function getFilteredData() {
                     console.error('Erro na consulta: ' + response.error);
                 } else {
                     // Exiba os dados filtrados (você pode ter uma função separada para isso)
-                    displayFilteredData(response);
+                    //displayFilteredData(response); esse está sem utilização no momento
+                    updateFilteredData(response);
                 }
             } else {
                 // Trate o erro de solicitação
@@ -581,7 +582,36 @@ function updateFilteredData(data) {
     // Ajuste esta função para atualizar a sua página com os resultados
     let outputDiv = document.getElementById("filteredData");
     outputDiv.innerHTML = "<h3>Resultados da Consulta</h3>";
+    console.log(data); //esse console.log mostra a estrutura completa do object no console, vai ser o array que aparece
+      // Extrair dados da primeira venda
+    let firstSale = data[0];
 
+    // Acessar propriedades da primeira venda
+    let saleId = firstSale.sale_id;
+    let clientId = firstSale.client_id;
+    let saleDate = firstSale.sale_date;
+    // ... outras propriedades da venda
+
+    // Exibir os dados
+    console.log(`ID da venda: ${saleId}`);
+    console.log(`ID do cliente: ${clientId}`);
+    console.log(`Data da venda: ${saleDate}`);
+      // Extrair dados do primeiro pagamento
+    let firstPayment = data.payments[0];
+
+    // Acessar propriedades do primeiro pagamento
+    let paymentId = firstPayment.payment_id;
+    let paymentDate = firstPayment.payment_date;
+    let amount = firstPayment.amount;
+    let typeOfPayment = firstPayment.type_of_payment;
+
+    // Exibir os dados
+    console.log(`ID do pagamento: ${paymentId}`);
+    console.log(`Data do pagamento: ${paymentDate}`);
+    console.log(`Valor do pagamento: ${amount}`);
+    console.log(`Tipo de pagamento: ${typeOfPayment}`);
+
+  // ... exibir outras propriedades da venda
     if (data && data.length > 0) {
         // Exemplo: Exibindo os resultados em uma tabela
         let tableHTML = "<table><thead><tr><th>ID</th><th>Data</th><th>Total</th></tr></thead><tbody>";
@@ -591,18 +621,18 @@ function updateFilteredData(data) {
         });
 
         tableHTML += "</tbody></table>";
-        outputDiv.innerHTML += tableHTML;
+        outputDiv.innerHTML = tableHTML;
     } else {
-        outputDiv.innerHTML += "<p>Nenhum resultado encontrado.</p>";
+        outputDiv.innerHTML = "<p>Nenhum resultado encontrado.</p>";
     }
 }
-
+/* essa função faz exencialmente a mesma coisa da updateFilteredData()
 function displayFilteredData(data) {
     // Implement your logic to display the data in the HTML
     // For example, you can update the content of a div with the id "filteredData"
     document.getElementById("filteredData").innerHTML = JSON.stringify(data);
 }
-
+*/
 function displayCowsay() {
     let cowsayResponse = `
 _________________
