@@ -181,22 +181,29 @@ body main {background-color: #ffffff; display: flex; width: 100%; max-width: 132
 
                             body main .bemVindo .vitrine .formularios .formularioRealizarVenda .tabelaCarrinho .botaoVendas {width: 100%; max-width: 300px; margin: 0 auto;}
 
-                /* sessão - conteudo do carrinho*/
+                /* sessão - extrato */
                 body main .bemVindo .vitrine .formularios .formularioExtrato {width: 90%;}
-                body main .bemVindo .vitrine .formularios .formularioExtrato .inputMesmaLinha .containerInputLabel {position: relative; display: flex; margin-right: 17px; width: 100%;}
-                body main .bemVindo .vitrine .formularios .formularioExtrato .inputMesmaLinha .containerInputLabel:nth-child(1) {width: 100%; max-width: 300px;}
-                body main .bemVindo .vitrine .formularios .formularioExtrato .inputMesmaLinha .containerInputLabel:nth-child(2) {width: 100%; max-width: 150px;}
-                body main .bemVindo .vitrine .formularios .formularioExtrato .inputMesmaLinha .containerInputLabel:nth-child(3) {width: 100%; max-width: 150px;}
+                    body main .bemVindo .vitrine .formularios .formularioExtrato .inputMesmaLinha {padding-bottom: 25px; border-bottom: solid 1px lightgrey;}
+                        body main .bemVindo .vitrine .formularios .formularioExtrato .inputMesmaLinha .containerInputLabel {position: relative; display: flex; margin-right: 17px; width: 100%;}
+                        body main .bemVindo .vitrine .formularios .formularioExtrato .inputMesmaLinha .containerInputLabel:nth-child(1) {width: 100%; max-width: 300px;}
+                        body main .bemVindo .vitrine .formularios .formularioExtrato .inputMesmaLinha .containerInputLabel:nth-child(2) {width: 100%; max-width: 150px;}
+                        body main .bemVindo .vitrine .formularios .formularioExtrato .inputMesmaLinha .containerInputLabel:nth-child(3) {width: 100%; max-width: 150px;}
 
-                    body main .bemVindo .vitrine .formularios .formularioExtrato .inputMesmaLinha .containerInputLabel label {position: absolute; left: 3px; top: -6px;}
-                    body main .bemVindo .vitrine .formularios .formularioExtrato .inputMesmaLinha .containerInputLabel input {width: 100%;}
-                        body main .bemVindo .vitrine .formularios .formularioExtrato .inputMesmaLinha .containerInputLabel input:first-child:focus {width: 100%;}
-                        body main .bemVindo .vitrine .formularios .formularioExtrato .inputMesmaLinha .containerInputLabel input:focus + label, 
-                        body main .bemVindo .vitrine .formularios .formularioExtrato .inputMesmaLinha .containerInputLabel input:not(:placeholder-shown) + label {top: -6px; opacity: 1; visibility: visible;}
-                
-                body main .bemVindo .vitrine .formularios .formularioExtrato .inputMesmaLinha button {width: 200px;}
+                            body main .bemVindo .vitrine .formularios .formularioExtrato .inputMesmaLinha .containerInputLabel label {position: absolute; left: 3px; top: -6px;}
+                            body main .bemVindo .vitrine .formularios .formularioExtrato .inputMesmaLinha .containerInputLabel input {width: 100%;}
+                                body main .bemVindo .vitrine .formularios .formularioExtrato .inputMesmaLinha .containerInputLabel input:first-child:focus {width: 100%;}
+                                body main .bemVindo .vitrine .formularios .formularioExtrato .inputMesmaLinha .containerInputLabel input:focus + label, 
+                                body main .bemVindo .vitrine .formularios .formularioExtrato .inputMesmaLinha .containerInputLabel input:not(:placeholder-shown) + label {top: -6px; opacity: 1; visibility: visible;}
+                        
+                        body main .bemVindo .vitrine .formularios .formularioExtrato .inputMesmaLinha button {width: 200px; margin-bottom: 10px;}
 
-        /* pagina de impressão - about:blank */
+
+
+
+
+
+
+        /* pagina de impressão - about:blank - nova guia */
         body main .impressaoContainer {display: flex; margin: 20 auto; width: 100%; max-width: 900px; justify-content: center;}
             body main .impressaoContainer .impressaoTabela {display: flex; flex-direction: column; font-family: 'Ubuntu'; width: 100%; color: #101A28;}
 
