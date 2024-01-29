@@ -627,7 +627,7 @@ function updateFilteredData(data) {
     outputDiv.innerHTML = "<h3>Resultados da Consulta</h3>";
 
     // Adiciona o cabeçalho fora do loop
-    let tableHTML = "<table><thead><tr><th>ID</th><th>Data</th><th>Observação</th><th>Produtos</th><th>Preço(U)</th><th>Total</th><th>Saldo</th></tr></thead><tbody>";
+    let tableHTML = "<table><tr><th>ID</th><th>Data</th><th>Observação</th><th>Produtos</th><th>Preço (u)</th><th>Total</th><th>Saldo</th></tr>";
 
     dataArray.forEach(function(row) {
         // Verifica se é um pagamento ou um pedido
@@ -647,7 +647,7 @@ function updateFilteredData(data) {
         }
     });
 
-    tableHTML += "</tbody></table>";
+    tableHTML += "</table>";
     outputDiv.innerHTML += tableHTML;
 } else {
     outputDiv.innerHTML = "<p>Nenhum resultado encontrado.</p>";
