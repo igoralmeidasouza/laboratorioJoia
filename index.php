@@ -327,7 +327,7 @@
             <div class="vitrine vitrineCadastrarProdutos desativada">
                 <div class="formularios">
                     <p>Cadastrar produtos</p>
-                    <form action="index.php" name="cadastrar_produtos" method="POST" class="formularioGeral formularioExtrato">
+                    <form action="index.php" name="cadastrar_produtos" method="POST" class="formularioGeral formularioCadastrarProduos">
                         <input type="text" id="product_name" name="product_name" placeholder="Nome do Produto" required>
                         <label for="product_name">Nome do Produto</label>
 
