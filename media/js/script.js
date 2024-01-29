@@ -589,12 +589,7 @@ function getFilteredData() {
 function updateFilteredData(data) {
     // Ajuste esta função para atualizar a sua página com os resultados
     let outputDiv = document.getElementById("filteredData");
-    outputDiv.innerHTML = "<h3>Resultados da Consulta</h3>";
-    let dataArray = Object.values(data)
-    console.log(data);
-    console.log(typeof data);
-    console.log(Array.isArray(data));
-    /*
+    outputDiv.innerHTML = "<span>Resultados da Consulta</span>";
     console.log(data); //esse console.log mostra a estrutura completa do object no console, vai ser o array que aparece
       // Extrair dados da primeira venda
     let firstSale = data[0];
@@ -648,13 +643,11 @@ if (Array.isArray(dataArray) && dataArray.length > 0) {
         }
     });
 
-    tableHTML += "</tbody></table>";
-    outputDiv.innerHTML = tableHTML;
-} else {
-    outputDiv.innerHTML = "<p>Nenhum resultado encontrado.</p>";
-}
-
-
+        tableHTML += "</tbody></table>";
+        outputDiv.innerHTML = tableHTML;
+    } else {
+        outputDiv.innerHTML = "<p>Nenhum resultado encontrado.</p>";
+    }
 }
 /* essa função faz exencialmente a mesma coisa da updateFilteredData()
 function displayFilteredData(data) {

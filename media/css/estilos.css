@@ -181,31 +181,53 @@ body main {background-color: #ffffff; display: flex; width: 100%; max-width: 132
 
                             body main .bemVindo .vitrine .formularios .formularioRealizarVenda .tabelaCarrinho .botaoVendas {width: 100%; max-width: 300px; margin: 0 auto;}
 
-    /* pagina de impressão - about:blank */
-    main .impressaoContainer {display: flex; margin: 20 auto; width: 100%; max-width: 900px; justify-content: center;}
-        main .impressaoContainer .impressaoTabela {display: flex; flex-direction: column; font-family: 'Ubuntu'; width: 100%; color: #101A28;}
+                /* sessão - extrato */
+                body main .bemVindo .vitrine .formularios .formularioExtrato {width: 90%;}
+                    body main .bemVindo .vitrine .formularios .formularioExtrato .inputMesmaLinha {padding-bottom: 25px; border-bottom: solid 1px lightgrey;}
+                        body main .bemVindo .vitrine .formularios .formularioExtrato .inputMesmaLinha .containerInputLabel {position: relative; display: flex; margin-right: 17px; width: 100%;}
+                        body main .bemVindo .vitrine .formularios .formularioExtrato .inputMesmaLinha .containerInputLabel:nth-child(1) {width: 100%; max-width: 300px;}
+                        body main .bemVindo .vitrine .formularios .formularioExtrato .inputMesmaLinha .containerInputLabel:nth-child(2) {width: 100%; max-width: 150px;}
+                        body main .bemVindo .vitrine .formularios .formularioExtrato .inputMesmaLinha .containerInputLabel:nth-child(3) {width: 100%; max-width: 150px;}
 
-            main .impressaoContainer .impressaoTabela .dadosVenda {display: flex; border-bottom: 1px solid lightgrey; justify-content: space-between; padding-bottom: 20px;}
-                main .impressaoContainer .impressaoTabela .dadosVenda p {font-size: 20px; text-transform: capitalize;}
+                            body main .bemVindo .vitrine .formularios .formularioExtrato .inputMesmaLinha .containerInputLabel label {position: absolute; left: 3px; top: -6px;}
+                            body main .bemVindo .vitrine .formularios .formularioExtrato .inputMesmaLinha .containerInputLabel input {width: 100%;}
+                                body main .bemVindo .vitrine .formularios .formularioExtrato .inputMesmaLinha .containerInputLabel input:first-child:focus {width: 100%;}
+                                body main .bemVindo .vitrine .formularios .formularioExtrato .inputMesmaLinha .containerInputLabel input:focus + label, 
+                                body main .bemVindo .vitrine .formularios .formularioExtrato .inputMesmaLinha .containerInputLabel input:not(:placeholder-shown) + label {top: -6px; opacity: 1; visibility: visible;}
+                        
+                        body main .bemVindo .vitrine .formularios .formularioExtrato .inputMesmaLinha button {width: 200px; margin-bottom: 10px;}
 
-            main .impressaoContainer .impressaoTabela .dadosContainer {display: flex; justify-content: space-between; padding: 15px 0; margin-bottom: 10px; font-size: 16px; font-family: 'Open Sans'; border-bottom: 1px solid lightgrey;}
 
-            main .impressaoContainer .impressaoTabela .pacienteContainer {color: #2d6ead; font-weight: 600; font-family: 'Readex Pro';}
 
-            main .impressaoContainer .impressaoTabela .tabelaExtrato {margin: 25px 0;}
-                main .impressaoContainer .impressaoTabela .tabelaExtrato tbody tr th, 
-                main .impressaoContainer .impressaoTabela .tabelaExtrato tbody tr td {font-size: 20px; padding: 2px 10px; text-align: center; border-bottom: solid 1px #4293E0;}
-                
-                    main .impressaoContainer .impressaoTabela .tabelaExtrato tbody tr th:first-child, 
-                    main .impressaoContainer .impressaoTabela .tabelaExtrato tbody tr td:first-child {text-align: left;}
 
-                    main .impressaoContainer .impressaoTabela .tabelaExtrato tbody tr th:last-child, 
-                    main .impressaoContainer .impressaoTabela .tabelaExtrato tbody tr td:last-child {text-align: right;}
 
-            main .impressaoContainer .impressaoTabela .saldoClientContainer {display: flex; flex-direction: column; align-items: flex-end;}
-                main .impressaoContainer .impressaoTabela .saldoClientContainer span {width: 100%; display: flex; font-size: 20px; justify-content: flex-end; border-top: 1px solid lightgrey; padding: 10px 0}
-                    main .impressaoContainer .impressaoTabela .saldoClientContainer span:first-child {padding-bottom: 20px; border-top: none; padding-top: 0;}
-                    main .impressaoContainer .impressaoTabela .saldoClientContainer span em {display: flex; flex-direction: row; width: 100%; max-width: 132px; justify-content: flex-end;}
+
+
+        /* pagina de impressão - about:blank - nova guia */
+        body main .impressaoContainer {display: flex; margin: 20 auto; width: 100%; max-width: 900px; justify-content: center;}
+            body main .impressaoContainer .impressaoTabela {display: flex; flex-direction: column; font-family: 'Ubuntu'; width: 100%; color: #101A28;}
+
+                body main .impressaoContainer .impressaoTabela .dadosVenda {display: flex; border-bottom: 1px solid lightgrey; justify-content: space-between; padding-bottom: 20px;}
+                    body main .impressaoContainer .impressaoTabela .dadosVenda p {font-size: 20px; text-transform: capitalize;}
+
+                body main .impressaoContainer .impressaoTabela .dadosContainer {display: flex; justify-content: space-between; padding: 15px 0; margin-bottom: 10px; font-size: 16px; font-family: 'Open Sans'; border-bottom: 1px solid lightgrey;}
+
+                body main .impressaoContainer .impressaoTabela .pacienteContainer {color: #2d6ead; font-weight: 600; font-family: 'Readex Pro';}
+
+                body main .impressaoContainer .impressaoTabela .tabelaExtrato {margin: 25px 0;}
+                    body main .impressaoContainer .impressaoTabela .tabelaExtrato tbody tr th, 
+                    body main .impressaoContainer .impressaoTabela .tabelaExtrato tbody tr td {font-size: 20px; padding: 2px 10px; text-align: center; border-bottom: solid 1px #4293E0;}
+                    
+                        body main .impressaoContainer .impressaoTabela .tabelaExtrato tbody tr th:first-child, 
+                        body main .impressaoContainer .impressaoTabela .tabelaExtrato tbody tr td:first-child {text-align: left;}
+
+                        body main .impressaoContainer .impressaoTabela .tabelaExtrato tbody tr th:last-child, 
+                        body main .impressaoContainer .impressaoTabela .tabelaExtrato tbody tr td:last-child {text-align: right;}
+
+                body main .impressaoContainer .impressaoTabela .saldoClientContainer {display: flex; flex-direction: column; align-items: flex-end;}
+                    body main .impressaoContainer .impressaoTabela .saldoClientContainer span {width: 100%; display: flex; font-size: 20px; justify-content: flex-end; border-top: 1px solid lightgrey; padding: 10px 0}
+                        body main .impressaoContainer .impressaoTabela .saldoClientContainer span:first-child {padding-bottom: 20px; border-top: none; padding-top: 0;}
+                        body main .impressaoContainer .impressaoTabela .saldoClientContainer span em {display: flex; flex-direction: row; width: 100%; max-width: 132px; justify-content: flex-end;}
 
                             
 
