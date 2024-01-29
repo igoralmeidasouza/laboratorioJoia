@@ -362,23 +362,28 @@
 
                 <div class="formularios">
                     <p>Extrato</p>
-                    <form name="extratoFinal" class="formularioGeral formularioCadastrarProdutos" id="extratoForm">
+                    <form name="extratoFinal" class="formularioGeral formularioExtrato" id="extratoForm">
+                        <div class="inputMesmaLinha">
+                            <div class="containerInputLabel">
+                                <select id="clientDropdown" name="client">
+                                    <!-- Opções do dropdown podem ser preenchidas dinamicamente a partir do PHP -->
+                                </select>
+                                <label for="client">Cliente</label>
+                            </div>
 
-                        <input type="date" id="startDate" name="startDate" required>
-                        <label for="startDate">Data de Início:</label>
+                            <div class="containerInputLabel">
+                                <input type="date" id="startDate" name="startDate" required>
+                                <label for="startDate">Data de Início</label>
+                            </div>
 
-                        <input type="date" id="endDate" name="endDate" required>
-                        <label for="endDate">Data de Término:</label>
-                        
-                            <!-- Adicionando o filtro de cliente -->
-                        <select id="clientDropdown" name="client">
-                            <!-- Opções do dropdown podem ser preenchidas dinamicamente a partir do PHP -->
-                        </select>
-                        <label for="client">Cliente:</label>
+                            <div class="containerInputLabel">
+                                <input type="date" id="endDate" name="endDate" required>
+                                <label for="endDate">Data de Término</label>
+                            </div>
+                            
 
-                        <button name="extratoFinal" type="button" onclick="getFilteredData()">Filtrar</button>
-
-                        <!-- Aqui você pode exibir a tabela com os dados filtrados -->
+                            <button name="extratoFinal" type="button" onclick="getFilteredData()">Filtrar</button>
+                        </div>
                         <div id="filteredData">
                             <!-- Os dados filtrados serão exibidos aqui -->
                         </div>
