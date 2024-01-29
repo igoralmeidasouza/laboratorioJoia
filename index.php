@@ -363,7 +363,6 @@
                 <div class="formularios">
                     <p>extrato</p>
                     <form name="extratoFinal" class="formularioGeral formularioCadastrarProdutos" id="extratoForm">
-                        <h2>Extrato com Filtro</h2>
 
                         <input type="date" id="startDate" name="startDate" required>
                         <label for="startDate">Data de Início:</label>
