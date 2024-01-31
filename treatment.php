@@ -76,34 +76,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     elseif (isset($_POST['paymentform'])) {
         // Check for the specific action based on the provided key
         if (isset($_POST['update_payment'])) {
-            // Handle payment update logic
             $client_id_payment = $_POST['client_id_payment'];
             $payment_date = $_POST['payment_date'];
             $amount = $_POST['amount'];
             $type_of_payment = $_POST['type_of_payment'];
-
-            // Retira o "R$" e ajusta as pontuações para o banco de dados ficar no formato de number.
-            $formattedValue = str_replace (".", "", $amount);
+    
+            // Retira o "R$" e ajusta as pontuações para o banco de dados ficar no formato de número.
+            $formattedValue = str_replace(".", "", $amount);
             $formattedValue = str_replace(",", ".", $formattedValue);
             $formattedValue = substr($formattedValue, 4);
-
+    
             $conn->begin_transaction();
     
-            // Step 1: Update clientpayments
-            $sql_payment = "INSERT INTO clientpayments (client_id, payment_date, amount, type_of_payment) 
-                            VALUES ('$client_id_payment', '$payment_date', '$formattedValue', '$type_of_payment')";
+            // Consulta para obter o débito atual do cliente antes do pagamento
+            $client_debt_result = $conn->query("SELECT debit_amount FROM clients WHERE client_id = '$client_id_payment'");
+            $client_debt_row = $client_debt_result->fetch_assoc();
+            $saldo_anterior = $client_debt_row['debit_amount'];
+    
+            // Calcula o novo débito após o pagamento
+            $saldo_atual = $saldo_anterior - $formattedValue;
+    
+            // Insere o novo pagamento com saldos atual e anterior
+            $sql_payment = "INSERT INTO clientpayments (client_id, payment_date, amount, type_of_payment, saldo_anterior, saldo_atual) 
+                            VALUES ('$client_id_payment', '$payment_date', '$formattedValue', '$type_of_payment', '$saldo_anterior', '$saldo_atual')";
             $conn->query($sql_payment);
     
-            // Step 2: Deduct payment amount from client's debit_amount in clients table
-            $sql_discount_debit = "UPDATE clients SET debit_amount = debit_amount - '$formattedValue' WHERE client_id = '$client_id_payment'";
+            // Atualiza o débito atual do cliente na tabela clients
+            $sql_discount_debit = "UPDATE clients SET debit_amount = '$saldo_atual' WHERE client_id = '$client_id_payment'";
             $conn->query($sql_discount_debit);
     
             // Commit the transaction
             $conn->commit();
     
-            //echo "Payment updated successfully";
             $resultadoPositivo = "Conta atualizada com sucesso!";
-
         } elseif (isset($_POST['get_client_debt'])) {
             // Handle the request to get client debt
             $client_id = $_POST['client_id'];
@@ -118,14 +123,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo "N/A";
             }
         } else {
-            // Handle other cases or show an error
-            // echo "Invalid request";
-            $resultadoNegativo = "Requisição invalida.";
+            $resultadoNegativo = "Requisição inválida.";
         }
     
         // Close the database connection
         $conn->close();
     }
+    
+    
 
     elseif (isset($_POST['get_clients'])) {
         // Query the database to get client options
@@ -191,27 +196,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $total = $data['total'];
         $cartItems = $data['cart'];
     
+        // Fetching the current debit amount before the sale
+        $fetchDebitQuery = "SELECT debit_amount FROM clients WHERE client_id = $selectedClient";
+        $resultDebit = $conn->query($fetchDebitQuery);
+        $debitAmountBeforeSale = $resultDebit->fetch_assoc()['debit_amount'];
+    
         // Your existing logic for inserting data into the database
-        $insertHistoryQuery = "INSERT INTO saleshistory (client_id, sale_date, total_amount) VALUES ($selectedClient, NOW(), $total)";
+        $insertHistoryQuery = "INSERT INTO saleshistory (client_id, sale_date, total_amount, saldo_anterior, debito) 
+                               VALUES ($selectedClient, NOW(), $total, $debitAmountBeforeSale, $debitAmountBeforeSale + $total)";
         $conn->query($insertHistoryQuery);
         $saleId = $conn->insert_id;
-        //echo "Last Inserted sale_id: " . $saleId . "<br>";
-        
-
+    
         // Iterar sobre os itens do carrinho e adicionar à tabela de detalhes de vendas (salesdetails)
         foreach ($cartItems as $cartItem) {
             $productId = $cartItem['product'];
             $itemQuantity = $cartItem['quantity'];
             $itemTotal = $cartItem['total'];
-
-            $insertDetailsQuery = "INSERT INTO salesdetails (sale_id, product_id, quantity, price, observation) VALUES ($saleId, $productId, $itemQuantity, $itemTotal, '$selectedPaciente')";
+    
+            $insertDetailsQuery = "INSERT INTO salesdetails (sale_id, product_id, quantity, price, observation) 
+                                   VALUES ($saleId, $productId, $itemQuantity, $itemTotal, '$selectedPaciente')";
             $conn->query($insertDetailsQuery);
         }
-
+    
         // Atualizar o débito do cliente na tabela de clientes (clients)
         $updateClientQuery = "UPDATE clients SET debit_amount = debit_amount + $total WHERE client_id = $selectedClient";
         $conn->query($updateClientQuery);
-
+    
         // Example: Fetch client data from the database
         $fetchClientQuery = "SELECT * FROM clients WHERE client_id = $selectedClient";
         $result = $conn->query($fetchClientQuery);
@@ -227,30 +237,43 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
         // Example: Respond with a success message and the modified data
         echo json_encode(['success' => true, 'data' => $data]);
-
     } elseif (isset($_POST['startDate'])) {
         // Coloque aqui a lógica para processar a consulta do extrato com filtro
         // Certifique-se de validar e sanitizar as entradas do usuário, como as datas
-        
-        $startDate = $_POST['startDate'];
-        $endDate = $_POST['endDate'];
-        
+    
+        $startDate = $_POST['startDate'] . ' 00:00:00';
+        $endDate = $_POST['endDate'] . ' 23:59:59';
+    
         // Verifica se o filtro de cliente foi enviado
         if (isset($_POST['client']) && !empty($_POST['client'])) {
             $clientId = $_POST['client'];
-            // Prepara a consulta SQL com cláusula WHERE para filtrar por data e cliente
-            $sql = "SELECT saleshistory.*, clients.client_name, clients.debit_amount, 
-                    salesdetails.quantity, salesdetails.price, salesdetails.observation,
-                    products.product_name
-                    FROM saleshistory
-                    LEFT JOIN clients ON saleshistory.client_id = clients.client_id
-                    LEFT JOIN salesdetails ON saleshistory.sale_id = salesdetails.sale_id
-                    LEFT JOIN products ON salesdetails.product_id = products.product_id
-                    WHERE saleshistory.sale_date BETWEEN '$startDate' AND '$endDate' 
-                    AND saleshistory.client_id = $clientId";
-    
-             // Consulta para obter os pagamentos
-            $paymentsQuery = "SELECT * FROM clientpayments WHERE payment_date BETWEEN '$startDate' AND '$endDate' AND client_id = $clientId";
+            // Prepara a consulta SQL com cláusula WHERE para filtrar por data, cliente e cliente
+            $sql = "SELECT 
+                saleshistory.*, 
+                clients.client_name, 
+                clients.debit_amount, 
+                salesdetails.quantity, 
+                salesdetails.price, 
+                salesdetails.observation,
+                products.product_name,
+                saleshistory.saldo_anterior,
+                saleshistory.debito
+            FROM saleshistory
+            LEFT JOIN clients ON saleshistory.client_id = clients.client_id
+            LEFT JOIN salesdetails ON saleshistory.sale_id = salesdetails.sale_id
+            LEFT JOIN products ON salesdetails.product_id = products.product_id
+            WHERE saleshistory.sale_date BETWEEN '$startDate' AND '$endDate' AND saleshistory.client_id = $clientId";
+            
+            // Consulta para obter os pagamentos
+            $paymentsQuery = "SELECT 
+                clientpayments.payment_id,
+                clientpayments.payment_date,
+                clientpayments.amount,
+                clientpayments.type_of_payment AS observation,
+                clientpayments.saldo_anterior,
+                clientpayments.saldo_atual
+            FROM clientpayments
+            WHERE clientpayments.payment_date BETWEEN '$startDate' AND '$endDate' AND clientpayments.client_id = $clientId";
             
         } else {
             // Caso não tenha filtro de cliente, consulta apenas por data
@@ -264,35 +287,40 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     WHERE saleshistory.sale_date BETWEEN '$startDate' AND '$endDate'";
         }
     
+        // Adiciona a cláusula ORDER BY para ordenar por data descendente
+        $sql .= " ORDER BY saleshistory.sale_date DESC";
+        $paymentsQuery .= " ORDER BY clientpayments.payment_date ASC";
+    
         // Executa a consulta
         $paymentsResult = $conn->query($paymentsQuery);
         $result = $conn->query($sql);
         $filteredData = [];
+    
         if ($paymentsResult) {
             // Inicializa um array para armazenar os dados dos pagamentos
             $paymentsData = [];
-        
+    
             // Processa os resultados dos pagamentos
             while ($paymentRow = $paymentsResult->fetch_assoc()) {
                 $paymentsData[] = [
                     'payment_id' => $paymentRow['payment_id'],
                     'payment_date' => $paymentRow['payment_date'],
                     'amount' => $paymentRow['amount'],
-                    'type_of_payment' => $paymentRow['type_of_payment'],
+                    'type_of_payment' => $paymentRow['observation'],
+                    'saldo_anterior' => $paymentRow['saldo_anterior'],
+                    'debito' => $paymentRow['saldo_atual'],
                     // Adicione outros campos conforme necessário
                 ];
             }
-        
+    
             // Libera os resultados da consulta de pagamentos
             $paymentsResult->free();
-        
+    
             // Adiciona os dados dos pagamentos ao array final
             $filteredData['payments'] = $paymentsData;
-        // Verifica se a consulta foi bem-sucedida
         }
-        if ($result) {
-            
     
+        if ($result) {
             // Processa os resultados
             while ($row = $result->fetch_assoc()) {
                 $filteredData[] = $row;
@@ -308,15 +336,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo json_encode(['error' => 'Erro na consulta']);
         }
     } else {
-        // Return an error for unknown request
-        header('Content-Type: application/json; charset=utf-8');
-        echo json_encode(['success' => false, 'error' => 'Invalid request']);
-    }
-    
-    
-} else {
     // Return an error for unsupported request method
     //echo json_encode(['error' => 'Unsupported request method']); erro trol
+}
+
 }
 function formatPrice($price) {
     // Remove non-numeric characters and convert to float

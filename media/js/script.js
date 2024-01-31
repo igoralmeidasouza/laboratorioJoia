@@ -592,10 +592,12 @@ function updateFilteredData(data) {
     let dataArray = Object.values(data);
 
     // Inicializa a string HTML da tabela
-    let tableHTML = "<table><thead><tr><th>ID</th><th>Data</th><th>Observação</th><th>Produtos</th><th>Preço (U)</th><th>Total</th><th>Saldo</th></tr></thead><tbody>";
+    let tableHTML = "<table><thead><tr><th>ID</th><th>Data</th><th>Observação</th><th>Produtos</th><th>Preço (U)</th><th>Total</th><th>Saldo Anterior</th><th>Saldo Atual</th></tr></thead><tbody>";
 
     // Cria um objeto para rastrear pedidos agrupados por sale_id
     let groupedOrders = {};
+// Ordena todos os registros (pedidos e pagamentos) por data em ordem decrescente
+    let allRecords = [...data.payments, ...Object.values(groupedOrders)].sort((a, b) => new Date(b.sale_date || b.payment_date) - new Date(a.sale_date || a.payment_date));
 
     // Loop através dos dados e agrupa os pedidos pelo sale_id
     for (let key in dataArray) {
@@ -621,43 +623,68 @@ function updateFilteredData(data) {
                         quantity: dataArray[key].quantity,
                     }],
                     total_amount: dataArray[key].total_amount,
-                    debit_amount: dataArray[key].debit_amount,
+                    saldo_anterior: dataArray[key].saldo_anterior,
+                    debito: dataArray[key].debito,
                 };
             }
         }
     }
 
-    // Loop através dos pedidos agrupados e adiciona as linhas à tabela
-    for (let saleId in groupedOrders) {
-        if (groupedOrders.hasOwnProperty(saleId)) {
-            let order = groupedOrders[saleId];
+    // Adiciona os pagamentos à tabela
+    if (data.payments) {
+        for (let i = 0; i < data.payments.length; i++) {
+            let payment = data.payments[i];
 
-            // Adiciona uma nova linha à tabela
+            // Formata a data de pagamento de acordo com o formato local 'pt-BR'
+            let formattedPaymentDate = new Date(payment.payment_date).toLocaleDateString('pt-BR');
+
             tableHTML += "<tr>";
-            tableHTML += "<td>" + order.sale_id + "</td>";
-            tableHTML += "<td>" + order.sale_date + "</td>";
-            tableHTML += "<td>" + order.observation + "</td>";
-
-            // Adiciona os produtos à célula "Produtos"
-            tableHTML += "<td>";
-            for (let i = 0; i < order.products.length; i++) {
-                tableHTML += order.products[i].product_name + "<br>";
-            }
-            tableHTML += "</td>";
-
-            // Adiciona o preço e a quantidade na célula "Preço (U)"
-            tableHTML += "<td>";
-            for (let i = 0; i < order.products.length; i++) {
-                tableHTML += "R$ " + order.products[i].price + " x " + order.products[i].quantity + "<br>";
-            }
-            tableHTML += "</td>";
-
-            // Adiciona o "R$" na frente do valor na célula "Total"
-            tableHTML += "<td>R$ " + order.total_amount + "</td>";
-
-            tableHTML += "<td>" + order.debit_amount + "</td>";
+            tableHTML += "<td>" + payment.payment_id + "</td>";
+            tableHTML += "<td>" + formattedPaymentDate + "</td>";
+            tableHTML += "<td>Pagamento via: " + payment.type_of_payment + "</td>";
+            tableHTML += "<td></td>";  // Coluna 'Produtos' vazia para pagamento
+            tableHTML += "<td></td>";  // Coluna 'Preço (U)' vazia para pagamento
+            tableHTML += "<td> R$ " + payment.amount + "</td>";
+            tableHTML += "<td> R$ " + payment.saldo_anterior + "</td>";
+            tableHTML += "<td> R$ " + payment.debito + "</td>";
             tableHTML += "</tr>";
         }
+    }
+
+    // Ordena os pedidos por data antes de adicioná-los à tabela
+    let orderedOrders = Object.values(groupedOrders).sort((a, b) => new Date(a.sale_date) - new Date(b.sale_date));
+
+    // Loop através dos pedidos agrupados e adiciona as linhas à tabela
+    for (let i = 0; i < orderedOrders.length; i++) {
+        let order = orderedOrders[i];
+
+        // Formata a data do pedido de acordo com o formato local 'pt-BR'
+        let formattedOrderDate = new Date(order.sale_date).toLocaleDateString('pt-BR');
+
+        // Adiciona uma nova linha à tabela
+        tableHTML += "<tr>";
+        tableHTML += "<td>" + order.sale_id + "</td>";
+        tableHTML += "<td>" + formattedOrderDate + "</td>";
+        tableHTML += "<td>" + order.observation + "</td>";
+
+        // Adiciona os produtos à célula "Produtos"
+        tableHTML += "<td>";
+        for (let j = 0; j < order.products.length; j++) {
+            tableHTML += order.products[j].product_name + "<br>";
+        }
+        tableHTML += "</td>";
+
+        // Adiciona o preço e a quantidade na célula "Preço (U)"
+        tableHTML += "<td>";
+        for (let j = 0; j < order.products.length; j++) {
+            tableHTML += "R$ " + order.products[j].price + " x " + order.products[j].quantity + "<br>";
+        }
+        tableHTML += "</td>";
+
+        tableHTML += "<td>R$ " + order.total_amount + "</td>";
+        tableHTML += "<td>R$ " + order.saldo_anterior + "</td>";
+        tableHTML += "<td>R$ " + order.debito + "</td>";
+        tableHTML += "</tr>";
     }
 
     // Fecha a tabela
@@ -666,7 +693,6 @@ function updateFilteredData(data) {
     // Adiciona a tabela ao elemento desejado no DOM (outputDiv no seu caso)
     document.getElementById("filteredData").innerHTML = tableHTML;
 }
-
 
 
 
