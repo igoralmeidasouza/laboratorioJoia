@@ -237,6 +237,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
         // Example: Respond with a success message and the modified data
         echo json_encode(['success' => true, 'data' => $data]);
+
     } elseif (isset($_POST['startDate'])) {
         // Coloque aqui a lógica para processar a consulta do extrato com filtro
         // Certifique-se de validar e sanitizar as entradas do usuário, como as datas
@@ -317,6 +318,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $paymentsResult->free();
     
             // Adiciona os dados dos pagamentos ao array final
+
+
             $filteredData['payments'] = $paymentsData;
         }
     
@@ -325,7 +328,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             while ($row = $result->fetch_assoc()) {
                 $filteredData[] = $row;
             }
-    
+            
             // Libera os resultados
             $result->free();
     
@@ -335,12 +338,88 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Retorna um erro em formato JSON
             echo json_encode(['error' => 'Erro na consulta']);
         }
-    } else {
+    }elseif (isset($_POST['startDateHistorico'])) {
+        // Coloque aqui a lógica para processar a consulta do extrato com filtro
+        // Certifique-se de validar e sanitizar as entradas do usuário, como as datas
+        $startDateHistorico = $_POST['startDateHistorico'] . ' 00:00:00';
+        $endDateHistorico = $_POST['endDateHistorico'] . ' 23:59:59';
+    
+        // Verifica se o filtro de cliente foi enviado
+        $clientId = isset($_POST['clientDropdownHistory']) ? intval($_POST['clientDropdownHistory']) : null;
+    
+        // Prepara a consulta SQL com cláusula WHERE para filtrar por data e, opcionalmente, por cliente
+        $sql = "SELECT 
+                saleshistory.*, 
+                clients.client_name, 
+                clients.debit_amount, 
+                salesdetails.quantity, 
+                salesdetails.price, 
+                salesdetails.observation,
+                products.product_name,
+                saleshistory.saldo_anterior,
+                saleshistory.debito
+            FROM saleshistory
+            LEFT JOIN clients ON saleshistory.client_id = clients.client_id
+            LEFT JOIN salesdetails ON saleshistory.sale_id = salesdetails.sale_id
+            LEFT JOIN products ON salesdetails.product_id = products.product_id
+            WHERE saleshistory.sale_date BETWEEN '$startDateHistorico' AND '$endDateHistorico'";
+    
+        // Adiciona a condição do cliente, se fornecido
+        if (!is_null($clientId)) {
+            $sql .= " AND saleshistory.client_id = $clientId";
+        }
+    
+        // Adiciona a cláusula ORDER BY para ordenar por data descendente
+        $sql .= " ORDER BY saleshistory.sale_date DESC";
+    
+        // Executa a consulta
+        $result = $conn->query($sql);
+        $filteredData = [];
+    
+        if ($result) {
+            // Processa os resultados
+            while ($row = $result->fetch_assoc()) {
+                $saleId = $row['sale_id'];
+    
+                // Cria um array para representar a venda, se ainda não existir
+                if (!isset($filteredData[$saleId])) {
+                    $filteredData[$saleId] = [
+                        'sale_id' => $saleId,
+                        'sale_date' => $row['sale_date'],
+                        'observation' => $row['observation'],
+                        'saldo_anterior' => $row['saldo_anterior'],
+                        'debito' => $row['debito'],
+                        'total_amount' => $row['total_amount'],
+                        'debit_amount' => $row['debit_amount'],
+                        'client_name' => $row['client_name'],
+                        'products' => [],  // Array para armazenar produtos associados à venda
+                    ];
+                }
+    
+                // Adiciona informações do produto ao array de produtos
+                $filteredData[$saleId]['products'][] = [
+                    'product_name' => $row['product_name'],
+                    'quantity' => $row['quantity'],
+                    'price' => $row['price'],
+                ];
+            }
+    
+            // Libera os resultados
+            $result->free();
+    
+            // Retorna os resultados em formato JSON
+            echo json_encode($filteredData);  // Converte array associativo para array numerado
+        } else {
+            // Retorna um erro em formato JSON
+            echo json_encode(['error' => 'Erro na consulta']);
+        }
+    }
+     else {
     // Return an error for unsupported request method
     //echo json_encode(['error' => 'Unsupported request method']); erro trol
+    }
 }
 
-}
 function formatPrice($price) {
     // Remove non-numeric characters and convert to float
     $cleanedPrice = preg_replace("/[^0-9,]/", "", $price); // Remove anything that is not a digit or comma

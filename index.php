@@ -57,7 +57,7 @@
                     <p>Vendas</p>
                     <ul class="subMenu">
                         <li class="subBotao" data-target="vitrineVenda" onclick="controleCarrinho()">Realizar Venda</li>
-                        <li class="subBotao" data-target="vitrineHistoricoDeVenda">Histórico de Venda</li>
+                        <li class="subBotao" data-target="vitrineHistoricoDeVenda" onclick="getClients()">Histórico de Venda</li>
                     </ul>
                 </li>
                 <li class="clientes menu-item desativada tamanhoAtivo">
@@ -156,7 +156,34 @@
             <div class="vitrine vitrineHistoricoDeVenda desativada">
                 <div class="formularios">
                     <p>Histórico de Vendas</p>
-                    <form action="">
+                  
+                    <form name="gistoricoFinal" class="formularioGeral formularioExtrato" id="extratoForm">
+                        <div class="inputMesmaLinha">
+                                <!--
+                                <label for="myCheckbox">Check this box:</label>
+                                <input type="checkbox" id="myCheckbox" name="myCheckbox"> -->
+                                <div class="containerInputLabel">
+                                <select id="clientDropdownHistory" name="clientDropdownHistory">
+                                    <!-- Opções do dropdown podem ser preenchidas dinamicamente a partir do PHP -->
+                                </select>
+                                <label for="clientDropdownHistory">Cliente</label>
+                            </div>
+
+                            <div class="containerInputLabel">
+                                <input type="date" id="startDateHistorico" name="startDateHistorico" required>
+                                <label for="startDateHistorico">Data de Início</label>
+                            </div>
+
+                            <div class="containerInputLabel">
+                                <input type="date" id="endDateHistorico" name="endDateHistorico" required>
+                                <label for="endDateHistorico">Data de Término</label>
+                            </div>
+                            
+                            <button name="historicoFinal" type="button" onclick="getFilteredHistory()">Buscar</button>
+                        </div>
+                        <div id="filteredHistorico">
+                            <!-- Os dados filtrados serão exibidos aqui -->
+                        </div>
                     </form>
                 </div>
             </div>
@@ -381,8 +408,8 @@
                                 <label for="endDate">Data de Término</label>
                             </div>
                             
-
-                            <button name="extratoFinal" type="button" onclick="getFilteredData()">Filtrar</button>
+                            
+                            <button name="extratoFinal" type="button" onclick="getFilteredData()">Buscar</button>
                         </div>
                         <div id="filteredData">
                             <!-- Os dados filtrados serão exibidos aqui -->

@@ -250,6 +250,8 @@ function getClients() {
             // Update the client dropdown with options
             document.getElementById("client").innerHTML = xhr.responseText;
             document.getElementById("clientDropdown").innerHTML = xhr.responseText;
+            document.getElementById("clientDropdownHistory").innerHTML = xhr.responseText;
+
         }
     };
     xhr.open("POST", "treatment.php", true);
@@ -548,12 +550,16 @@ function getFilteredData() {
     let startDate = document.getElementById("startDate").value;
     let endDate = document.getElementById("endDate").value;
     let selectedClient = document.getElementById("clientDropdown").value;
+    //let validadorFormulario = "1";
+
 
     // Crie um objeto FormData para enviar os dados
     let formData = new FormData();
     formData.append('startDate', startDate);
     formData.append('endDate', endDate);
     formData.append('client', selectedClient);
+    //formData.append('formType', validadorFormulario);
+    //formData.append();
 
     // Crie uma instância XMLHttpRequest
     let xhr = new XMLHttpRequest();
@@ -585,105 +591,101 @@ function getFilteredData() {
     xhr.send(formData);
 }
 
-// Supondo que você já tenha a função updateFilteredData configurada
 
 function updateFilteredData(data) {
     // Converte o objeto data em uma array
-    let dataArray = Object.values(data);
-
+    //let dataArray = Object.values(data);
+    console.log(data);
     // Inicializa a string HTML da tabela
     let tableHTML = "<table><thead><tr><th>ID</th><th>Data</th><th>Observação</th><th>Produtos</th><th>Preço (U)</th><th>Total</th><th>Saldo Anterior</th><th>Saldo Atual</th></tr></thead><tbody>";
 
     // Cria um objeto para rastrear pedidos agrupados por sale_id
     let groupedOrders = {};
-// Ordena todos os registros (pedidos e pagamentos) por data em ordem decrescente
-    let allRecords = [...data.payments, ...Object.values(groupedOrders)].sort((a, b) => new Date(b.sale_date || b.payment_date) - new Date(a.sale_date || a.payment_date));
 
     // Loop através dos dados e agrupa os pedidos pelo sale_id
-    for (let key in dataArray) {
-        if (dataArray.hasOwnProperty(key) && typeof dataArray[key] === 'object' && dataArray[key].length === undefined) {
-            const saleId = dataArray[key].sale_id;
+    for (let key in data) {
+        if (data.hasOwnProperty(key) && typeof data[key] === 'object' && data[key].length === undefined) {
+            const saleId = data[key].sale_id;
 
             // Se o sale_id já existir no objeto, adiciona o produto ao array existente
             if (groupedOrders.hasOwnProperty(saleId)) {
                 groupedOrders[saleId].products.push({
-                    product_name: dataArray[key].product_name,
-                    price: dataArray[key].price,
-                    quantity: dataArray[key].quantity,
+                    product_name: data[key].product_name,
+                    price: data[key].price,
+                    quantity: data[key].quantity,
                 });
             } else {
                 // Se o sale_id não existir, cria uma nova entrada no objeto
                 groupedOrders[saleId] = {
-                    sale_id: dataArray[key].sale_id,
-                    sale_date: dataArray[key].sale_date,
-                    observation: dataArray[key].observation,
+                    sale_id: data[key].sale_id,
+                    sale_date: data[key].sale_date,
+                    observation: data[key].observation,
                     products: [{
-                        product_name: dataArray[key].product_name,
-                        price: dataArray[key].price,
-                        quantity: dataArray[key].quantity,
+                        product_name: data[key].product_name,
+                        price: data[key].price,
+                        quantity: data[key].quantity,
                     }],
-                    total_amount: dataArray[key].total_amount,
-                    saldo_anterior: dataArray[key].saldo_anterior,
-                    debito: dataArray[key].debito,
+                    total_amount: data[key].total_amount,
+                    saldo_anterior: data[key].saldo_anterior,
+                    debito: data[key].debito,
                 };
             }
         }
     }
 
-    // Adiciona os pagamentos à tabela
-    if (data.payments) {
-        for (let i = 0; i < data.payments.length; i++) {
-            let payment = data.payments[i];
 
-            // Formata a data de pagamento de acordo com o formato local 'pt-BR'
-            let formattedPaymentDate = new Date(payment.payment_date).toLocaleDateString('pt-BR');
+    // Mescla os arrays de pagamentos e vendas
+    let allRecords = [...data.payments, ...Object.values(groupedOrders)];
 
-            tableHTML += "<tr>";
-            tableHTML += "<td>" + payment.payment_id + "</td>";
-            tableHTML += "<td>" + formattedPaymentDate + "</td>";
-            tableHTML += "<td>Pagamento via: " + payment.type_of_payment + "</td>";
-            tableHTML += "<td></td>";  // Coluna 'Produtos' vazia para pagamento
-            tableHTML += "<td></td>";  // Coluna 'Preço (U)' vazia para pagamento
-            tableHTML += "<td> R$ " + payment.amount + "</td>";
-            tableHTML += "<td> R$ " + payment.saldo_anterior + "</td>";
-            tableHTML += "<td> R$ " + payment.debito + "</td>";
-            tableHTML += "</tr>";
-        }
-    }
+    // Ordena todos os registros (pedidos e pagamentos) por data em ordem decrescente
+    allRecords.sort((a, b) => new Date(a.sale_date || a.payment_date) - new Date(b.sale_date || b.payment_date));
 
-    // Ordena os pedidos por data antes de adicioná-los à tabela
-    let orderedOrders = Object.values(groupedOrders).sort((a, b) => new Date(a.sale_date) - new Date(b.sale_date));
+    // Loop através dos registros e adiciona as linhas à tabela
+    for (let i = 0; i < allRecords.length; i++) {
+        console.log("entra no for loop");
+        let record = allRecords[i];
 
-    // Loop através dos pedidos agrupados e adiciona as linhas à tabela
-    for (let i = 0; i < orderedOrders.length; i++) {
-        let order = orderedOrders[i];
-
-        // Formata a data do pedido de acordo com o formato local 'pt-BR'
-        let formattedOrderDate = new Date(order.sale_date).toLocaleDateString('pt-BR');
+        // Formata a data do registro de acordo com o formato local 'pt-BR'
+        let formattedRecordDate = new Date(record.sale_date || record.payment_date).toLocaleDateString('pt-BR');
 
         // Adiciona uma nova linha à tabela
         tableHTML += "<tr>";
-        tableHTML += "<td>" + order.sale_id + "</td>";
-        tableHTML += "<td>" + formattedOrderDate + "</td>";
-        tableHTML += "<td>" + order.observation + "</td>";
+        tableHTML += "<td>" + (record.sale_id || record.payment_id) + "</td>";
+        tableHTML += "<td>" + formattedRecordDate + "</td>";
 
-        // Adiciona os produtos à célula "Produtos"
-        tableHTML += "<td>";
-        for (let j = 0; j < order.products.length; j++) {
-            tableHTML += order.products[j].product_name + "<br>";
+        if (record.payment_id !== undefined) {
+            // Se for um pagamento
+            console.log("indefinido, loop de pagamento pagamento");
+            tableHTML += "<td>Pagamento via: " + record.type_of_payment + "</td>";
+            tableHTML += "<td></td>";  // Coluna 'Produtos' vazia para pagamento
+            tableHTML += "<td></td>";  // Coluna 'Preço (U)' vazia para pagamento
+            tableHTML += "<td> R$ " + record.amount + "</td>";
+            tableHTML += "<td> R$ " + record.saldo_anterior + "</td>";
+            tableHTML += "<td> R$ " + record.debito + "</td>";
+        } else {
+            console.log("loop de venda venda");
+            // Se for uma venda
+            tableHTML += "<td>" + record.observation + "</td>";
+
+            // Adiciona os produtos à célula "Produtos"
+            tableHTML += "<td>";
+            for (let j = 0; j < record.products.length; j++) {
+                tableHTML += record.products[j].product_name + "<br>";
+            }
+            tableHTML += "</td>";
+
+            // Adiciona o preço e a quantidade na célula "Preço (U)"
+            tableHTML += "<td>";
+            for (let j = 0; j < record.products.length; j++) {
+                tableHTML += "R$ " + record.products[j].price + " x " + record.products[j].quantity + "<br>";
+            }
+            tableHTML += "</td>";
+
+            tableHTML += "<td>R$ " + record.total_amount + "</td>";
+            tableHTML += "<td>R$ " + record.saldo_anterior + "</td>";
+            tableHTML += "<td>R$ " + record.debito + "</td>";
         }
-        tableHTML += "</td>";
 
-        // Adiciona o preço e a quantidade na célula "Preço (U)"
-        tableHTML += "<td>";
-        for (let j = 0; j < order.products.length; j++) {
-            tableHTML += "R$ " + order.products[j].price + " x " + order.products[j].quantity + "<br>";
-        }
-        tableHTML += "</td>";
-
-        tableHTML += "<td>R$ " + order.total_amount + "</td>";
-        tableHTML += "<td>R$ " + order.saldo_anterior + "</td>";
-        tableHTML += "<td>R$ " + order.debito + "</td>";
         tableHTML += "</tr>";
     }
 
@@ -692,7 +694,121 @@ function updateFilteredData(data) {
 
     // Adiciona a tabela ao elemento desejado no DOM (outputDiv no seu caso)
     document.getElementById("filteredData").innerHTML = tableHTML;
+
+ 
 }
+
+function getFilteredHistory() {
+    // Chama a função para obter a lista de clientes
+
+    let selectedClientHistory = document.getElementById("clientDropdownHistory").value;
+    //let validadorFormulario = "2";
+    let startHistorico = document.getElementById("startDateHistorico").value;
+    let endtHistorico = document.getElementById("endDateHistorico").value;
+
+    // Crie um objeto FormData para enviar os dados
+    let formData = new FormData();
+    formData.append('clientDropdownHistory', selectedClientHistory);
+    //formData.append('formType', validadorFormulario);
+    formData.append('startDateHistorico', startHistorico);
+    formData.append('endDateHistorico', endtHistorico);
+    console.log(formData);
+    //formData.append();
+
+    // Crie uma instância XMLHttpRequest
+    let xhr = new XMLHttpRequest();
+    
+    // Defina a função de retorno de chamada para processar a resposta
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+            if (xhr.status == 200) {
+                // Trate a resposta, se necessário
+                console.log(xhr.responseText);
+                let response = JSON.parse(xhr.responseText);
+                
+
+                if (response.error) {
+                    // Trate o erro, se houver
+                    console.error('Erro na consulta: ' + response.error);
+                } else {
+                    // Exiba os dados filtrados (você pode ter uma função separada para isso)
+                    //displayFilteredData(response); esse está sem utilização no momento
+                    updateFilteredHistory(response);
+                }
+            } else {
+                // Trate o erro de solicitação
+                console.error('Erro na solicitação. Status: ' + xhr.status);
+            }
+        }
+    };
+
+    // Abra a conexão e envie a solicitação para o arquivo PHP
+    xhr.open("POST", "treatment.php", true);
+    xhr.send(formData);
+}
+function updateFilteredHistory(data) {
+    // Supondo que você já tenha a variável $filteredData com os dados do PHP
+    let $filteredData = data;
+    // Inicializa a string HTML da tabela
+    let tableHTML = "<table><thead><tr><th>ID</th><th>Data</th><th>Paciente</th><th>Produto</th><th>Preço (U)</th><th>Qt.</th><th>Preço</th><th>Total</th><th>Saldo Anterior</th><th>Saldo Atual</th></tr></thead><tbody>";
+
+    // Loop através dos IDs de vendas
+    for (let saleId in $filteredData) {
+        if ($filteredData.hasOwnProperty(saleId)) {
+            let saleData = $filteredData[saleId];
+
+            // Verifica se é um objeto válido (ignora o array de pagamentos)
+            if (typeof saleData === 'object' && saleData.products && saleData.products.length > 0) {
+                // Loop através dos produtos
+                for (let i = 0; i < saleData.products.length; i++) {
+                    let product = saleData.products[i];
+                    // Formata a data para o formato pt-BR
+                    let formattedDate = new Intl.DateTimeFormat('pt-BR', { dateStyle: 'short' }).format(new Date(saleData.sale_date));
+
+                    // Adiciona a célula para a Data
+            
+
+                    // Adiciona uma nova linha à tabela apenas na primeira iteração
+                    if (i === 0) {
+                        tableHTML += "<tr>";
+                        tableHTML += "<td>" + saleData.sale_id + "</td>";
+                        tableHTML += "<td>" + formattedDate + "</td>";
+                        tableHTML += "<td>" + saleData.observation + "</td>";
+                    } else {
+                        // Adiciona células vazias para ID, Data e Observação nas iterações subsequentes
+                        tableHTML += "<tr><td></td><td></td><td></td>";
+                    }
+
+                    // Adiciona as células para Produto, Preço (U), Qt., Preço e Total
+                    tableHTML += "<td>" + product.product_name + "</td>";
+                    tableHTML += "<td> R$ " + (parseFloat(product.price) / parseFloat(product.quantity)).toFixed(2) + "</td>";
+                    tableHTML += "<td>" + product.quantity + "</td>";
+                    tableHTML += "<td> R$ " + parseFloat(product.price).toFixed(2) + "</td>";
+
+                    // Adiciona o Total e Saldo A anterior e Saldo Atual apenas na primeira iteração
+                    if (i === 0) {
+                        tableHTML += "<td> R$ " + parseFloat(saleData.total_amount).toFixed(2) + "</td>";
+                        tableHTML += "<td>" + saleData.saldo_anterior + "</td>";
+                        tableHTML += "<td>" + saleData.debito + "</td>";
+                    }
+
+                    tableHTML += "</tr>";
+                }
+            }
+        }
+    }
+
+    // Fecha a tabela
+    tableHTML += "</tbody></table>";
+
+    // Adiciona a tabela ao elemento desejado no DOM (por exemplo, um elemento com o ID "tabela-container")
+    document.getElementById("filteredHistorico").innerHTML = tableHTML;
+}
+
+
+// Chama a função para buscar e exibir os dados
+//fetchSalesData();  // Certifique-se de adaptar conforme necessário para o seu ambiente
+
 
 
 
