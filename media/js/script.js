@@ -252,6 +252,7 @@ function getClients() {
             document.getElementById("clientDropdown").innerHTML = xhr.responseText;
             document.getElementById("clientDropdownHistory").innerHTML = xhr.responseText;
             document.getElementById("clientDropdownAtualizar").innerHTML = xhr.responseText;
+            document.getElementById("clienteDropdownPagamento").innerHTML = xhr.responseText;
 
         }
     };

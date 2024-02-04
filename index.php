@@ -67,6 +67,7 @@
                         <li class="subBotao" data-target="vitrineAlterarClientes">Alterar Clientes</li>
                         <li class="subBotao" data-target="vitrineCadastrarClientes">Cadastrar Clientes</li>
                         <li class="subBotao" data-target="vitrinePagamento">Pagamento</li>
+                        <li class="subBotao" data-target="vitrineHistoricoPagamento" onclick="getClients()">Histórico de Pagamento</li>
                     </ul>
                 </li>
                 <li class="produtos menu-item desativada tamanhoAtivo">
@@ -374,6 +375,43 @@
                     </form>
                 </div>
             </div>
+
+            <!-- Histórico de Pagamentos -->
+            <div class="vitrine vitrineHistoricoPagamento desativada">
+                <div class="formularios">
+                    <form name="historicoPagamentoForm" class="formularioGeral formularioExtrato" id="historicoPagamentoForm">
+                        <div class="inputMesmaLinha">
+                            <div class="containerInputLabel">
+                                <select id="clienteDropdownPagamento" name="clienteDropdownPagamento" onchange="filtrarHistoricoPagamento()">
+                                    <!-- Opções do dropdown podem ser preenchidas dinamicamente a partir do JavaScript -->
+                                </select>
+                                <label for="clienteDropdownPagamento">Cliente</label>
+                            </div>
+
+                            <div class="containerInputLabel">
+                                <input type="date" id="startDatePagamento" name="startDatePagamento" required>
+                                <label for="startDatePagamento">Data de Início</label>
+                            </div>
+
+                            <div class="containerInputLabel">
+                                <input type="date" id="endDatePagamento" name="endDatePagamento" required>
+                                <label for="endDatePagamento">Data de Término</label>
+                            </div>
+
+                            <button name="historicoPagamento" type="button" onclick="filtrarHistoricoPagamento()">Buscar</button>
+                        </div>
+                    </form>
+
+                    <!-- Tabela de Histórico de Pagamentos -->
+                    <table id="historicoPagamentoTable">
+                        <!-- Thead será adicionado dinamicamente no JavaScript -->
+                        <tbody id="historicoPagamentoBody">
+                            <!-- Os dados filtrados serão exibidos aqui -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
 
             <!-- Consultar produtos -->
             <div class="vitrine vitrineConsultarProdutos desativada">
