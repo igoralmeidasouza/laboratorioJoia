@@ -413,8 +413,83 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Retorna um erro em formato JSON
             echo json_encode(['error' => 'Erro na consulta']);
         }
-    }
-     else {
+    }elseif (isset($_POST['action']) && $_POST['action'] === 'atualizarClientes') {
+        if (isset($_POST['clientId'])) {
+            $clientId = $_POST['clientId'];
+    
+            // Consulte os dados do cliente com base no ID
+            $sql = "SELECT * FROM clients WHERE client_id = $clientId";
+            $result = $conn->query($sql);
+    
+            if ($result) {
+                // Verifique se foram encontrados resultados
+                if ($result->num_rows > 0) {
+                    // Obtenha os dados do primeiro cliente encontrado
+                    $clientData = $result->fetch_assoc();
+    
+                    // Envie os dados do cliente de volta como JSON
+                    echo json_encode($clientData);
+                } else {
+                    // Se nenhum cliente for encontrado, retorne um erro
+                    echo json_encode(['error' => 'Cliente não encontrado']);
+                }
+            } else {
+                // Se houver um erro na consulta, retorne um erro
+                echo json_encode(['error' => 'Erro na consulta']);
+            }
+        } else {
+            // Se o ID do cliente não for fornecido, retorne um erro
+            echo json_encode(['error' => 'ID do cliente não fornecido']);
+        }
+    }elseif (isset($_POST['clientEmail'])) {
+        if (isset($_POST['clientId'])) {
+            $clientId = $_POST['clientId'];
+    
+            // Verifique se os outros dados necessários foram fornecidos
+            if (isset($_POST['clientName'], $_POST['clientEmail'], $_POST['phone'], $_POST['cpfCnpj'], $_POST['address'], $_POST['number'], $_POST['complement'], $_POST['neighborhood'], $_POST['city'], $_POST['zipcode'])) {
+                
+                // Obtenha os dados do POST
+                $clientName = $_POST['clientName'];
+                $clientEmail = $_POST['clientEmail'];
+                $phone = $_POST['phone'];
+                $cpfCnpj = $_POST['cpfCnpj'];
+                $address = $_POST['address'];
+                $number = $_POST['number'];
+                $complement = $_POST['complement'];
+                $neighborhood = $_POST['neighborhood'];
+                $city = $_POST['city'];
+                $zipcode = $_POST['zipcode'];
+    
+                // Atualize os dados do cliente no banco de dados
+                $sql = "UPDATE clients SET 
+                            client_name = '$clientName',
+                            client_email = '$clientEmail',
+                            phone = '$phone',
+                            cpf_cnpj = '$cpfCnpj',
+                            address = '$address',
+                            number = '$number',
+                            complement = '$complement',
+                            neighborhood = '$neighborhood',
+                            city = '$city',
+                            zipcode = '$zipcode'
+                        WHERE client_id = $clientId";
+    
+                if ($conn->query($sql) === TRUE) {
+                    // Se a atualização for bem-sucedida, envie uma mensagem de sucesso
+                    echo json_encode(['success' => 'Dados do cliente atualizados com sucesso']);
+                } else {
+                    // Se houver um erro na atualização, envie uma mensagem de erro
+                    echo json_encode(['error' => 'Erro na atualização dos dados do cliente']);
+                }
+            } else {
+                // Se algum dos dados necessários não foi fornecido, envie uma mensagem de erro
+                echo json_encode(['error' => 'Dados do cliente incompletos']);
+            }
+        } else {
+            // Se o ID do cliente não foi fornecido, envie uma mensagem de erro
+            echo json_encode(['error' => 'ID do cliente não fornecido']);
+        }
+    } else {
     // Return an error for unsupported request method
     //echo json_encode(['error' => 'Unsupported request method']); erro trol
     }

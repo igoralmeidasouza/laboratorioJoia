@@ -193,6 +193,42 @@
                 <div class="formularios">
                     <p>Consultar Clientes</p>
                     <div id="" class="tabelaGeral tabelaConsultarClientes">
+                    <?php
+                    include 'dbConnection.php';
+
+                    // Consulta os clientes
+                    $sqlclients = "SELECT * FROM clients";
+                    $resultClients = $conn->query($sqlclients);
+
+                    if ($resultClients->num_rows > 0) {
+                        echo "<table border='1'>";
+                        echo "<tr><th>ID</th><th>Nome</th><th>Email</th><th>Telefone</th><th>CPF/CNPJ</th><th>Endereço</th><th>Número</th><th>Complemento</th><th>Bairro</th><th>Cidade</th><th>CEP</th><th>Saldo Devedor</th></tr>";
+
+                        while ($row = $resultClients->fetch_assoc()) {
+                            echo "<tr>";
+                            echo "<td>" . $row["client_id"] . "</td>";
+                            echo "<td>" . $row["client_name"] . "</td>";
+                            echo "<td>" . $row["client_email"] . "</td>";
+                            echo "<td>" . $row["phone"] . "</td>";
+                            echo "<td>" . $row["cpf_cnpj"] . "</td>";
+                            echo "<td>" . $row["address"] . "</td>";
+                            echo "<td>" . $row["number"] . "</td>";
+                            echo "<td>" . $row["complement"] . "</td>";
+                            echo "<td>" . $row["neighborhood"] . "</td>";
+                            echo "<td>" . $row["city"] . "</td>";
+                            echo "<td>" . $row["zipcode"] . "</td>";
+                            echo "<td>" . "R$ " . $row["debit_amount"] . "</td>";
+                            echo "</tr>";
+                        }
+
+                        echo "</table>";
+                    } else {
+                        echo "Nenhum cliente encontrado.";
+                    }
+
+                    $conn->close();
+                    ?>
+
                     </div>
                 </div>
             </div>
@@ -201,6 +237,47 @@
             <div class="vitrine vitrineAlterarClientes desativada">
                 <div class="formularios">
                     <p>Alterar Clientes</p>
+                    
+                    <form id="clientForm" class="formularioGeral formularioCadastrarClientes">
+                    <label for="clientDropdownAtualizar">Selecione um cliente:</label>
+                    <select id="clientDropdownAtualizar" name="client" onclick="getClients()" onchange="atualizarForm()">
+                        <!-- Opções do dropdown devem ser carregadas dinamicamente no lado do servidor -->
+                    </select>
+
+                        <p>Dados do Cliente Selecionado</p>
+                        <hr>
+                        <input type="text" id="clientName" name="clientName">
+                        <label for="clientName">Nome:</label>
+                        <input type="text" id="clientEmail" name="clientEmail">
+                        <label for="clientEmail">Email:</label>
+
+                        <input type="text" id="clientPhone" name="clientPhone">
+                        <label for="clientPhone">Telefone:</label>
+
+                        <input type="text" id="clientCpfCnpj" name="clientCpfCnpj">
+                        <label for="clientCpfCnpj">CPF/CNPJ:</label>
+
+                        <input type="text" id="clientAddress" name="clientAddress">
+                        <label for="clientAddress">Endereço:</label>
+
+                        <input type="text" id="clientNumber" name="clientNumber">
+                        <label for="clientNumber">Número:</label>
+
+                        <input type="text" id="clientComplement" name="clientComplement">
+                        <label for="clientComplement">Complemento:</label>
+
+                        <input type="text" id="clientNeighborhood" name="clientNeighborhood">
+                        <label for="clientNeighborhood">Bairro:</label>
+
+                        <input type="text" id="clientCity" name="clientCity">
+                        <label for="clientCity">Cidade:</label>
+
+                        <label for="clientZipcode">CEP:</label>
+                        <input type="text" id="clientZipcode" name="clientZipcode">
+                        
+                        <input type="hidden" name="clientIdAtt" id="clientIdAtt">
+                        <button type="button" onclick="updateClient()">Atualizar Cliente</button>
+                    </form>
                 </div>
             </div>
 
@@ -256,6 +333,7 @@
                     <form name="paymentform" action="index.php" method="post" class="formularioGeral formularioCadastrarClientes">
                         <select id="client_id_payment" name="client_id_payment" required>
                             <?php
+                                include 'dbConnection.php';
                                 // Pegando os clientes do banco de dados.
                                 $result = $conn->query("SELECT client_id, client_name FROM clients");
 

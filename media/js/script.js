@@ -251,6 +251,7 @@ function getClients() {
             document.getElementById("client").innerHTML = xhr.responseText;
             document.getElementById("clientDropdown").innerHTML = xhr.responseText;
             document.getElementById("clientDropdownHistory").innerHTML = xhr.responseText;
+            document.getElementById("clientDropdownAtualizar").innerHTML = xhr.responseText;
 
         }
     };
@@ -746,6 +747,7 @@ function getFilteredHistory() {
     xhr.open("POST", "treatment.php", true);
     xhr.send(formData);
 }
+
 function updateFilteredHistory(data) {
     // Supondo que você já tenha a variável $filteredData com os dados do PHP
     let $filteredData = data;
@@ -805,20 +807,204 @@ function updateFilteredHistory(data) {
     document.getElementById("filteredHistorico").innerHTML = tableHTML;
 }
 
+function getFilteredPagamento() {
+    // Chama a função para obter a lista de clientes
 
-// Chama a função para buscar e exibir os dados
-//fetchSalesData();  // Certifique-se de adaptar conforme necessário para o seu ambiente
+    let selectedClientPagamento = document.getElementById("clientDropdownPagamento").value;
+    //let validadorFormulario = "2";
+    let startPagamento = document.getElementById("startDatePagamento").value;
+    let endtPagamento = document.getElementById("endDatePagamento").value;
 
+    // Crie um objeto FormData para enviar os dados
+    let formData = new FormData();
+    formData.append('clientDropdownPagamento', selectedClientPagamento);
+    //formData.append('formType', validadorFormulario);
+    formData.append('startDatePagamento', startPagamento);
+    formData.append('endDatePagamento', endtPagamento);
+    console.log(formData);
+    //formData.append();
 
+    // Crie uma instância XMLHttpRequest
+    let xhr = new XMLHttpRequest();
+    
+    // Defina a função de retorno de chamada para processar a resposta
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+            if (xhr.status == 200) {
+                // Trate a resposta, se necessário
+                console.log(xhr.responseText);
+                let response = JSON.parse(xhr.responseText);
+                
 
+                if (response.error) {
+                    // Trate o erro, se houver
+                    console.error('Erro na consulta: ' + response.error);
+                } else {
+                    // Exiba os dados filtrados (você pode ter uma função separada para isso)
+                    //displayFilteredData(response); esse está sem utilização no momento
+                    updateFilteredPagamentos(response);
+                }
+            } else {
+                // Trate o erro de solicitação
+                console.error('Erro na solicitação. Status: ' + xhr.status);
+            }
+        }
+    };
 
-/* essa função faz exencialmente a mesma coisa da updateFilteredData()
-function displayFilteredData(data) {
-    // Implement your logic to display the data in the HTML
-    // For example, you can update the content of a div with the id "filteredData"
-    document.getElementById("filteredData").innerHTML = JSON.stringify(data);
+    // Abra a conexão e envie a solicitação para o arquivo PHP
+    xhr.open("POST", "treatment.php", true);
+    xhr.send(formData);
 }
-*/
+
+function updateFilteredPagamentos(data) {
+    // Inicializa a string HTML da tabela
+    let tableHTML = "<table><thead><tr><th>ID</th><th>Data</th><th>Observação</th><th>Total</th><th>Saldo Anterior</th><th>Saldo Atual</th></tr></thead><tbody>";
+
+    // Ordena os pagamentos por data em ordem crescente
+    data.sort((a, b) => new Date(a.payment_date) - new Date(b.payment_date));
+
+    // Loop através de todos os pagamentos
+    for (let i = 0; i < data.length; i++) {
+        let pagamento = data[i];
+
+        tableHTML += "<tr>";
+        tableHTML += "<td>" + pagamento.payment_id + "</td>";
+
+        // Verifica se a data é válida e finita antes de formatar
+        if (pagamento.payment_date && isFinite(new Date(pagamento.payment_date))) {
+            tableHTML += "<td>" + new Intl.DateTimeFormat('pt-BR').format(new Date(pagamento.payment_date)) + "</td>";
+        } else {
+            tableHTML += "<td>Data Inválida</td>";
+        }
+
+        tableHTML += "<td>" + (pagamento.type_of_payment || "N/A") + "</td>";
+        tableHTML += "<td> R$ " + (pagamento.amount || "N/A") + "</td>";
+        tableHTML += "<td> R$ " + (pagamento.saldo_anterior || "N/A") + "</td>";
+        tableHTML += "<td> R$ " + (pagamento.saldo_atual || "N/A") + "</td>";
+        tableHTML += "</tr>";
+    }
+
+    // Fecha a tabela
+    tableHTML += "</tbody></table>";
+
+    // Adiciona a tabela ao elemento desejado no DOM (por exemplo, um elemento com o ID "tabela-container")
+    document.getElementById("filteredPagamentos").innerHTML = tableHTML;
+}
+
+// Função para carregar os dados do cliente selecionado e preencher os campos do formulário
+function atualizarForm() {
+    // Obtém o ID do cliente selecionado no dropdown
+    let selectedClientId = document.getElementById("clientDropdownAtualizar").value;
+
+    // Se o cliente selecionado for válido, carregue os dados e atualize o formulário
+    if (selectedClientId) {
+        // Crie uma instância XMLHttpRequest
+        let xhr = new XMLHttpRequest();
+
+        // Defina a função de retorno de chamada para processar a resposta
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4) {
+                if (xhr.status == 200) {
+                    // Trate a resposta, se necessário
+                    let response = JSON.parse(xhr.responseText);
+                    console.log(response);
+                    if (response.error) {
+                        // Trate o erro, se houver
+                        console.error('Erro na consulta: ' + response.error);
+                    } else {
+                        // Preencha os campos do formulário com os dados do cliente
+                        updateClientForm(response);
+                    }
+                } else {
+                    // Trate o erro de solicitação
+                    console.error('Erro na solicitação. Status: ' + xhr.status);
+                }
+            }
+        };
+
+        // Abra a conexão e envie a solicitação para o arquivo PHP
+        xhr.open("POST", "treatment.php", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+        // Envie o ID do cliente e o token como parte do corpo da solicitação
+        xhr.send("clientId=" + selectedClientId + "&action=atualizarClientes");
+    }
+}
+
+// Função para atualizar os campos do formulário com os dados do cliente
+function updateClientForm(clientData) {
+    // Preencha os campos do formulário com os dados do cliente
+    //document.getElementById("clientDropdown").value = clientData.client_name;
+    document.getElementById("clientIdAtt").value = clientData.client_id;
+    document.getElementById("clientName").value = clientData.client_name;
+    document.getElementById("clientEmail").value = clientData.client_email;
+    document.getElementById("clientPhone").value = clientData.phone;
+    document.getElementById("clientCpfCnpj").value = clientData.cpf_cnpj;
+    document.getElementById("clientAddress").value = clientData.address;
+    document.getElementById("clientNumber").value = clientData.number;
+    document.getElementById("clientComplement").value = clientData.complement;
+    document.getElementById("clientNeighborhood").value = clientData.neighborhood;
+    document.getElementById("clientCity").value = clientData.city;
+    document.getElementById("clientZipcode").value = clientData.zipcode;
+    // Continue para os outros campos conforme necessário
+}
+
+function updateClient(){
+      // Obtenha os dados do formulário ou de onde quer que estejam armazenados
+      let clientId = document.getElementById('clientIdAtt').value;
+      let clientName = document.getElementById('clientName').value;
+      let clientEmail = document.getElementById('clientEmail').value;
+      let phone = document.getElementById('clientPhone').value;
+      let cpfCnpj = document.getElementById('clientCpfCnpj').value;
+      let address = document.getElementById('clientAddress').value;
+      let number = document.getElementById('clientNumber').value;
+      let complement = document.getElementById('clientComplement').value;
+      let neighborhood = document.getElementById('clientNeighborhood').value;
+      let city = document.getElementById('clientCity').value;
+      let zipcode = document.getElementById('clientZipcode').value;
+      
+      // Crie um objeto FormData para enviar os dados
+      let formData = new FormData();
+      formData.append('clientId', clientId);
+      formData.append('clientName', clientName);
+      formData.append('clientEmail', clientEmail);
+      formData.append('phone', phone);
+      formData.append('cpfCnpj', cpfCnpj);
+      formData.append('address', address);
+      formData.append('number', number);
+      formData.append('complement', complement);
+      formData.append('neighborhood', neighborhood);
+      formData.append('city', city);
+      formData.append('zipcode', zipcode);
+      console.log(formData)
+      // Crie uma instância XMLHttpRequest
+      let xhr = new XMLHttpRequest();
+  
+      // Defina a função de retorno de chamada para processar a resposta
+      xhr.onreadystatechange = function () {
+          if (xhr.readyState == 4) {
+              if (xhr.status == 200) {
+                  // Trate a resposta, se necessário
+                  let response = JSON.parse(xhr.responseText);
+  
+                  if (response.success) {
+                      // Atualização bem-sucedida, faça algo, se necessário
+                      console.log('Dados do cliente atualizados com sucesso');
+                  } else {
+                      // Trate o erro, se houver
+                      console.error('Erro na atualização dos dados do cliente: ' + response.error);
+                  }
+              } else {
+                  // Trate o erro de solicitação
+                  console.error('Erro na solicitação. Status: ' + xhr.status);
+              }
+          }
+      };
+  
+      // Abra a conexão e envie a solicitação para o arquivo PHP
+      xhr.open('POST', 'treatment.php', true);
+      xhr.send(formData);
+}
 function displayCowsay() {
     let cowsayResponse = `
 _________________
