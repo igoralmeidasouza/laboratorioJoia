@@ -489,7 +489,79 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Se o ID do cliente não foi fornecido, envie uma mensagem de erro
             echo json_encode(['error' => 'ID do cliente não fornecido']);
         }
+
+    }elseif(isset($_POST['action']) && $_POST['action'] === 'atualizarProdutos') {
+        if (isset($_POST['ProductId'])) {
+            $productId = $_POST['ProductId'];
+    
+            // Consulte os dados do produto com base no ID
+            $sql = "SELECT * FROM products WHERE product_id = $productId";
+            $result = $conn->query($sql);
+    
+            if ($result) {
+                // Verifique se foram encontrados resultados
+                if ($result->num_rows > 0) {
+                    // Obtenha os dados do primeiro produto encontrado
+                    $productData = $result->fetch_assoc();
+    
+                    // Envie os dados do produto de volta como JSON
+                    echo json_encode($productData);
+                } else {
+                    // Se nenhum produto for encontrado, retorne um erro
+                    echo json_encode(['error' => 'Produto não encontrado']);
+                }
+            } else {
+                // Se houver um erro na consulta, retorne um erro
+                echo json_encode(['error' => 'Erro na consulta']);
+            }
+        } else {
+            // Se o ID do produto não for fornecido, retorne um erro
+            echo json_encode(['error' => 'ID do produto não fornecido']);
+        }
+    } elseif(isset($_POST['productDescription'])){
+        if (isset($_POST['productId'])) {
+                    // Obtém o ID do produto
+        $productId = $_POST['productId'];
+
+        // Obtém os outros dados do produto
+        $productName = isset($_POST['productName']) ? $_POST['productName'] : '';
+        $productDescription = isset($_POST['productDescription']) ? $_POST['productDescription'] : '';
+        $priceType1 = isset($_POST['priceType1']) ? $_POST['priceType1'] : '';
+        $priceType2 = isset($_POST['priceType2']) ? $_POST['priceType2'] : '';
+        $priceType3 = isset($_POST['priceType3']) ? $_POST['priceType3'] : '';
+        $priceType4 = isset($_POST['priceType4']) ? $_POST['priceType4'] : '';
+        $priceType5 = isset($_POST['priceType5']) ? $_POST['priceType5'] : '';
+        $priceType6 = isset($_POST['priceType6']) ? $_POST['priceType6'] : '';
+
+        // Agora você pode usar essas variáveis para construir e executar sua consulta SQL de atualização
+        // Certifique-se de validar e sanitizar os dados recebidos antes de usar em uma consulta SQL
+
+        // Exemplo de consulta SQL de atualização
+        $sql = "UPDATE products SET 
+            product_name = '$productName', 
+            product_description = '$productDescription', 
+            price_type_1 = '$priceType1',
+            price_type_2 = '$priceType2',
+            price_type_3 = '$priceType3',
+            price_type_4 = '$priceType4',
+            price_type_5 = '$priceType5',
+            price_type_6 = '$priceType6'
+            WHERE product_id = $productId";
+
+        // Execute a consulta SQL
+
+        $result = $conn->query($sql);
+
+        // Verifique se a consulta foi bem-sucedida
+        if ($result) {
+            echo json_encode(['success' => true, 'message' => 'Produto atualizado com sucesso']);
+        } else {
+            echo json_encode(['error' => 'Erro na atualização do produto']);
+        }
     } else {
+        echo json_encode(['error' => 'ID do produto não fornecido']);
+    }
+}else {
     // Return an error for unsupported request method
     //echo json_encode(['error' => 'Unsupported request method']); erro trol
     }

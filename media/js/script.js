@@ -266,6 +266,7 @@ function getProducts() {
         if (xhr.readyState == 4 && xhr.status == 200) {
             // Update the product dropdown with options
             document.getElementById("product").innerHTML = xhr.responseText;
+            document.getElementById("productDropdown").innerHTML = xhr.responseText;
 
             // After populating the products, get details for the default product (if any)
             getProductDetails();
@@ -1005,6 +1006,118 @@ function updateClient(){
       xhr.open('POST', 'treatment.php', true);
       xhr.send(formData);
 }
+function productForm(){
+        // Obtém o ID do produto selecionado no dropdown
+        let selectedProductId = document.getElementById("productDropdown").value;
+
+        // Se o cliente selecionado for válido, carregue os dados e atualize o formulário
+        if (selectedProductId) {
+            // Crie uma instância XMLHttpRequest
+            let xhr = new XMLHttpRequest();
+    
+            // Defina a função de retorno de chamada para processar a resposta
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+                    if (xhr.status == 200) {
+                        // Trate a resposta, se necessário
+                        let response = JSON.parse(xhr.responseText);
+                        console.log(response);
+                        if (response.error) {
+                            // Trate o erro, se houver
+                            console.error('Erro na consulta: ' + response.error);
+                        } else {
+                            // Preencha os campos do formulário com os dados do cliente
+                            updateProductForm(response);
+                        }
+                    } else {
+                        // Trate o erro de solicitação
+                        console.error('Erro na solicitação. Status: ' + xhr.status);
+                    }
+                }
+            };
+    
+            // Abra a conexão e envie a solicitação para o arquivo PHP
+            xhr.open("POST", "treatment.php", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    
+            // Envie o ID do cliente e o token como parte do corpo da solicitação
+            xhr.send("ProductId=" + selectedProductId + "&action=atualizarProdutos");
+        }
+}
+
+function updateProductForm(productData){
+    if (productData && Object.keys(productData).length > 0) {
+        // Preencha os campos diretamente
+        document.getElementById("productIdAtt").value = productData.product_id;
+        document.getElementById("productName").value = productData.product_name;
+        document.getElementById("productDescription").value = productData.product_description;
+        document.getElementById("priceType1").value = productData.price_type_1;
+        document.getElementById("priceType2").value = productData.price_type_2;
+        document.getElementById("priceType3").value = productData.price_type_3;
+        document.getElementById("priceType4").value = productData.price_type_4;
+        document.getElementById("priceType5").value = productData.price_type_5;
+        document.getElementById("priceType6").value = productData.price_type_6;
+    } else {
+        console.error('Dados do produto inválidos');
+    }
+
+}
+
+function updateProduct() {
+    // Obtenha os dados do formulário ou de onde quer que estejam armazenados
+    let productId = document.getElementById('productIdAtt').value;
+    let productName = document.getElementById('productName').value;
+    let productDescription = document.getElementById('productDescription').value;
+    let priceType1 = document.getElementById('priceType1').value;
+    let priceType2 = document.getElementById('priceType2').value;
+    let priceType3 = document.getElementById('priceType3').value;
+    let priceType4 = document.getElementById('priceType4').value;
+    let priceType5 = document.getElementById('priceType5').value;
+    let priceType6 = document.getElementById('priceType6').value;
+
+    // Crie um objeto FormData para enviar os dados
+    let formData = new FormData();
+    formData.append('productId', productId);
+    formData.append('productName', productName);
+    formData.append('productDescription', productDescription);
+    formData.append('priceType1', priceType1);
+    formData.append('priceType2', priceType2);
+    formData.append('priceType3', priceType3);
+    formData.append('priceType4', priceType4);
+    formData.append('priceType5', priceType5);
+    formData.append('priceType6', priceType6);
+
+    console.log(formData);
+
+    // Crie uma instância XMLHttpRequest
+    let xhr = new XMLHttpRequest();
+
+    // Defina a função de retorno de chamada para processar a resposta
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+            if (xhr.status == 200) {
+                // Trate a resposta, se necessário
+                let response = JSON.parse(xhr.responseText);
+
+                if (response.success) {
+                    // Atualização bem-sucedida, faça algo, se necessário
+                    console.log('Dados do produto atualizados com sucesso');
+                } else {
+                    // Trate o erro, se houver
+                    console.error('Erro na atualização dos dados do produto: ' + response.error);
+                }
+            } else {
+                // Trate o erro de solicitação
+                console.error('Erro na solicitação. Status: ' + xhr.status);
+            }
+        }
+    };
+
+    // Abra a conexão e envie a solicitação para o arquivo PHP
+    xhr.open('POST', 'treatment.php', true);
+    xhr.send(formData);
+}
+
 function displayCowsay() {
     let cowsayResponse = `
 _________________

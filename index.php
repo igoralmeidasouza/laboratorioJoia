@@ -274,7 +274,7 @@
 
                         <label for="clientZipcode">CEP:</label>
                         <input type="text" id="clientZipcode" name="clientZipcode">
-                        
+
                         <input type="hidden" name="clientIdAtt" id="clientIdAtt">
                         <button type="button" onclick="updateClient()">Atualizar Cliente</button>
                     </form>
@@ -425,6 +425,46 @@
             <div class="vitrine vitrineAlterarProdutos desativada">
                 <div class="formularios">
                     <p>Alterar produtos</p>
+                    
+                    <!-- Formulário para atualizar produtos -->
+                    <form id="updateProductForm" name="clientform" class="formularioGeral formularioCadastrarClientes">
+                            <!-- Dropdown para selecionar o produto -->
+                            <select id="productDropdown" name="product" onclick="getProducts()" onchange="productForm()">
+                                <!-- Options serão preenchidas dinamicamente pelo JavaScript -->
+                            </select>
+                            <label for="productDropdown">Selecione um produto:</label>
+                            <p>Produto Selecionado</p>
+                            <hr>
+                            <!-- Campos para exibir e editar dados do produto -->
+                            <input type="text" id="productName" name="productName">
+                            <label for="productName">Nome do Produto:</label>
+
+                            <textarea id="productDescription" name="productDescription"></textarea>
+                            <label for="productDescription">Descrição do Produto:</label>
+
+                            <input type="text" id="priceType1" name="priceType1">
+                            <label for="priceType1">Preço Tipo 1:</label>
+
+                            <input type="text" id="priceType2" name="priceType2">
+                            <label for="priceType2">Preço Tipo 1:</label>
+
+                            <input type="text" id="priceType3" name="priceType3">
+                            <label for="priceType3">Preço Tipo 1:</label>
+
+                            <input type="text" id="priceType4" name="priceType4">
+                            <label for="priceType4">Preço Tipo 1:</label>
+
+                            <input type="text" id="priceType5" name="priceType5">
+                            <label for="priceType5">Preço Tipo 1:</label>
+
+                            <input type="text" id="priceType6" name="priceType6">
+                            <label for="priceType6">Preço Tipo 1:</label>
+
+                            <!-- Repita para outros tipos de preço se necessário -->
+                            <input type="hidden" name="productIdAtt" id="productIdAtt">
+                            <!-- Botão para enviar dados -->
+                            <button type="button" onclick="updateProduct()">Atualizar Produto</button>
+                        </form>
                 </div>
             </div>
 
