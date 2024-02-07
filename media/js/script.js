@@ -1179,19 +1179,40 @@ function openPaymentHistoryTab(data) {
     console.log(data);
     let resultado1 = typeof data;
     console.log(resultado1);
-    // Verifica se data é um objeto e se possui os campos necessários
-    if (typeof data === 'object' && data.clientData && data.paymentDetails && Array.isArray(data.paymentDetails) && data.paymentDetails.length > 0) {
+    let minDate = new Date('9999-12-31'); // Inicialize a menor data com um valor muito alto
+    let maxDate = new Date('0000-01-01'); // Inicialize a maior data com um valor muito baixo
+
+    // Verifica se data é um objeto e se possui as propriedades necessárias
+    if (typeof data === 'object' && data.clientData && data.paymentDetails) {
         try {
-            // Extrai os dados do cliente
+            // Loop através dos detalhes de pagamento para encontrar a menor e a maior data
+            data.paymentDetails.forEach(payment => {
+                const paymentDate = new Date(payment.payment_date.slice(0, 10)); // Obtém os primeiros 10 caracteres da data
+
+                // Atualiza a menor e a maior data se necessário
+                if (paymentDate < minDate) {
+                    minDate = paymentDate;
+                }
+                if (paymentDate > maxDate) {
+                    maxDate = paymentDate;
+                }
+            });
+
+            // Converte as datas para o formato brasileiro (dd/mm/yyyy)
+            const minDateBR = minDate.toLocaleDateString('pt-BR');
+            const maxDateBR = maxDate.toLocaleDateString('pt-BR');
+
+            console.log("Menor data encontrada:", minDateBR);
+            console.log("Maior data encontrada:", maxDateBR);
+
+            // Restante do seu código...
             let clientData = data.clientData;
             let clientId = clientData.client_id;
             let clientName = clientData.client_name;
             let clientDebitAmount = clientData.debit_amount;
             let clientEmail = clientData.client_email;
             let clientPhone = clientData.phone;
-
-            // Extrai os detalhes do pagamento
-            let paymentDetails = data.paymentDetails;
+            //adicionar outros dados se necessario
 
             // Cria o HTML para os detalhes do pagamento
             let paymentDetailsHTML = `
@@ -1218,10 +1239,10 @@ function openPaymentHistoryTab(data) {
                         </tr>
                     </thead>
                     <tbody>
-                        ${paymentDetails.map(payment => `
+                        ${data.paymentDetails.map(payment => `
                             <tr>
                                 <td>${payment.payment_id}</td>
-                                <td>${new Intl.DateTimeFormat('pt-BR').format(new Date(payment.payment_date))}</td>
+                                <td>${new Intl.DateTimeFormat('pt-BR').format(new Date(payment.payment_date))}</td> <!-- Converte para o formato brasileiro -->
                                 <td>${payment.type_of_payment || "N/A"}</td>
                                 <td>R$ ${payment.amount || "N/A"}</td>
                                 <td>R$ ${payment.saldo_anterior || "N/A"}</td>
@@ -1247,6 +1268,8 @@ function openPaymentHistoryTab(data) {
                             <div class="payment-statement-container">
                                 <div class="payment-statement-header">
                                     <h2>Extrato de Pagamentos</h2>
+                                    <p>Menor Data: ${minDateBR}</p>
+                                    <p>Maior Data: ${maxDateBR}</p>
                                 </div>
                                 ${paymentDetailsHTML}
                                 ${paymentItemsHTML}
@@ -1273,6 +1296,8 @@ function openPaymentHistoryTab(data) {
         console.error('Objeto de dados vazio ou não está no formato esperado.');
     }
 }
+
+
 
 
 
