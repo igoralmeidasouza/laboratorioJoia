@@ -760,7 +760,7 @@ function updateFilteredHistory(data) {
     // Supondo que você já tenha a variável $filteredData com os dados do PHP
     let $filteredData = data;
     // Inicializa a string HTML da tabela
-    let tableHTML = "<table><thead><tr><th>ID</th><th>Data</th><th>Paciente</th><th>Produto</th><th>Preço (U)</th><th>Qt.</th><th>Preço</th><th>Total</th><th>Saldo Anterior</th><th>Saldo Atual</th></tr></thead><tbody>";
+    let tableHTML = "<table class='tabelaGeral'><tr> <th>ID</th> <th>Data</th> <th>Paciente</th> <th>Produto</th> <th>Preço (U)</th> <th>Qt.</th> <th>Preço</th> <th>Total</th> <th>Saldo Anterior</th> <th>Saldo Atual</th> </tr> <tbody>";;
 
     // Loop através dos IDs de vendas
     for (let saleId in $filteredData) {
@@ -809,7 +809,7 @@ function updateFilteredHistory(data) {
     }
 
     // Fecha a tabela
-    tableHTML += "</tbody></table>";
+    tableHTML += "</table>";
 
     // Adiciona a tabela ao elemento desejado no DOM (por exemplo, um elemento com o ID "tabela-container")
     document.getElementById("filteredHistorico").innerHTML = tableHTML;

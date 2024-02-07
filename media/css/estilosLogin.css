@@ -1,0 +1,38 @@
+html, body, body div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, figure, footer, header, menu, nav, section, time, mark, audio, video, details, summary {margin: 0;	padding: 0;	border: 0; font-size: 100%; font-style: normal; font-weight: normal; vertical-align: baseline; background: transparent;} main, article, aside, figure, footer, header, nav, section, details, summary,img {display: block;} html {box-sizing: border-box;} *,*:before,*:after {box-sizing: inherit;} img,object,embed {max-width: 100%;} ul {list-style: none;} blockquote, q {quotes: none;} blockquote:before,blockquote:after,q:before,q:after {content: ''; content: none;} a {margin: 0; padding: 0; font-size: 100%; vertical-align: baseline; background: transparent;} del {text-decoration: line-through;} abbr[title], dfn[title] {border-bottom: 1px dotted #000; cursor: help;} table {border-collapse: separate; border-spacing: 0;} th {font-weight: bold; vertical-align: bottom;} td {font-weight: normal; vertical-align: top;} hr {display: block; height: 1px; border: 0; border-top: 1px solid #ccc; margin: 1em 0; padding: 0;} input, select {vertical-align: middle;} input[type="radio"] {vertical-align: text-bottom;} input[type="checkbox"] {vertical-align: bottom;} input,button,textarea,select,optgroup,option{font-family:inherit;font-size:inherit;font-style:inherit;font-weight:inherit; outline:none;}input,button,textarea,fieldset,input,button,textarea,select{border:none; padding:0; margin:0; background:none;}a{text-decoration:none;} table {font-size: inherit; font: 100%;}
+small {font-size: 85%;} strong {font-weight: 800;} td, td img {vertical-align: top;} sub, sup {font-size: 75%; line-height: 0; position: relative;} sup {top: -0.5em;} sub {bottom: -0.25em;} pre, code, kbd, samp {font-family: monospace, sans-serif;}
+body{font: 500 17px "Open Sans"; line-height: 28px; letter-spacing: 0.01px; color: #6a7071; overflow-x: hidden; background: linear-gradient(180deg, rgba(230,239,254,1) 0%, rgba(215,222,232,1) 50%, rgba(222,230,242,1) 100%);}
+
+body {display: flex; padding: 55px 0; background-color: #0093E9; background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);}
+    body .telaLogin {display: flex; width: 100%; max-width: 1280px; margin: 0 auto; min-height: 800px; background-color: #fff; border-radius: 10px;}
+        body .telaLogin figure {position: relative; width: 100%; max-width: 640px; background: url(../img/fundoLogin.png) center center no-repeat; background-size: contain; height: 95%; margin-top: 20px; padding: 111px; border-right: #83858d solid 1px;}
+            body .telaLogin figure img {position: absolute; max-width: 100px; border-radius: 50%; top: 163px; left: 104px; padding: 5px; border: solid 1px #292A2E; background: #EAF1FF;}
+            body .telaLogin figure h1 {color: #fff; font-weight: 500; text-transform: uppercase;}
+
+    body .telaLogin .login { position: relative; display: flex; flex-direction: column; width: 100%; max-width: 350px; margin: auto auto; padding-bottom: 150px; z-index: 2;}
+    body .telaLogin .login::before {position: absolute; content: ''; background: url(../img/nomad.jpg) bottom no-repeat; background-size: contain; width: 100%; height: 100%; bottom: -115px; z-index: 0;}
+        body .telaLogin .login p {margin-bottom: 50px; text-align: center; font-size: 30px; font-weight: 500;}
+
+        body .telaLogin .login form {display: flex; flex-direction: column; position: relative;}
+
+            body .telaLogin .login form label {display: block; position: relative; transition: top 0.5s ease-out, font-size 0.3s ease, color 0.3s ease; top: -28px; line-height: 10px; opacity: 0; visibility: hidden; height: 15px; font-size: 8px; left: 10px;}  
+                body .telaLogin .login form input, textarea, select {display: block; width: 100%; padding: 8px; transition: border-color 0.3s ease; border-bottom: solid 1px grey; line-height: 10px; margin-bottom: 5px; font-size: 13px; background-color: #EAF1F7; border-radius: 4px;}
+                body .telaLogin .login form textarea {height: 30px; resize: none;}    
+
+                body .telaLogin .login form input::placeholder, textarea::placeholder { color: #999; font-size: 12px;}
+                    
+                body .telaLogin .login form input:focus,
+                body .telaLogin .login form select:focus,
+                body .telaLogin .login form textarea:focus,
+                body .telaLogin .login form select:not(:placeholder-shown), 
+                body .telaLogin .login form textarea:not(:placeholder-shown), 
+                body .telaLogin .login form input:not(:placeholder-shown) {border-color: #007bff;}
+                
+                body .telaLogin .login form input:focus + label, 
+                body .telaLogin .login form textarea:focus + label,
+                body .telaLogin .login form select:not(:placeholder-shown) + label, 
+                body .telaLogin .login form textarea:not(:placeholder-shown) + label,
+                body .telaLogin .login form input:not(:placeholder-shown) + label {opacity: 1; visibility: visible; top: -50px; font-size: 10.5px; color: #ffffff; width: max-content; background-color: #0071cd; border-radius: 3px; padding: 0px 6px; line-height: 15px; left: 5px;}
+
+            body .telaLogin .login button {width: 100%; height: 40px; color: #fff; font-weight: 500; margin-top: 20px; border-radius: 8px; background-color: #0093E9; background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%); cursor: pointer; transition: all ease-in 0.5s;}
+                body .telaLogin .login button:hover {filter: brightness(110%);}
+                body .telaLogin .login svg {position: absolute; ;}
