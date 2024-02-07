@@ -9,7 +9,7 @@ body {display: flex; padding: 55px 0; background-color: #0093E9; background-imag
             body .telaLogin figure h1 {color: #fff; font-weight: 500; text-transform: uppercase;}
 
     body .telaLogin .login { position: relative; display: flex; flex-direction: column; width: 100%; max-width: 350px; margin: auto auto; padding-bottom: 150px; z-index: 2;}
-    body .telaLogin .login::before {position: absolute; content: ''; background: url(../img/nomad.jpg); width: 150px; height: 150px; z-index: 1;}
+    body .telaLogin .login::before {position: absolute; content: ''; background: url(../img/nomad.jpg) bottom no-repeat; background-size: contain; width: 100%; height: 100%; bottom: -115px; z-index: 0;}
         body .telaLogin .login p {margin-bottom: 50px; text-align: center; font-size: 30px; font-weight: 500;}
 
         body .telaLogin .login form {display: flex; flex-direction: column; position: relative;}
