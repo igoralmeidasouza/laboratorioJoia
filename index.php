@@ -379,10 +379,11 @@
             <!-- Histórico de Pagamentos -->
             <div class="vitrine vitrineHistoricoPagamento desativada">
                 <div class="formularios">
+                    <p>Histórico de Pagamento</p>
                     <form name="historicoPagamentoForm" class="formularioGeral formularioExtrato" id="historicoPagamentoForm">
                         <div class="inputMesmaLinha">
                             <div class="containerInputLabel">
-                                <select id="clienteDropdownPagamento" name="clienteDropdownPagamento" onchange="filtrarHistoricoPagamento()">
+                                <select id="clienteDropdownPagamento" name="clienteDropdownPagamento">
                                     <!-- Opções do dropdown podem ser preenchidas dinamicamente a partir do JavaScript -->
                                 </select>
                                 <label for="clienteDropdownPagamento">Cliente</label>
@@ -398,17 +399,14 @@
                                 <label for="endDatePagamento">Data de Término</label>
                             </div>
 
-                            <button name="historicoPagamento" type="button" onclick="filtrarHistoricoPagamento()">Buscar</button>
+                            <button name="historicoPagamento" type="button" onclick="getFilteredPagamento()">Buscar</button>
                         </div>
                     </form>
-
-                    <!-- Tabela de Histórico de Pagamentos -->
-                    <table id="historicoPagamentoTable">
-                        <!-- Thead será adicionado dinamicamente no JavaScript -->
-                        <tbody id="historicoPagamentoBody">
+                    <input type="hidden" name="pagamentoIdHidden" id="pagamentoIdHidden">
+                    <div id="filteredPagamentos">
+                        
                             <!-- Os dados filtrados serão exibidos aqui -->
-                        </tbody>
-                    </table>
+                        </div>
                 </div>
             </div>
 

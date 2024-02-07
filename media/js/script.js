@@ -242,6 +242,7 @@ function controleCarrinho(){
     getProducts();
 }
 
+//adiciona os clientes em um menu dropdown em todos os lugares necessarios do html
 function getClients() {
     // Make an Ajax request to get client options
     let xhr = new XMLHttpRequest();
@@ -260,6 +261,7 @@ function getClients() {
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhr.send("get_clients=true");
 }
+//adiciona os produtos para serem selecionados na aba de vendas
 function getProducts() {
     // Make an Ajax request to get product options
     let xhr = new XMLHttpRequest();
@@ -277,7 +279,7 @@ function getProducts() {
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhr.send("get_products=true");
 }
-
+//atualiza os preços dos produtos de acordo com o produto selecionado na aba de vendas
 function getProductDetails() {
     let selectedProduct = document.getElementById("product").value;
 
@@ -293,6 +295,7 @@ function getProductDetails() {
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhr.send("treatment=true&product=" + selectedProduct);
 }
+//adiciona itens no carrinho
 function addToCart() {
     let selectedClient = document.getElementById("client");
     let selectedProduct = document.getElementById("product");
@@ -328,6 +331,7 @@ function addToCart() {
         alert("Please select a client, product, and price before adding to cart.");
     }
 }
+//remove item do carrinho
 function removeCartItem(index, event) {
     // Remova o item do carrinho com base no índice
     cartItems.splice(index, 1);
@@ -349,7 +353,7 @@ function removeCartItem(index, event) {
     console.log("Data Paciente:", dataPaciente);
     console.log("Data Total:", dataTotal);
 }
-
+// atualiza o carrinho
 function updateCartDisplay() {
     let cartDisplay = document.getElementById("cartDisplay");
     let cartHTML = "<div class="+'headerTabela'+"><h3>Conteúdo do Carrinho</h3>";
@@ -390,6 +394,7 @@ function updateCartDisplay() {
     cartDisplay.innerHTML = cartHTML;
 }
 
+//função que executa a venda e manda os dados para gerar o extrato de venda na sequencia
 function executeSale() {
     let selectedClient = document.getElementById("client").value;
     let selectedProduct = document.getElementById("product").value;
@@ -439,7 +444,7 @@ function executeSale() {
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.send("carrinhoValores=" + JSON.stringify(formData));
 }
-
+//função que cria extrato de venda para impressão
 function openInvoiceTab(data) {
     console.log(data);
     // Cria um objeto Date para obter a data atual
@@ -548,14 +553,14 @@ function clearCart() {
     // Atualiza a exibição do carrinho
     updateCartDisplay();
 }
+
+//função que manda os dados da aba Extrato para serem tratadas no php
 function getFilteredData() {
     // Chama a função para obter a lista de clientes
     let startDate = document.getElementById("startDate").value;
     let endDate = document.getElementById("endDate").value;
     let selectedClient = document.getElementById("clientDropdown").value;
-    //let validadorFormulario = "1";
-
-
+ 
     // Crie um objeto FormData para enviar os dados
     let formData = new FormData();
     formData.append('startDate', startDate);
@@ -594,7 +599,8 @@ function getFilteredData() {
     xhr.send(formData);
 }
 
-
+//esse boss faz o extrato final com pagamentos e vendas por cliente... aqui ja é o tratamento
+//ou seja do php para o html atravez do javascript
 function updateFilteredData(data) {
     // Converte o objeto data em uma array
     //let dataArray = Object.values(data);
@@ -700,7 +706,7 @@ function updateFilteredData(data) {
 
  
 }
-
+//manda os dados para consultar historico de venda no php
 function getFilteredHistory() {
     // Chama a função para obter a lista de clientes
 
@@ -749,7 +755,7 @@ function getFilteredHistory() {
     xhr.open("POST", "treatment.php", true);
     xhr.send(formData);
 }
-
+//trata os dados de historico de venda no html pos consulta no php
 function updateFilteredHistory(data) {
     // Supondo que você já tenha a variável $filteredData com os dados do PHP
     let $filteredData = data;
@@ -808,23 +814,21 @@ function updateFilteredHistory(data) {
     // Adiciona a tabela ao elemento desejado no DOM (por exemplo, um elemento com o ID "tabela-container")
     document.getElementById("filteredHistorico").innerHTML = tableHTML;
 }
-
+//pega os dados do filtro de historico de vendas e manda para serem tratadas no php
 function getFilteredPagamento() {
     // Chama a função para obter a lista de clientes
 
-    let selectedClientPagamento = document.getElementById("clientDropdownPagamento").value;
-    //let validadorFormulario = "2";
+    let selectedClientPagamento = document.getElementById("clienteDropdownPagamento").value;
+
     let startPagamento = document.getElementById("startDatePagamento").value;
     let endtPagamento = document.getElementById("endDatePagamento").value;
 
     // Crie um objeto FormData para enviar os dados
     let formData = new FormData();
-    formData.append('clientDropdownPagamento', selectedClientPagamento);
-    //formData.append('formType', validadorFormulario);
+    formData.append('clienteDropdownPagamento', selectedClientPagamento);
     formData.append('startDatePagamento', startPagamento);
     formData.append('endDatePagamento', endtPagamento);
     console.log(formData);
-    //formData.append();
 
     // Crie uma instância XMLHttpRequest
     let xhr = new XMLHttpRequest();
@@ -836,7 +840,7 @@ function getFilteredPagamento() {
                 // Trate a resposta, se necessário
                 console.log(xhr.responseText);
                 let response = JSON.parse(xhr.responseText);
-                
+                console.log(response);
 
                 if (response.error) {
                     // Trate o erro, se houver
@@ -857,41 +861,49 @@ function getFilteredPagamento() {
     xhr.open("POST", "treatment.php", true);
     xhr.send(formData);
 }
-
+//recuperação dos dados para colocar na tabela com o historico de vendas
 function updateFilteredPagamentos(data) {
-    // Inicializa a string HTML da tabela
-    let tableHTML = "<table><thead><tr><th>ID</th><th>Data</th><th>Observação</th><th>Total</th><th>Saldo Anterior</th><th>Saldo Atual</th></tr></thead><tbody>";
 
-    // Ordena os pagamentos por data em ordem crescente
-    data.sort((a, b) => new Date(a.payment_date) - new Date(b.payment_date));
+    // Convert the object values to an array
+    let dataArray = Object.values(data);
+    // Get the client_id from the first element in the dataArray
+    let clientId = dataArray[0].client_id;
 
-    // Loop através de todos os pagamentos
-    for (let i = 0; i < data.length; i++) {
-        let pagamento = data[i];
+    // Sort the array based on your criteria
+    dataArray.sort((a, b) => new Date(a.payment_date) - new Date(b.payment_date));
 
+    // Initialize the HTML string for the table
+    let tableHTML = "<table><thead><tr><th>ID</th><th>Data de Pagamento</th><th>Observação</th><th>Total</th><th>Saldo Anterior</th><th>Saldo Atual</th></tr></thead><tbody>";
+
+    // Loop through all payments
+    for (let i = 0; i < dataArray.length; i++) {
+        let pagamento = dataArray[i];
+        
         tableHTML += "<tr>";
         tableHTML += "<td>" + pagamento.payment_id + "</td>";
 
-        // Verifica se a data é válida e finita antes de formatar
+        // Check if the date is valid and finite before formatting
         if (pagamento.payment_date && isFinite(new Date(pagamento.payment_date))) {
             tableHTML += "<td>" + new Intl.DateTimeFormat('pt-BR').format(new Date(pagamento.payment_date)) + "</td>";
         } else {
             tableHTML += "<td>Data Inválida</td>";
         }
 
-        tableHTML += "<td>" + (pagamento.type_of_payment || "N/A") + "</td>";
+        tableHTML += "<td>Pagamento: " + (pagamento.type_of_payment || "N/A") + "</td>";
         tableHTML += "<td> R$ " + (pagamento.amount || "N/A") + "</td>";
         tableHTML += "<td> R$ " + (pagamento.saldo_anterior || "N/A") + "</td>";
         tableHTML += "<td> R$ " + (pagamento.saldo_atual || "N/A") + "</td>";
         tableHTML += "</tr>";
     }
 
-    // Fecha a tabela
-    tableHTML += "</tbody></table>";
+    // Close the table
+    tableHTML += "</tbody></table><button name='gerarExtrato' onclick='gerarExtratoPagamento(" + JSON.stringify(dataArray) + ")'>Gerar Extrato</button>";
 
-    // Adiciona a tabela ao elemento desejado no DOM (por exemplo, um elemento com o ID "tabela-container")
+    // Add the table to the desired element in the DOM (e.g., an element with the ID "tabela-container")
     document.getElementById("filteredPagamentos").innerHTML = tableHTML;
+    document.getElementById("pagamentoIdHidden").value = clientId || "";
 }
+
 
 // Função para carregar os dados do cliente selecionado e preencher os campos do formulário
 function atualizarForm() {
@@ -950,7 +962,7 @@ function updateClientForm(clientData) {
     document.getElementById("clientZipcode").value = clientData.zipcode;
     // Continue para os outros campos conforme necessário
 }
-
+//função que recebe os dados dos clientes e manda para o php para update
 function updateClient(){
       // Obtenha os dados do formulário ou de onde quer que estejam armazenados
       let clientId = document.getElementById('clientIdAtt').value;
@@ -1007,6 +1019,8 @@ function updateClient(){
       xhr.open('POST', 'treatment.php', true);
       xhr.send(formData);
 }
+//função feita para coletar o produto e fazer com que a outra função preencha os campos
+//auxiliando na atualização dos dados dos produtos
 function productForm(){
         // Obtém o ID do produto selecionado no dropdown
         let selectedProductId = document.getElementById("productDropdown").value;
@@ -1045,7 +1059,7 @@ function productForm(){
             xhr.send("ProductId=" + selectedProductId + "&action=atualizarProdutos");
         }
 }
-
+//preenche os campos a serem atualizados em produtos
 function updateProductForm(productData){
     if (productData && Object.keys(productData).length > 0) {
         // Preencha os campos diretamente
@@ -1063,7 +1077,7 @@ function updateProductForm(productData){
     }
 
 }
-
+//recebe os dados dos campos dos produtos e manda para fazer update no php
 function updateProduct() {
     // Obtenha os dados do formulário ou de onde quer que estejam armazenados
     let productId = document.getElementById('productIdAtt').value;
@@ -1118,6 +1132,151 @@ function updateProduct() {
     xhr.open('POST', 'treatment.php', true);
     xhr.send(formData);
 }
+
+// Função para pegar os dados da aba 'historico de pagamento'
+//os dados serao tratatos no php voltando para o js e depois sendo tratadas pela função chamada na linha 1153
+function gerarExtratoPagamento(pagamentoData) {
+    // Construa um objeto FormData para enviar os dados
+    let formData = new FormData();
+    formData.append('pagamentoData', JSON.stringify(pagamentoData)); // Adiciona os dados do pagamento convertidos em JSON
+
+    // Crie uma instância XMLHttpRequest
+    let xhr = new XMLHttpRequest();
+
+    // Defina a função de retorno de chamada para processar a resposta
+    xhr.onreadystatechange = function () {
+        // Verificar se a solicitação foi bem-sucedida
+        if (xhr.readyState == 4) {
+            if (xhr.status == 200) {
+                // Trate a resposta, se necessário
+                console.log('Resposta da solicitação:', xhr.responseText);
+                console.log("------------");
+                let response = JSON.parse(xhr.responseText); // Converter a resposta em um objeto JavaScript usando JSON.parse()
+                console.log(response);
+                if (response.error) {
+                    // Trate o erro, se houver
+                    console.error('Erro na requisição: ' + response.error);
+                } else {
+                    // Chame a função openPaymentHistoryTab com os dados recebidos do PHP
+                    openPaymentHistoryTab(response);
+                }
+            } else {
+                // Tratar o erro de solicitação
+                console.error('Erro na solicitação. Status: ' + xhr.status);
+            }
+        }
+    };
+
+    // Abra a conexão e envie a solicitação para o arquivo PHP
+    xhr.open("POST", "treatment.php", true);
+    xhr.send(formData);
+}
+
+
+//Gerar o extrato de pagamento na outra aba --------------------
+function openPaymentHistoryTab(data) {
+    console.log("--");
+    console.log(data);
+    let resultado1 = typeof data;
+    console.log(resultado1);
+    // Verifica se data é um objeto e se possui os campos necessários
+    if (typeof data === 'object' && data.clientData && data.paymentDetails && Array.isArray(data.paymentDetails) && data.paymentDetails.length > 0) {
+        try {
+            // Extrai os dados do cliente
+            let clientData = data.clientData;
+            let clientId = clientData.client_id;
+            let clientName = clientData.client_name;
+            let clientDebitAmount = clientData.debit_amount;
+            let clientEmail = clientData.client_email;
+            let clientPhone = clientData.phone;
+
+            // Extrai os detalhes do pagamento
+            let paymentDetails = data.paymentDetails;
+
+            // Cria o HTML para os detalhes do pagamento
+            let paymentDetailsHTML = `
+                <div class="payment-details">
+                    <input type="hidden" name="clientIdHidden" id="clientIdHidden" value="${clientId}">
+                    <p>Cliente: ${clientName}</p>
+                    <p>E-mail: ${clientEmail}</p>
+                    <p>Contato: ${clientPhone}</p>
+                    <p>Saldo Devedor Atual: R$ ${clientDebitAmount}</p>
+                </div>
+            `;
+
+            // Cria o HTML para os itens de pagamento
+            let paymentItemsHTML = `
+                <table class="payment-items">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Data</th>
+                            <th>Observação</th>
+                            <th>Total</th>
+                            <th>Saldo Anterior</th>
+                            <th>Saldo Atual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${paymentDetails.map(payment => `
+                            <tr>
+                                <td>${payment.payment_id}</td>
+                                <td>${new Intl.DateTimeFormat('pt-BR').format(new Date(payment.payment_date))}</td>
+                                <td>${payment.type_of_payment || "N/A"}</td>
+                                <td>R$ ${payment.amount || "N/A"}</td>
+                                <td>R$ ${payment.saldo_anterior || "N/A"}</td>
+                                <td>R$ ${payment.saldo_atual || "N/A"}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+
+            // Cria o HTML completo para o extrato de pagamento
+            let paymentStatementHTML = `
+                <html>
+                    <head>
+                        <title>Extrato de Pagamentos</title>
+                        <link rel="stylesheet" href="media/css/estilos.css">
+                    </head>
+                    <body>
+                        <header>
+                            <!-- Conteúdo do cabeçalho -->
+                        </header>
+                        <main>
+                            <div class="payment-statement-container">
+                                <div class="payment-statement-header">
+                                    <h2>Extrato de Pagamentos</h2>
+                                </div>
+                                ${paymentDetailsHTML}
+                                ${paymentItemsHTML}
+                            </div>
+                        </main>
+                    </body>
+                </html>
+            `;
+
+            // Abre uma nova guia com o extrato de pagamento
+            let paymentStatementWindow = window.open('', '_blank');
+
+            // Verifica se a guia foi aberta com sucesso
+            if (paymentStatementWindow) {
+                paymentStatementWindow.document.write(paymentStatementHTML);
+                paymentStatementWindow.document.close();
+            } else {
+                console.error('Falha ao abrir nova guia');
+            }
+        } catch (error) {
+            console.error('Erro ao processar os dados:', error);
+        }
+    } else {
+        console.error('Objeto de dados vazio ou não está no formato esperado.');
+    }
+}
+
+
+
+
 
 function displayCowsay() {
     let cowsayResponse = `
