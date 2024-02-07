@@ -561,11 +561,106 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         echo json_encode(['error' => 'ID do produto não fornecido']);
     }
-}else {
+}elseif (isset($_POST['startDatePagamento'])) {
+    // Coloque aqui a lógica para processar a consulta do histórico de pagamentos com filtro
+    // Certifique-se de validar e sanitizar as entradas do usuário, como as datas
+    $startDateHistorico = $_POST['startDatePagamento'] . ' 00:00:00';
+    $endDateHistorico = $_POST['endDatePagamento'] . ' 23:59:59';
+
+    // Verifica se o filtro de cliente foi enviado
+    $clientId = isset($_POST['clienteDropdownPagamento']) ? intval($_POST['clienteDropdownPagamento']) : null;
+
+    // Prepara a consulta SQL com cláusula WHERE para filtrar por data e, opcionalmente, por cliente
+    $sql = "SELECT 
+            clientpayments.*, 
+            clients.client_name, 
+            clients.debit_amount
+        FROM clientpayments
+        LEFT JOIN clients ON clientpayments.client_id = clients.client_id
+        WHERE clientpayments.payment_date BETWEEN '$startDateHistorico' AND '$endDateHistorico'";
+
+    // Adiciona a condição do cliente, se fornecido
+    if (!is_null($clientId)) {
+        $sql .= " AND clientpayments.client_id = $clientId";
+    }
+
+    // Adiciona a cláusula ORDER BY para ordenar por data descendente
+    $sql .= " ORDER BY clientpayments.payment_date DESC";
+
+    // Executa a consulta
+    $result = $conn->query($sql);
+    $filteredData = [];
+
+    if ($result) {
+        // Processa os resultados
+        while ($row = $result->fetch_assoc()) {
+            $paymentId = $row['payment_id'];
+
+            // Cria um array para representar o pagamento
+            $filteredData[$paymentId] = [
+                'payment_id' => $paymentId,
+                'payment_date' => $row['payment_date'],
+                'type_of_payment' => $row['type_of_payment'],
+                'amount' => $row['amount'],
+                'saldo_anterior' => $row['saldo_anterior'],
+                'saldo_atual' => $row['saldo_atual'],
+                'client_name' => $row['client_name'],
+                'client_id' => $clientId,
+            ];
+        }
+
+        // Libera os resultados
+        $result->free();
+
+        // Retorna os resultados em formato JSON
+        echo json_encode($filteredData);  // Converte array associativo para array numerado
+    } else {
+        // Retorna um erro em formato JSON
+        echo json_encode(['error' => 'Erro na consulta']);
+    }
+} elseif(isset($_POST['pagamentoData'])) {
+    // Decodifica os dados JSON em um array associativo
+    $pagamentoData = json_decode($_POST['pagamentoData'], true);
+
+    // Verifica se o array de pagamentoData é um array e se possui elementos
+    if (is_array($pagamentoData) && count($pagamentoData) > 0) {
+        // Obtém o client_id do primeiro objeto de pagamento
+        $clientId = intval($pagamentoData[0]['client_id']);
+
+        // Consulta os dados do cliente com base no ID
+        $sqlCliente = "SELECT * FROM clients WHERE client_id = $clientId"; // Corrige o nome da tabela
+        $resultCliente = $conn->query($sqlCliente);
+
+        if ($resultCliente) {
+            // Verifica se foi encontrado um cliente com o ID fornecido
+            if ($rowCliente = $resultCliente->fetch_assoc()) {
+                // Combina os dados do cliente e os detalhes do pagamento em um único array
+                $result = array('clientData' => $rowCliente, 'paymentDetails' => $pagamentoData);
+
+                // Retorna os dados combinados em formato JSON
+                echo json_encode($result);
+            } else {
+                // Se nenhum cliente for encontrado, retorna um erro em JSON
+                echo json_encode(['error' => 'Cliente não encontrado']);
+            }
+        } else {
+            // Se houver um erro na consulta do cliente, retorna um erro em JSON
+            echo json_encode(['error' => 'Erro na consulta do cliente: ' . $conn->error]);
+        }
+    } else {
+        // Se não houver dados de pagamento válidos, retorna um erro em JSON
+        echo json_encode(['error' => 'Dados de pagamento inválidos']);
+    }
+}
+else {
     // Return an error for unsupported request method
     //echo json_encode(['error' => 'Unsupported request method']); erro trol
     }
 }
+
+
+
+
 
 function formatPrice($price) {
     // Remove non-numeric characters and convert to float
