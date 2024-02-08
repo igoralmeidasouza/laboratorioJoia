@@ -33,6 +33,12 @@
         <a href="#" class="dashBoard">
             <img src="media/img/icones/iconePainelDeControle.svg" alt="">
             <p>dashBoard</p>
+            <!--botao de logout -->
+            <form method="post" action="treatment.php">
+                <input type="hidden" name="logout" value="true">
+                <button type="submit">Logout</button>
+            </form>
+
         </a>
         <div class="logoMarca">
             <figure>
