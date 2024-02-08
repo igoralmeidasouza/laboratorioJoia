@@ -606,7 +606,17 @@ function updateFilteredData(data) {
     //let dataArray = Object.values(data);
     console.log(data);
     // Inicializa a string HTML da tabela
-    let tableHTML = "<table><thead><tr><th>ID</th><th>Data</th><th>Observação</th><th>Produtos</th><th>Preço (U)</th><th>Total</th><th>Saldo Anterior</th><th>Saldo Atual</th></tr></thead><tbody>";
+    let tableHTML =
+                    "<tr>"+
+                        "<th>ID</th>"+
+                        "<th>Data</th>"+
+                        "<th>Observação</th>"+
+                        "<th>Produtos</th>"+
+                        "<th>Preço (U)</th>"+
+                        "<th>Total</th>"+
+                        "<th>Saldo Anterior</th>"+
+                        "<th>Saldo Atual</th>"+
+                    "</tr>"
 
     // Cria um objeto para rastrear pedidos agrupados por sale_id
     let groupedOrders = {};
@@ -699,7 +709,7 @@ function updateFilteredData(data) {
     }
 
     // Fecha a tabela
-    tableHTML += "</tbody></table>";
+    //tableHTML += "</tbody></table>";
 
     // Adiciona a tabela ao elemento desejado no DOM (outputDiv no seu caso)
     document.getElementById("filteredData").innerHTML = tableHTML;

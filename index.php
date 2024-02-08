@@ -193,7 +193,6 @@
             <div class="vitrine vitrineConultarClientes desativada">
                 <div class="formularios">
                     <p>Consultar Clientes</p>
-                    <div id="" class="tabelaGeral tabelaConsultarClientes">
                     <?php
                     include 'dbConnection.php';
 
@@ -202,8 +201,16 @@
                     $resultClients = $conn->query($sqlclients);
 
                     if ($resultClients->num_rows > 0) {
-                        echo "<table border='1'>";
-                        echo "<tr><th>ID</th><th>Nome</th><th>Email</th><th>Telefone</th><th>CPF/CNPJ</th><th>Endereço</th><th>Número</th><th>Complemento</th><th>Bairro</th><th>Cidade</th><th>CEP</th><th>Saldo Devedor</th></tr>";
+                        echo "<table class='tabelaConsultarClientes tabelaGeral'>";
+                        echo "<tr>
+                                <th>ID</th>
+                                <th>Nome</th>
+                                <th>Email</th>
+                                <th>Telefone</th>
+                                <th>CPF/CNPJ</th>
+                                <th>Endereço</th> 
+                                <th>Saldo Devedor</th>
+                            </tr>";
 
                         while ($row = $resultClients->fetch_assoc()) {
                             echo "<tr>";
@@ -212,12 +219,18 @@
                             echo "<td>" . $row["client_email"] . "</td>";
                             echo "<td>" . $row["phone"] . "</td>";
                             echo "<td>" . $row["cpf_cnpj"] . "</td>";
-                            echo "<td>" . $row["address"] . "</td>";
-                            echo "<td>" . $row["number"] . "</td>";
-                            echo "<td>" . $row["complement"] . "</td>";
-                            echo "<td>" . $row["neighborhood"] . "</td>";
-                            echo "<td>" . $row["city"] . "</td>";
-                            echo "<td>" . $row["zipcode"] . "</td>";
+                            echo "<td>" . $row["address"] . ", " 
+                                        . $row["number"] . ", " 
+                                        . $row["complement"] . ", "
+                                        . $row["neighborhood"] . ", " 
+                                        . $row["city"] . ", " 
+                                        . $row["zipcode"] .
+                                "</td>";
+                            //echo "<td>" . $row["number"] . "</td>";
+                            //echo "<td>" . $row["complement"] . "</td>";
+                            //echo "<td>" . $row["neighborhood"] . "</td>";
+                            //echo "<td>" . $row["city"] . "</td>";
+                            //echo "<td>" . $row["zipcode"] . "</td>";
                             echo "<td>" . "R$ " . $row["debit_amount"] . "</td>";
                             echo "</tr>";
                         }
@@ -229,8 +242,6 @@
 
                     $conn->close();
                     ?>
-
-                    </div>
                 </div>
             </div>
 
@@ -565,9 +576,9 @@
                             
                             <button name="extratoFinal" type="button" onclick="getFilteredData()">Buscar</button>
                         </div>
-                        <div id="filteredData">
+                        <table id="filteredData" class="tabelaGeral tabelaExtrato">
                             <!-- Os dados filtrados serão exibidos aqui -->
-                        </div>
+                        </table>
                     </form>
                 </div>
             </div>
