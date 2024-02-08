@@ -1,6 +1,15 @@
 <?php
 include 'dbConnection.php'; // Conexão com o banco de dados
 
+// Inicia a sessão
+session_start();
+
+// Verifica se o usuário não está logado e redireciona para a página de login
+if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
+    header("Location: login.php");
+    exit;
+}
+
 
 
 // Verifique se o formulário foi enviado
@@ -651,8 +660,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Se não houver dados de pagamento válidos, retorna um erro em JSON
         echo json_encode(['error' => 'Dados de pagamento inválidos']);
     }
-}
-else {
+} elseif(isset($_POST['logout'])) {
+        // Remove todas as variáveis de sessão
+        session_unset();
+
+        // Destrói a sessão
+        session_destroy();
+    
+        // Redireciona para a página de login (ou qualquer outra página que desejar)
+        header("Location: login.php");
+        exit; // Certifique-se de sair após o redirecionamento
+} else {
     // Return an error for unsupported request method
     //echo json_encode(['error' => 'Unsupported request method']); erro trol
     }
