@@ -33,12 +33,6 @@
         <a href="#" class="dashBoard">
             <img src="media/img/icones/iconePainelDeControle.svg" alt="">
             <p>dashBoard</p>
-            <!--botao de logout -->
-            <form method="post" action="treatment.php">
-                <input type="hidden" name="logout" value="true">
-                <button type="submit">Logout</button>
-            </form>
-
         </a>
         <div class="logoMarca">
             <figure>
@@ -88,6 +82,11 @@
                     <p>Extratos</p>
                 </li>
             </ul>
+                <!--botao de logout -->
+                <form method="post" action="treatment.php">
+                    <input type="hidden" name="logout" value="true">
+                <button type="submit">Logout</button>
+            </form>
         </div>
         <div class="bemVindo">
             <p class="textoBemVindo">Bem-vindo!</p>
@@ -257,10 +256,10 @@
                     <p>Alterar Clientes</p>
                     
                     <form id="clientForm" class="formularioGeral formularioCadastrarClientes">
-                    <label for="clientDropdownAtualizar">Selecione um cliente:</label>
-                    <select id="clientDropdownAtualizar" name="client" onclick="getClients()" onchange="atualizarForm()">
-                        <!-- Opções do dropdown devem ser carregadas dinamicamente no lado do servidor -->
-                    </select>
+                        <select id="clientDropdownAtualizar" name="client" onclick="getClients()" onchange="atualizarForm()">
+                            <!-- Opções do dropdown devem ser carregadas dinamicamente no lado do servidor -->
+                        </select>
+                        <label for="clientDropdownAtualizar">Selecione um cliente:</label>
 
                         <p>Dados do Cliente Selecionado</p>
                         <hr>
@@ -290,8 +289,8 @@
                         <input type="text" id="clientCity" name="clientCity">
                         <label for="clientCity">Cidade:</label>
 
-                        <label for="clientZipcode">CEP:</label>
                         <input type="text" id="clientZipcode" name="clientZipcode">
+                        <label for="clientZipcode">CEP:</label>
 
                         <input type="hidden" name="clientIdAtt" id="clientIdAtt">
                         <button type="button" onclick="updateClient()">Atualizar Cliente</button>
