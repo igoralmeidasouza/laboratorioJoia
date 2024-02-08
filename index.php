@@ -83,9 +83,13 @@
                 </li>
             </ul>
                 <!--botao de logout -->
-                <form method="post" action="treatment.php">
-                    <input type="hidden" name="logout" value="true">
-                <button type="submit">Logout</button>
+            <form method="post" action="treatment.php" class="botaoLogout">
+                <input type="hidden" name="logout" value="true">
+                <button type="submit">
+                    <p>finalizar sessão</p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ai ai-SignOut"><path d="M13 12h9m0 0l-3.333-4M22 12l-3.333 4"/><path d="M14 7V5.174a2 2 0 0 0-2.166-1.993l-8 .666A2 2 0 0 0 2 5.84v12.32a2 2 0 0 0 1.834 1.993l8 .667A2 2 0 0 0 14 18.826V17"/></svg>
+                </button>
+                <span> Laboratório Joia © 2024 | versão beta: 0.1</span>
             </form>
         </div>
         <div class="bemVindo">
@@ -144,16 +148,10 @@
                             </div>
                         </div>
 
-                        <!-- Botão para limpar o carrinho
-                        <button type="button" onclick="clearCart()">Clear Cart</button> -->
-
                         <!-- Conteudo do carrinho -->
                         <div id="cartDisplay" class="tabelaGeral tabelaCarrinho">
                             <!-- Cart contents will be displayed here -->
                         </div>
-                        
-                        <!-- Botão para executar a venda 
-                        <button type="button" onclick="executeSale()">Executar Venda</button> -->
                     </form>
                 </div>
             </div>
@@ -231,11 +229,6 @@
                                         . $row["city"] . ", " 
                                         . $row["zipcode"] .
                                 "</td>";
-                            //echo "<td>" . $row["number"] . "</td>";
-                            //echo "<td>" . $row["complement"] . "</td>";
-                            //echo "<td>" . $row["neighborhood"] . "</td>";
-                            //echo "<td>" . $row["city"] . "</td>";
-                            //echo "<td>" . $row["zipcode"] . "</td>";
                             echo "<td>" . "R$ " . $row["debit_amount"] . "</td>";
                             echo "</tr>";
                         }

@@ -55,6 +55,15 @@ body main {background-color: #ffffff; display: flex; width: 100%; max-width: 132
                         body main .menuLateral ul .ativa ul .subBotao {opacity: 1; visibility: visible; z-index: 1; color: #ffffff; height: 15px; margin-top: 5px; text-align: left; font-size: 12px; transition: all 0.5s ease;}
                             body main .menuLateral ul .ativa ul .subBotao:first-child {margin-top: 0px;}
 
+            /* Botão logout */
+            body main .menuLateral .botaoLogout {display: flex; position: absolute; bottom: 15px; left: 15px; flex-direction: column;}
+                body main .menuLateral .botaoLogout button {display: flex; cursor: pointer; align-items: center; color: #fff;}
+                    body main .menuLateral .botaoLogout button p {font-size: 15px; font-weight: 400; margin-right: 5px; padding-bottom: 2px; transition: all 0.5s ease;}
+                        body main .menuLateral .botaoLogout button:hover p {color: #0071cd;}
+                    body main .menuLateral .botaoLogout button svg {width: 18px; height: 18px; color: #930000;}
+
+                body main .menuLateral .botaoLogout span {font-size: 10px; color: lightgrey; line-height: 10px;}
+
     body main .bemVindo {padding-top: 5px; width: 100%; display: flex; position: relative;} 
         body main .bemVindo .textoBemVindo {position: absolute; font-size: 70px; font-family: 'Open Sans'; color: #ededed; cursor: default; left: 30%; top: 50%;}
 
