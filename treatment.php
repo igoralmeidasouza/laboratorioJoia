@@ -37,20 +37,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $formattedValue1 = str_replace(",", ".", $formattedValue1);
         $formattedValue1 = substr($formattedValue1, 4);
 
-        // Execute a consulta ao banco de dados para inserir o novo cliente
-        $sql = "INSERT INTO clients (client_name, client_email, phone, cpf_cnpj, address, number, complement, neighborhood, city, zipcode, debit_amount) 
-                VALUES ('$client_name', '$client_email', '$telefone', '$cpf_cnpj', '$address', '$number', '$complemento', '$neighborhood', '$city', '$zipcode', '$formattedValue1')";
+        // Verifique se o CPF/CNPJ já existe no banco de dados
+        $check_sql = "SELECT * FROM clients WHERE cpf_cnpj = '$cpf_cnpj'";
+        $check_result = $conn->query($check_sql);
 
-        if ($conn->query($sql) === TRUE) {
-        $resultadoPositivo = "Cliente adicionado com sucesso!";
-        } 
-        else {
-            $resultadoNegativo = "Error: " . $sql . "<br>" . $conn->error;
+        if ($check_result->num_rows > 0) {
+            // CPF/CNPJ já está em uso, exiba uma mensagem de erro
+            $resultadoNegativo = "Já existe um cliente cadastrado com esse CPF/CNPJ.";
+        } else {
+            // CPF/CNPJ não está em uso, proceda com a inserção do novo cliente
+            // Execute a consulta SQL para inserir o novo cliente
+            $sql = "INSERT INTO clients (client_name, client_email, phone, cpf_cnpj, address, number, complement, neighborhood, city, zipcode, debit_amount) 
+                    VALUES ('$client_name', '$client_email', '$telefone', '$cpf_cnpj', '$address', '$number', '$complemento', '$neighborhood', '$city', '$zipcode', '$formattedValue1')";
+
+            if ($conn->query($sql) === TRUE) {
+                $resultadoPositivo = "Cliente adicionado com sucesso!";
+            } else {
+                $resultadoNegativo = "Erro ao adicionar cliente: " . $conn->error;
+            }
         }
-    // Close the database connection
-    $conn->close();
-    }
 
+        // Feche a conexão com o banco de dados
+        $conn->close();
+}
 
 
     /* Cadastrar produto */
@@ -676,22 +685,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-
-
-
-
 function formatPrice($price) {
     // Remove non-numeric characters and convert to float
     $cleanedPrice = preg_replace("/[^0-9,]/", "", $price); // Remove anything that is not a digit or comma
     $floatPrice = floatval(str_replace(',', '.', $cleanedPrice)); // Convert to float, replace comma with dot
     return $floatPrice;
 }
-
-
-
-
-
-// Close the database connection
-//$conn->close();
 
 ?>
