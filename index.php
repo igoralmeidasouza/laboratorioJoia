@@ -414,7 +414,8 @@
                         </div>
                     </form>
                     <input type="hidden" name="pagamentoIdHidden" id="pagamentoIdHidden">
-                    <div id="filteredPagamentos">
+                    <div >
+                    <table id="filteredPagamentos" class="tabelaGeral tabelaHistoricoPagamento"></table>
                         
                             <!-- Os dados filtrados serão exibidos aqui -->
                         </div>
@@ -480,8 +481,8 @@
                                 <!-- Options serão preenchidas dinamicamente pelo JavaScript -->
                             </select>
                             <label for="productDropdown">Selecione um produto:</label>
-                            <p>Produto Selecionado</p>
-                            <hr>
+                            <p style="margin-bottom: 20px">Produto Selecionado</p>
+
                             <!-- Campos para exibir e editar dados do produto -->
                             <input type="text" id="productName" name="productName">
                             <label for="productName">Nome do Produto:</label>

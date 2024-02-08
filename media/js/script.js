@@ -883,7 +883,15 @@ function updateFilteredPagamentos(data) {
     dataArray.sort((a, b) => new Date(a.payment_date) - new Date(b.payment_date));
 
     // Initialize the HTML string for the table
-    let tableHTML = "<table><thead><tr><th>ID</th><th>Data de Pagamento</th><th>Observação</th><th>Total</th><th>Saldo Anterior</th><th>Saldo Atual</th></tr></thead><tbody>";
+    let tableHTML = 
+                        "<tr>"+
+                            "<th>ID</th>"+
+                            "<th>Data de Pagamento</th>"+
+                            "<th>Observação</th>"+
+                            "<th>Total</th>"+
+                            "<th>Saldo Anterior</th>"+
+                            "<th>Saldo Atual</th>"+
+                        "</tr>";
 
     // Loop through all payments
     for (let i = 0; i < dataArray.length; i++) {
@@ -907,7 +915,15 @@ function updateFilteredPagamentos(data) {
     }
 
     // Close the table
-    tableHTML += "</tbody></table><button name='gerarExtrato' onclick='gerarExtratoPagamento(" + JSON.stringify(dataArray) + ")'>Gerar Extrato</button>";
+    //tableHTML += "</table>"
+    tableHTML += "<tr>"+
+                    "<td></td>"+
+                    "<td></td>"+
+                    "<td></td>"+
+                    "<td></td>"+
+                    "<td></td>"+
+                    "<td><button name='gerarExtrato' onclick='gerarExtratoPagamento(" + JSON.stringify(dataArray) + ")'>Gerar Extrato</button></td>"+
+                "</tr>";
 
     // Add the table to the desired element in the DOM (e.g., an element with the ID "tabela-container")
     document.getElementById("filteredPagamentos").innerHTML = tableHTML;
