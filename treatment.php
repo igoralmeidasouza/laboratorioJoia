@@ -494,10 +494,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
                 if ($conn->query($sql) === TRUE) {
                     // Se a atualização for bem-sucedida, envie uma mensagem de sucesso
-                    echo json_encode(['success' => 'Dados do cliente atualizados com sucesso']);
+                    //echo json_encode(['success' => 'Dados do cliente atualizados com sucesso']);
+                    $resultadoPositivo = "Dados do cliente atualizados com sucesso";
+                    echo json_encode(array("mensagemPositiva" => $resultadoPositivo));
                 } else {
                     // Se houver um erro na atualização, envie uma mensagem de erro
-                    echo json_encode(['error' => 'Erro na atualização dos dados do cliente']);
+                    //echo json_encode(['error' => 'Erro na atualização dos dados do cliente']);
+                    $resultadoPositivo = "Erro na atualização dos dados do cliente";
+                    echo json_encode(array("mensagemPositiva" => $resultadoPositivo));
                 }
             } else {
                 // Se algum dos dados necessários não foi fornecido, envie uma mensagem de erro
@@ -572,9 +576,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Verifique se a consulta foi bem-sucedida
         if ($result) {
-            echo json_encode(['success' => true, 'message' => 'Produto atualizado com sucesso']);
+            $resultadoPositivo = "Produto atualizado com sucesso!";
+            echo json_encode(array("mensagemPositiva" => $resultadoPositivo));
         } else {
-            echo json_encode(['error' => 'Erro na atualização do produto']);
+            $resultadoPositivo = "Erro ao atualizar produto!";
+            echo json_encode(array("mensagemPositiva" => $resultadoPositivo));
         }
     } else {
         echo json_encode(['error' => 'ID do produto não fornecido']);
@@ -679,6 +685,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Redireciona para a página de login (ou qualquer outra página que desejar)
         header("Location: login.php");
         exit; // Certifique-se de sair após o redirecionamento
+} elseif (isset($_POST['client_id_delete'])) {// Check if the client ID is set in the request
+    // Get the client ID from the request
+    $clientId = $_POST['client_id_delete'];
+    $delQuery = "DELETE FROM clients WHERE client_id = $clientId";
+    // Perform the deletion in the database
+    //$resultCliente = $conn->query($delQuery);
+    if($conn->query($delQuery)){
+        // Echo a success message
+        $resultadoPositivo = "Cliente deletado com sucesso!";
+        echo json_encode(array("mensagemPositiva" => $resultadoPositivo));
+    }
+    else{
+        $mensagemPositiva = "Falha ao deletar cliente.";
+        echo json_encode(array("mensagemPositiva" => $resultadoPositivo));
+    }
+} elseif (isset($_POST['product_id_delete'])) {// Check if the client ID is set in the request
+    // Get the client ID from the request
+    $productId = $_POST['product_id_delete'];
+    $delQuery = "DELETE FROM products WHERE product_id = $productId";
+    // Perform the deletion in the database
+    //$resultCliente = $conn->query($delQuery);
+    if($conn->query($delQuery)){
+        // Echo a success message
+        $resultadoPositivo = "Produto deletado com sucesso!";
+        echo json_encode(array("mensagemPositiva" => $resultadoPositivo));
+    }
+    else{
+        $mensagemPositiva = "Falha ao deletar Produto.";
+        echo json_encode(array("mensagemPositiva" => $resultadoPositivo));
+    }
 } else {
     // Return an error for unsupported request method
     //echo json_encode(['error' => 'Unsupported request method']); erro trol

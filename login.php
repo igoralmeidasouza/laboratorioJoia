@@ -15,6 +15,10 @@
 <body>
     <?php
     include 'dbConnection.php'; // Conexão com o banco de dados
+    // Define o tempo de vida da sessão para 8 horas (em segundos)
+    $eightHours = 8 * 60 * 60; // 8 horas * 60 minutos * 60 segundos
+    // Define o tempo de vida do cookie da sessão
+    session_set_cookie_params($eightHours);
     // Inicia a sessão
     session_start();
     $error = "";
@@ -28,9 +32,11 @@
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Verifica se os campos de usuário e senha foram preenchidos
         if (isset($_POST['username']) && isset($_POST['password'])) {
+
+            // Sanitiza os valores dos campos de usuário e senha
+            $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
+            $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
             // Consulta SQL para verificar o usuário e a senha
-            $username = $_POST['username'];
-            $password = $_POST['password'];
             $sql = "SELECT * FROM users WHERE username='$username' AND password='$password'";
             $result = $conn->query($sql);
     

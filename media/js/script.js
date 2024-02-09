@@ -1022,29 +1022,28 @@ function updateClient(){
   
       // Defina a função de retorno de chamada para processar a resposta
       xhr.onreadystatechange = function () {
-          if (xhr.readyState == 4) {
-              if (xhr.status == 200) {
-                  // Trate a resposta, se necessário
-                  let response = JSON.parse(xhr.responseText);
-  
-                  if (response.success) {
-                      // Atualização bem-sucedida, faça algo, se necessário
-                      console.log('Dados do cliente atualizados com sucesso');
-                  } else {
-                      // Trate o erro, se houver
-                      console.error('Erro na atualização dos dados do cliente: ' + response.error);
-                  }
-              } else {
-                  // Trate o erro de solicitação
-                  console.error('Erro na solicitação. Status: ' + xhr.status);
-              }
-          }
-      };
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            let resposta = JSON.parse(xhr.responseText);
+            // Acesse a variável e atualize a UI conforme necessário
+            let mensagemPositiva = resposta.mensagemPositiva;
+            // Exemplo: exiba a mensagem em um elemento HTML
+            document.getElementById("mensagemPositiva").innerText = mensagemPositiva;
+            // Ative a visibilidade da mensagem
+            document.getElementById("mensagemPositiva").style.opacity = 1;
+            document.getElementById("mensagemPositiva").style.visibility = "visible";
+            // Define um temporizador para ocultar a mensagem após 5 segundos
+            setTimeout(function () {
+                document.getElementById("mensagemPositiva").style.opacity = '0';
+                document.getElementById("mensagemPositiva").style.visibility = 'hidden';
+            }, 5000); // 5 segundos 
+        }
+    };
   
       // Abra a conexão e envie a solicitação para o arquivo PHP
       xhr.open('POST', 'treatment.php', true);
       xhr.send(formData);
 }
+
 //função feita para coletar o produto e fazer com que a outra função preencha os campos
 //auxiliando na atualização dos dados dos produtos
 function productForm(){
@@ -1135,23 +1134,21 @@ function updateProduct() {
 
     // Defina a função de retorno de chamada para processar a resposta
     xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4) {
-            if (xhr.status == 200) {
-                // Trate a resposta, se necessário
-                let response = JSON.parse(xhr.responseText);
-
-                if (response.success) {
-                    // Atualização bem-sucedida, faça algo, se necessário
-                    console.log('Dados do produto atualizados com sucesso');
-                } else {
-                    // Trate o erro, se houver
-                    console.error('Erro na atualização dos dados do produto: ' + response.error);
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    let resposta = JSON.parse(xhr.responseText);
+                    // Acesse a variável e atualize a UI conforme necessário
+                    let mensagemPositiva = resposta.mensagemPositiva;
+                    // Exemplo: exiba a mensagem em um elemento HTML
+                    document.getElementById("mensagemPositiva").innerText = mensagemPositiva;
+                    // Ative a visibilidade da mensagem
+                    document.getElementById("mensagemPositiva").style.opacity = 1;
+                    document.getElementById("mensagemPositiva").style.visibility = "visible";
+                    // Define um temporizador para ocultar a mensagem após 5 segundos
+                    setTimeout(function () {
+                        document.getElementById("mensagemPositiva").style.opacity = '0';
+                        document.getElementById("mensagemPositiva").style.visibility = 'hidden';
+                    }, 5000); // 5 segundos 
                 }
-            } else {
-                // Trate o erro de solicitação
-                console.error('Erro na solicitação. Status: ' + xhr.status);
-            }
-        }
     };
 
     // Abra a conexão e envie a solicitação para o arquivo PHP
@@ -1323,8 +1320,59 @@ function openPaymentHistoryTab(data) {
     }
 }
 
+//remover o cliente da tabela
+function removeCliente(clientId) {
+    // Make an AJAX request
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "treatment.php", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            let resposta = JSON.parse(xhr.responseText);
+            // Acesse a variável e atualize a UI conforme necessário
+            let mensagemPositiva = resposta.mensagemPositiva;
+            // Exemplo: exiba a mensagem em um elemento HTML
+            document.getElementById("mensagemPositiva").innerText = mensagemPositiva;
+            // Ative a visibilidade da mensagem
+            document.getElementById("mensagemPositiva").style.opacity = 1;
+            document.getElementById("mensagemPositiva").style.visibility = "visible";
+            // Define um temporizador para ocultar a mensagem após 5 segundos
+            setTimeout(function () {
+                document.getElementById("mensagemPositiva").style.opacity = '0';
+                document.getElementById("mensagemPositiva").style.visibility = 'hidden';
+            }, 5000); // 5 segundos 
+        }
+    };
+    // Send the client ID to the PHP script
+    xhr.send("client_id_delete=" + clientId);
+}
 
-
+//remover o produto da tabela
+function removeProduto(productId) {
+    // Make an AJAX request
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "treatment.php", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            let resposta = JSON.parse(xhr.responseText);
+            // Acesse a variável e atualize a UI conforme necessário
+            let mensagemPositiva = resposta.mensagemPositiva;
+            // Exemplo: exiba a mensagem em um elemento HTML
+            document.getElementById("mensagemPositiva").innerText = mensagemPositiva;
+            // Ative a visibilidade da mensagem
+            document.getElementById("mensagemPositiva").style.opacity = 1;
+            document.getElementById("mensagemPositiva").style.visibility = "visible";
+            // Define um temporizador para ocultar a mensagem após 5 segundos
+            setTimeout(function () {
+                document.getElementById("mensagemPositiva").style.opacity = '0';
+                document.getElementById("mensagemPositiva").style.visibility = 'hidden';
+            }, 5000); // 5 segundos 
+        }
+    };
+    // Send the client ID to the PHP script
+    xhr.send("product_id_delete=" + productId);
+}
 
 
 

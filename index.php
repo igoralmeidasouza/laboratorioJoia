@@ -213,6 +213,7 @@
                                 <th>CPF/CNPJ</th>
                                 <th>Endereço</th> 
                                 <th>Saldo Devedor</th>
+                                <th></th>
                             </tr>";
 
                         while ($row = $resultClients->fetch_assoc()) {
@@ -230,6 +231,7 @@
                                         . $row["zipcode"] .
                                 "</td>";
                             echo "<td>" . "R$ " . $row["debit_amount"] . "</td>";
+                            echo "<td><button onclick=\"removeCliente(" . $row["client_id"] . ")\"><em>X </em>Remover</button></span></td></tr>";
                             echo "</tr>";
                         }
 
@@ -435,7 +437,7 @@
 
                         if ($resultProducts->num_rows > 0) {
                             echo "<table border='1'>";
-                            echo "<tr><th>ID</th><th>Nome</th><th>Descrição</th><th>Preço 1</th><th>Preço 2</th><th>Preço 3</th><th>Preço 4</th><th>Preço 5</th><th>Preço 6</th></tr>";
+                            echo "<tr><th>ID</th><th>Nome</th><th>Descrição</th><th>Preço 1</th><th>Preço 2</th><th>Preço 3</th><th>Preço 4</th><th>Preço 5</th><th>Preço 6</th><th></th></tr>";
 
                             while ($row = $resultProducts->fetch_assoc()) {
                                 echo "<tr>";
@@ -454,6 +456,7 @@
                                 echo "<td>" . "R$ ". $preço_5. "</td>";
                                 $preço_6 = str_replace (".",",", $row["price_type_6"]);
                                 echo "<td>" . "R$ ". $preço_6. "</td>";
+                                echo "<td><button onclick=\"removeProduto(" . $row["product_id"] . ")\"><em>X </em>Remover</button></span></td></tr>";
                                 echo "</tr>";
                             }
 
