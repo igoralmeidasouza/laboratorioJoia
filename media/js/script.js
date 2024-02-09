@@ -360,7 +360,7 @@ function updateCartDisplay() {
     cartHTML += "<button type="+'button'+" onclick="+'clearCart()'+"><em>X </em>Limpar Carrinho</button></div>";
 
     if (cartItems.length > 0) {
-        cartHTML += "<table class="+'tabelaVenda'+"><tr><th>Cliente</th><th>Produto</th><th>Produto (u)</th><th>Qt.</th><th>Paciente</th><th>Preço Total</th><th></th></tr>";
+        cartHTML += "<table class="+'tabelaVenda'+"><tr><th>Cliente</th><th>Produto</th><th>Produto (u)</th><th>Qt.</th><th>Paciente</th><th>Preço Total</th><th>Remover</th></tr>";
         for (let i = 0; i < cartItems.length; i++) {
             let item = cartItems[i];
             let total1 = item.total;
@@ -377,7 +377,12 @@ function updateCartDisplay() {
                         "<td>" + item.quantity + "</td>" +
                         "<td>" + item.paciente + "</td>" +
                         "<td> R$ " + tott + "</td>" + 
-                        "<td><button onclick=\"removeCartItem(" + i + ")\"><em>X </em>Remover</button></span></td></tr>";
+                        "<td><button onclick=\"removeCartItem(" + i + ")\">"+
+                                "<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='ai ai-TrashCan'>"+
+                                    "<path d='M4 6h16l-1.58 14.22A2 2 0 0 1 16.432 22H7.568a2 2 0 0 1-1.988-1.78L4 6z'/><path d='M7.345 3.147A2 2 0 0 1 9.154 2h5.692a2 2 0 0 1 1.81 1.147L18 6H6l1.345-2.853z'/><path d='M2 6h20'/><path d='M10 11v5'/><path d='M14 11v5'/>"+
+                                "</svg>"+
+                            "</button>"+
+                        "</td></tr>";
         }
         cartHTML += "</table>";
 
@@ -1374,7 +1379,21 @@ function removeProduto(productId) {
     xhr.send("product_id_delete=" + productId);
 }
 
+// Botão mostrar senha
+function togglePasswordVisibility() {
+    var passwordField = document.getElementById("password");
+    var showPasswordBtn = document.getElementById("showPasswordBtn");
 
+    if (passwordField.type === "password") {
+        passwordField.type = "text";
+        showPasswordBtn.classList.remove("buttonHidden");
+        showPasswordBtn.classList.add("buttonVisible");
+    } else {
+        passwordField.type = "password";
+        showPasswordBtn.classList.remove("buttonVisible");
+        showPasswordBtn.classList.add("buttonHidden");
+    }
+}
 
 
 function displayCowsay() {

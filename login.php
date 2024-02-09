@@ -48,7 +48,7 @@
                 exit;
             } else {
                 // Nome de usuário ou senha incorretos
-                $error = "Nome de usuário ou senha incorretos";
+                $error = "Nome de usuário ou senha incorretos <em>";
             }
     
             // Fechar conexão com o banco de dados
@@ -72,7 +72,7 @@
             <p>Login</p>
             <form method="post" action="login.php">
                 <?php if (isset($error)): ?>
-                <p style="color: red;"><?php echo $error; ?></p>
+                <?php $error; ?>
                 <?php endif; ?>
                 <div>
                     <input type="text" name="username" id="username" placeholder="Nome de usuário" required>
@@ -81,6 +81,9 @@
                 <div>
                     <input type="password" name="password" id="password" placeholder="Senha" required>
                     <label for="password">Senha</label>
+                    
+                    <span class="buttonHidden" id="showPasswordBtn" onclick="togglePasswordVisibility()"></span>
+                    <span class="erroLogin"> <?php echo $resultado = $error; ?></span>
                 </div>
                 <button type="submit">Entrar</button>
             </form>

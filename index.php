@@ -212,8 +212,8 @@
                                 <th>Telefone</th>
                                 <th>CPF/CNPJ</th>
                                 <th>Endereço</th> 
-                                <th>Saldo Devedor</th>
-                                <th></th>
+                                <th>Devedor</th>
+                                <th>Excluir</th>
                             </tr>";
 
                         while ($row = $resultClients->fetch_assoc()) {
@@ -231,7 +231,13 @@
                                         . $row["zipcode"] .
                                 "</td>";
                             echo "<td>" . "R$ " . $row["debit_amount"] . "</td>";
-                            echo "<td><button onclick=\"removeCliente(" . $row["client_id"] . ")\"><em>X </em>Remover</button></span></td></tr>";
+                            echo "<td>
+                                    <button onclick=\"removeCliente(" . $row["client_id"] . ")\">
+                                        <svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='ai ai-TrashCan'>
+                                            <path d='M4 6h16l-1.58 14.22A2 2 0 0 1 16.432 22H7.568a2 2 0 0 1-1.988-1.78L4 6z'/><path d='M7.345 3.147A2 2 0 0 1 9.154 2h5.692a2 2 0 0 1 1.81 1.147L18 6H6l1.345-2.853z'/><path d='M2 6h20'/><path d='M10 11v5'/><path d='M14 11v5'/>
+                                        </svg>
+                                    </button>
+                                </td>";
                             echo "</tr>";
                         }
 
@@ -437,7 +443,18 @@
 
                         if ($resultProducts->num_rows > 0) {
                             echo "<table border='1'>";
-                            echo "<tr><th>ID</th><th>Nome</th><th>Descrição</th><th>Preço 1</th><th>Preço 2</th><th>Preço 3</th><th>Preço 4</th><th>Preço 5</th><th>Preço 6</th><th></th></tr>";
+                            echo "<tr>
+                                    <th>ID</th>
+                                    <th>Nome</th>
+                                    <th>Descrição</th>
+                                    <th>Preço 1</th>
+                                    <th>Preço 2</th>
+                                    <th>Preço 3</th>
+                                    <th>Preço 4</th>
+                                    <th>Preço 5</th>
+                                    <th>Preço 6</th>
+                                    <th>Excluir</th>
+                                </tr>";
 
                             while ($row = $resultProducts->fetch_assoc()) {
                                 echo "<tr>";
@@ -456,7 +473,13 @@
                                 echo "<td>" . "R$ ". $preço_5. "</td>";
                                 $preço_6 = str_replace (".",",", $row["price_type_6"]);
                                 echo "<td>" . "R$ ". $preço_6. "</td>";
-                                echo "<td><button onclick=\"removeProduto(" . $row["product_id"] . ")\"><em>X </em>Remover</button></span></td></tr>";
+                                //echo "<td><button onclick=\"removeProduto(" . $row["product_id"] . ")\"><em>X </em>Remover</button></span></td></tr>";
+                                echo "<td>
+                                    <button onclick=\"removeProduto(" . $row["product_id"] . ")\">
+                                        <svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='ai ai-TrashCan'>
+                                            <path d='M4 6h16l-1.58 14.22A2 2 0 0 1 16.432 22H7.568a2 2 0 0 1-1.988-1.78L4 6z'/><path d='M7.345 3.147A2 2 0 0 1 9.154 2h5.692a2 2 0 0 1 1.81 1.147L18 6H6l1.345-2.853z'/><path d='M2 6h20'/><path d='M10 11v5'/><path d='M14 11v5'/>
+                                        </svg></button>
+                                    </td>";
                                 echo "</tr>";
                             }
 
