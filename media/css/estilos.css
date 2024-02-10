@@ -57,12 +57,14 @@ body main {background-color: #ffffff; display: flex; width: 100%; max-width: 132
 
             /* Botão logout */
             body main .menuLateral .botaoLogout {display: flex; position: absolute; bottom: 15px; left: 15px; flex-direction: column;}
+                body main .menuLateral .botaoLogout em {position: relative; font-size: 14px; color: #fff; left: 23px; text-transform: capitalize; cursor: default;}
+                    body main .menuLateral .botaoLogout em b {position: absolute; content: ''; width: 20px; height: 20px; background: url(../img/icones/user-circle.png) no-repeat center center; background-size: contain; filter: invert(1); left: -24px; top: 4px;}
                 body main .menuLateral .botaoLogout button {display: flex; cursor: pointer; align-items: center; color: #fff;}
                     body main .menuLateral .botaoLogout button p {font-size: 15px; font-weight: 400; margin-right: 5px; padding-bottom: 2px; transition: all 0.5s ease;}
                         body main .menuLateral .botaoLogout button:hover p {color: #0071cd;}
                     body main .menuLateral .botaoLogout button svg {width: 18px; height: 18px; color: #930000;}
 
-                body main .menuLateral .botaoLogout span {font-size: 10px; color: lightgrey; line-height: 10px;}
+                body main .menuLateral .botaoLogout span {font-size: 10px; color: lightgrey; line-height: 10px; cursor: default;}
 
     body main .bemVindo {padding-top: 5px; width: 100%; display: flex; position: relative;} 
         body main .bemVindo .textoBemVindo {position: absolute; font-size: 70px; font-family: 'Open Sans'; color: #ededed; cursor: default; left: 30%; top: 50%;}
