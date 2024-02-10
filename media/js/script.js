@@ -772,7 +772,18 @@ function getFilteredHistory() {
 //trata os dados de historico de venda no html pos consulta no php
 function updateFilteredHistory(data) {
     // Inicializa a string HTML da tabela
-    let tableHTML = "<table class='tabelaGeral'><thead><tr><th>ID</th><th>Data</th><th>Paciente</th><th>Produto</th><th>Preço (U)</th><th>Qt.</th><th>Total</th><th>Saldo Anterior</th><th>Saldo Atual</th></tr></thead><tbody>";
+    let tableHTML = "<table class='tabelaGeral'>"+
+                        "<tr>"+
+                            "<th>ID</th>"+
+                            "<th>Data</th>"+
+                            "<th>Paciente</th>"+
+                            "<th>Produto</th>"+
+                            "<th>Preço (U)</th>"+
+                            "<th>Qt.</th>"+
+                            "<th>Total</th>"+
+                            "<th>Saldo Anterior</th>"+
+                            "<th>Saldo Atual</th>"+
+                        "</tr>";
 
     // Loop através dos dados
     for (let saleId in data) {

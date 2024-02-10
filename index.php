@@ -267,8 +267,8 @@
                         </select>
                         <label for="clientDropdownAtualizar">Selecione um cliente:</label>
 
-                        <p>Dados do Cliente Selecionado</p>
-                        <hr>
+                        <p style="margin-bottom: 20px">Dados do Cliente Selecionado</p>
+
                         <input type="text" id="clientName" name="clientName">
                         <label for="clientName">Nome:</label>
                         <input type="text" id="clientEmail" name="clientEmail">
