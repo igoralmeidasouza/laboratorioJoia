@@ -513,7 +513,7 @@ function openInvoiceTab(data) {
                             <span>E-mail: ${emailClient}</span>
                             <span>Contato: ${contatoClient}</span>
                         </div>
-                        <span class="pacienteContainer">Paciênte: ${data.paciente}</span>
+                        <span class="pacienteContainer">Paciente: ${data.paciente}</span>
                         
                         <table class="tabelaExtrato">
                             ${itemsHTML}
@@ -1334,56 +1334,63 @@ function openPaymentHistoryTab(data) {
 
 //remover o cliente da tabela
 function removeCliente(clientId) {
-    // Make an AJAX request
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "treatment.php", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-            let resposta = JSON.parse(xhr.responseText);
-            // Acesse a variável e atualize a UI conforme necessário
-            let mensagemPositiva = resposta.mensagemPositiva;
-            // Exemplo: exiba a mensagem em um elemento HTML
-            document.getElementById("mensagemPositiva").innerText = mensagemPositiva;
-            // Ative a visibilidade da mensagem
-            document.getElementById("mensagemPositiva").style.opacity = 1;
-            document.getElementById("mensagemPositiva").style.visibility = "visible";
-            // Define um temporizador para ocultar a mensagem após 5 segundos
-            setTimeout(function () {
-                document.getElementById("mensagemPositiva").style.opacity = '0';
-                document.getElementById("mensagemPositiva").style.visibility = 'hidden';
-            }, 5000); // 5 segundos 
-        }
-    };
-    // Send the client ID to the PHP script
-    xhr.send("client_id_delete=" + clientId);
+    let confirmDelete = window.confirm('Tem certeza de que deseja excluir este cliente?');
+    if (confirmDelete) {
+        // Make an AJAX request
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST", "treatment.php", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                let resposta = JSON.parse(xhr.responseText);
+                // Acesse a variável e atualize a UI conforme necessário
+                let mensagemPositiva = resposta.mensagemPositiva;
+                // Exemplo: exiba a mensagem em um elemento HTML
+                document.getElementById("mensagemPositiva").innerText = mensagemPositiva;
+                // Ative a visibilidade da mensagem
+                document.getElementById("mensagemPositiva").style.opacity = 1;
+                document.getElementById("mensagemPositiva").style.visibility = "visible";
+                // Define um temporizador para ocultar a mensagem após 5 segundos
+                setTimeout(function () {
+                    document.getElementById("mensagemPositiva").style.opacity = '0';
+                    document.getElementById("mensagemPositiva").style.visibility = 'hidden';
+                }, 5000); // 5 segundos 
+            }
+        };
+        // Send the client ID to the PHP script
+        xhr.send("client_id_delete=" + clientId);
+    }
 }
 
 //remover o produto da tabela
 function removeProduto(productId) {
-    // Make an AJAX request
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "treatment.php", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-            let resposta = JSON.parse(xhr.responseText);
-            // Acesse a variável e atualize a UI conforme necessário
-            let mensagemPositiva = resposta.mensagemPositiva;
-            // Exemplo: exiba a mensagem em um elemento HTML
-            document.getElementById("mensagemPositiva").innerText = mensagemPositiva;
-            // Ative a visibilidade da mensagem
-            document.getElementById("mensagemPositiva").style.opacity = 1;
-            document.getElementById("mensagemPositiva").style.visibility = "visible";
-            // Define um temporizador para ocultar a mensagem após 5 segundos
-            setTimeout(function () {
-                document.getElementById("mensagemPositiva").style.opacity = '0';
-                document.getElementById("mensagemPositiva").style.visibility = 'hidden';
-            }, 5000); // 5 segundos 
-        }
-    };
-    // Send the client ID to the PHP script
-    xhr.send("product_id_delete=" + productId);
+    //confirma se deseja mesmo exluir o item atravez de popup
+    let confirmDelete = window.confirm('Tem certeza de que deseja excluir este produto?');
+    if (confirmDelete) {
+        // Make an AJAX request
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST", "treatment.php", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                let resposta = JSON.parse(xhr.responseText);
+                // Acesse a variável e atualize a UI conforme necessário
+                let mensagemPositiva = resposta.mensagemPositiva;
+                // Exemplo: exiba a mensagem em um elemento HTML
+                document.getElementById("mensagemPositiva").innerText = mensagemPositiva;
+                // Ative a visibilidade da mensagem
+                document.getElementById("mensagemPositiva").style.opacity = 1;
+                document.getElementById("mensagemPositiva").style.visibility = "visible";
+                // Define um temporizador para ocultar a mensagem após 5 segundos
+                setTimeout(function () {
+                    document.getElementById("mensagemPositiva").style.opacity = '0';
+                    document.getElementById("mensagemPositiva").style.visibility = 'hidden';
+                }, 5000); // 5 segundos 
+            }
+        };
+        // Send the client ID to the PHP script
+        xhr.send("product_id_delete=" + productId);
+    }
 }
 
 // Botão mostrar senha
