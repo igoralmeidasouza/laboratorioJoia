@@ -682,6 +682,7 @@ function updateFilteredData(data) {
             // Se for um pagamento
             console.log("indefinido, loop de pagamento pagamento");
             tableHTML += "<td>Pagto.: " + record.type_of_payment + "</td>";
+            tableHTML += "<td>Pagto.: " + record.type_of_payment + "</td>";
             tableHTML += "<td></td>";  // Coluna 'Produtos' vazia para pagamento
             tableHTML += "<td></td>";  // Coluna 'Preço (U)' vazia para pagamento
             tableHTML += "<td> R$ " + record.amount + "</td>";
