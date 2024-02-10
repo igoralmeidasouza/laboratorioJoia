@@ -1,1 +1,51 @@
-<svg xmlns='http://www.w3.org/2000/svg' width='36' height='36' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='ai ai-TrashCan'><path d='M4 6h16l-1.58 14.22A2 2 0 0 1 16.432 22H7.568a2 2 0 0 1-1.988-1.78L4 6z'/><path d='M7.345 3.147A2 2 0 0 1 9.154 2h5.692a2 2 0 0 1 1.81 1.147L18 6H6l1.345-2.853z'/><path d='M2 6h20'/><path d='M10 11v5'/><path d='M14 11v5'/></svg>
+<html>
+    <head>
+        <title>Extrato de Compra</title>
+        <link rel="stylesheet" href="media/css/estilos.css">
+    </head>
+    <body>
+        <header>
+            <div class="logoMarca">
+                <figure>
+                    <img src="media/img/denteJoia.png" alt="">
+                </figure>
+                <div class="logoTipo">
+                    <h1>L.J. - Laboratório de <em>Prótese Dentária Joia</em></h1>
+                    <address>
+                        <p>RUA VICENTE PEREIRA DE ASSUNÇÃO, 134 | CEP - 04658000 - VL CONTÂNCIA</p>
+                        <p>CONTATO: (11) 99836-17314 (11) 94945-2727</p>
+                    </address>
+                </div>
+            </div>
+        </header>
+        <main>
+            <div class="impressaoContainer payment-statement-container">
+                <div class="impressaoTabela payment-statement-header">
+                    <h1>Extrato - Histórico de pagamento</h1>
+                    <div class="dataVenda">
+                        <span>Data inicio: ${minDateBR}</span>
+                        <span>Data final: ${maxDateBR}</span>
+                    </div>
+
+                    <div class="dadosContainer">
+                        <span>Cliente: ${nomeCliente}</span>
+                        <span>E-mail: ${emailClient}</span>
+                        <span>Contato: ${contatoClient}</span>
+                    </div>
+                    <span class="pacienteContainer">Paciênte: ${data.paciente}</span>
+                    
+                    <table class="tabelaExtrato">
+                        ${paymentDetailsHTML}
+                        ${paymentItemsHTML}
+                    </table>
+
+                    <div class="saldoClientContainer">
+                        <span>Total do Pedido: <em>R$ ${totalValueString}</em></span>
+                        <span> Saldo Devedor Anterior: <em>R$ ${saldoAnterior.toFixed(2)}</em></span>
+                        <span> Saldo Devedor Atual: <em>R$ ${saldoDevedorClient}</em></span>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </body>
+</html>
