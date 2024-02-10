@@ -137,6 +137,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     for (let i = 1; i <= 6; i++) {
         adicionarEventoInputParaFormatarSaldoDevedor('price_type_' + i);
+        adicionarEventoInputParaFormatarSaldoDevedor('priceType' + i);
     }
 });
 
@@ -1089,23 +1090,48 @@ function productForm(){
         }
 }
 //preenche os campos a serem atualizados em produtos
-function updateProductForm(productData){
+// Função para formatar o valor em BRL
+function formatarValorBRL(valor) {
+    // Se o valor não for numérico, retorna vazio
+    if (isNaN(valor)) return '';
+    
+    // Formata o valor para BRL
+    const formattedValue = parseFloat(valor).toLocaleString('pt-BR', {
+        style: 'currency',
+        currency: 'BRL',
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    });
+
+    return formattedValue;
+}
+
+// Função para atualizar os campos de preço
+function atualizarCamposDePreco(productData) {
+    // Atualiza os campos de preço
+    for (let i = 1; i <= 6; i++) {
+        const priceType = "priceType" + i;
+        const priceValue = "price_type_" + i;
+        const formattedPrice = formatarValorBRL(productData[priceValue]);
+        document.getElementById(priceType).value = formattedPrice;
+    }
+}
+
+// Função para atualizar o formulário de produto
+function updateProductForm(productData) {
     if (productData && Object.keys(productData).length > 0) {
         // Preencha os campos diretamente
         document.getElementById("productIdAtt").value = productData.product_id;
         document.getElementById("productName").value = productData.product_name;
         document.getElementById("productDescription").value = productData.product_description;
-        document.getElementById("priceType1").value = productData.price_type_1;
-        document.getElementById("priceType2").value = productData.price_type_2;
-        document.getElementById("priceType3").value = productData.price_type_3;
-        document.getElementById("priceType4").value = productData.price_type_4;
-        document.getElementById("priceType5").value = productData.price_type_5;
-        document.getElementById("priceType6").value = productData.price_type_6;
+        
+        // Atualiza os campos de preço chamando a função atualizarCamposDePreco
+        atualizarCamposDePreco(productData);
     } else {
         console.error('Dados do produto inválidos');
     }
-
 }
+
 //recebe os dados dos campos dos produtos e manda para fazer update no php
 function updateProduct() {
     // Obtenha os dados do formulário ou de onde quer que estejam armazenados
