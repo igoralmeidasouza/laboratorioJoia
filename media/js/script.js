@@ -679,7 +679,7 @@ function updateFilteredData(data) {
         if (record.payment_id !== undefined) {
             // Se for um pagamento
             console.log("indefinido, loop de pagamento pagamento");
-            tableHTML += "<td>Pagamento via: " + record.type_of_payment + "</td>";
+            tableHTML += "<td>Pagto.: " + record.type_of_payment + "</td>";
             tableHTML += "<td></td>";  // Coluna 'Produtos' vazia para pagamento
             tableHTML += "<td></td>";  // Coluna 'Preço (U)' vazia para pagamento
             tableHTML += "<td> R$ " + record.amount + "</td>";
@@ -688,7 +688,7 @@ function updateFilteredData(data) {
         } else {
             console.log("loop de venda venda");
             // Se for uma venda
-            tableHTML += "<td>" + record.observation + "</td>";
+            tableHTML += "<td> Pac.: " + record.observation + "</td>";
 
             // Adiciona os produtos à célula "Produtos"
             tableHTML += "<td>";
@@ -891,7 +891,7 @@ function updateFilteredPagamentos(data) {
                         "<tr>"+
                             "<th>ID</th>"+
                             "<th>Data de Pagamento</th>"+
-                            "<th>Observação</th>"+
+                            "<th>Pagamento via</th>"+
                             "<th>Total</th>"+
                             "<th>Saldo Anterior</th>"+
                             "<th>Saldo Atual</th>"+
@@ -911,7 +911,7 @@ function updateFilteredPagamentos(data) {
             tableHTML += "<td>Data Inválida</td>";
         }
 
-        tableHTML += "<td>Pagamento: " + (pagamento.type_of_payment || "N/A") + "</td>";
+        tableHTML += "<td>" + (pagamento.type_of_payment || "N/A") + "</td>";
         tableHTML += "<td> R$ " + (pagamento.amount || "N/A") + "</td>";
         tableHTML += "<td> R$ " + (pagamento.saldo_anterior || "N/A") + "</td>";
         tableHTML += "<td> R$ " + (pagamento.saldo_atual || "N/A") + "</td>";
