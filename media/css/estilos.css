@@ -153,12 +153,12 @@ body main {background-color: #ffffff; display: flex; width: 100%; max-width: 132
             body main .bemVindo .vitrine .formularios .tabelaConsultarClientes {width: 95%;}
                 body main .bemVindo .vitrine .formularios .tabelaConsultarClientes tbody {width: 100%;}
                     body main .bemVindo .vitrine .formularios .tabelaConsultarClientes tbody tr th,
-                    body main .bemVindo .vitrine .formularios .tabelaConsultarClientes tbody tr td {font-size: 12px; text-align: center;}
+                    body main .bemVindo .vitrine .formularios .tabelaConsultarClientes tbody tr td {font-size: 12px; text-align: center; line-height: 21px;}
                         body main .bemVindo .vitrine .formularios .tabelaConsultarClientes tbody tr td:nth-child(2) {max-width: 200px;}
                         body main .bemVindo .vitrine .formularios .tabelaConsultarClientes tbody tr td:nth-child(3) {max-width: 230px;}
-                        body main .bemVindo .vitrine .formularios .tabelaConsultarClientes tbody tr td:nth-child(4) {max-width: 113px;}
+                        body main .bemVindo .vitrine .formularios .tabelaConsultarClientes tbody tr td:nth-child(4) {width: 12%;}
                         body main .bemVindo .vitrine .formularios .tabelaConsultarClientes tbody tr td:nth-child(5) {max-width: 138px;}
-                        body main .bemVindo .vitrine .formularios .tabelaConsultarClientes tbody tr td:nth-child(6) {max-width: 220px;}
+                        body main .bemVindo .vitrine .formularios .tabelaConsultarClientes tbody tr td:nth-child(6) {width: 22%; text-align: left;}
                         body main .bemVindo .vitrine .formularios .tabelaConsultarClientes tbody tr td:nth-child(7) {width: 10%;}
                            
                 /* Sessão - realizar vendas */
