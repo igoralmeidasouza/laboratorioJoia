@@ -42,5 +42,5 @@ body {display: flex; padding: 55px 35px; background-color: #0093E9; background-i
                 body .telaLogin .login form div .erroLogin em::before {content: ''; background: url(../img/icones/warning-circle.png) no-repeat center center; background-size: contain; width: 14px; height: 14px; position: absolute; bottom: 7px; left: -17px;}
 
             /* Botão para mostrar/ esconder a senha */
-            body .telaLogin .login form div .buttonHidden {position: absolute; content: ''; width: 22px; height: 22px; background: url(../img/icones/eye.png) no-repeat center center; background-size: contain; top: 62px; right: 5px; transition: all 0.3s ease-in;}
-            body .telaLogin .login form div .buttonVisible {position: absolute; content: ''; width: 22px; height: 22px; background: url(../img/icones/eye-slash.png) no-repeat center center; background-size: contain; top: 62px; right: 5px; transition: all 0.3s ease-in;}
+            body .telaLogin .login form div .buttonHidden {position: absolute; content: ''; width: 22px; height: 22px; background: url(../img/icones/eye.png) no-repeat center center; background-size: contain; top: 62px; right: 5px; transition: all 0.3s ease-in; cursor: pointer;}
+            body .telaLogin .login form div .buttonVisible {position: absolute; content: ''; width: 22px; height: 22px; background: url(../img/icones/eye-slash.png) no-repeat center center; background-size: contain; top: 62px; right: 5px; transition: all 0.3s ease-in; cursor: pointer;}

@@ -528,8 +528,7 @@ function openInvoiceTab(data) {
                 </div>
             </main>
         </body>
-    </html>
-    `;
+    </html>`;
 
     // Abrir uma nova guia com o extrato
     let invoiceWindow = window.open('', '_blank');
@@ -809,12 +808,12 @@ function updateFilteredHistory(data) {
                     tableHTML += "<td> R$ " + (parseFloat(product.price) / parseFloat(product.quantity)).toFixed(2) + "</td>";
                     tableHTML += "<td>" + product.quantity + "</td>";
                     tableHTML += "<td> R$ " + parseFloat(product.price).toFixed(2) + "</td>";
-
+                    
                     // Adiciona o Total e Saldo A anterior e Saldo Atual apenas na primeira iteração
                     if (i === 0) {
                         tableHTML += "<td> R$ " + parseFloat(saleData.total_amount).toFixed(2) + "</td>";
-                        tableHTML += "<td>" + saleData.saldo_anterior + "</td>";
-                        tableHTML += "<td>" + saleData.debito + "</td>";
+                        tableHTML += "<td> R$ " + saleData.saldo_anterior + "</td>";
+                        tableHTML += "<td> R$ " + saleData.debito + "</td>";
                     }
 
                     tableHTML += "</tr>";
@@ -1255,8 +1254,6 @@ function openPaymentHistoryTab(data) {
 
             // Cria o HTML para os itens de pagamento
             let paymentItemsHTML = `
-                <table class="payment-items">
-                    <thead>
                         <tr>
                             <th>ID</th>
                             <th>Data</th>
@@ -1265,8 +1262,6 @@ function openPaymentHistoryTab(data) {
                             <th>Saldo Anterior</th>
                             <th>Saldo Atual</th>
                         </tr>
-                    </thead>
-                    <tbody>
                         ${data.paymentDetails.map(payment => `
                             <tr>
                                 <td>${payment.payment_id}</td>
@@ -1277,30 +1272,53 @@ function openPaymentHistoryTab(data) {
                                 <td>R$ ${payment.saldo_atual || "N/A"}</td>
                             </tr>
                         `).join('')}
-                    </tbody>
-                </table>
             `;
 
             // Cria o HTML completo para o extrato de pagamento
             let paymentStatementHTML = `
                 <html>
                     <head>
-                        <title>Extrato de Pagamentos</title>
+                        <title>Extrato de Compra</title>
                         <link rel="stylesheet" href="media/css/estilos.css">
                     </head>
                     <body>
                         <header>
-                            <!-- Conteúdo do cabeçalho -->
+                            <div class="logoMarca">
+                                <figure>
+                                    <img src="media/img/denteJoia.png" alt="">
+                                </figure>
+                                <div class="logoTipo">
+                                    <h1>L.J. - Laboratório de <em>Prótese Dentária Joia</em></h1>
+                                    <address>
+                                        <p>RUA VICENTE PEREIRA DE ASSUNÇÃO, 134 | CEP - 04658000 - VL CONTÂNCIA</p>
+                                        <p>CONTATO: (11) 99836-17314 (11) 94945-2727</p>
+                                    </address>
+                                </div>
+                            </div>
                         </header>
                         <main>
-                            <div class="payment-statement-container">
-                                <div class="payment-statement-header">
-                                    <h2>Extrato de Pagamentos</h2>
-                                    <p>Menor Data: ${minDateBR}</p>
-                                    <p>Maior Data: ${maxDateBR}</p>
+                            <div class="impressaoContainer payment-statement-container">
+                                <div class="impressaoTabela payment-statement-header">
+                                    <h1>Extrato - Histórico de pagamento</h1>
+                                    <div class="dataVenda">
+                                        <span>${minDateBR} à</span>
+                                        <span>${maxDateBR}</span>
+                                    </div>
+                
+                                    <div class="dadosContainer">
+                                        <span>Cliente: ${clientName}</span>
+                                        <span>E-mail: ${clientEmail}</span>
+                                        <span>Contato: ${clientPhone}</span>
+                                    </div>
+                                    
+                                    <table class="tabelaExtrato">
+                                        ${paymentItemsHTML}
+                                    </table>
+                
+                                    <div class="saldoClientContainer">
+                                        <span>Saldo Devedor Atual: <em>R$ ${clientDebitAmount}</em></span>
+                                    </div>
                                 </div>
-                                ${paymentDetailsHTML}
-                                ${paymentItemsHTML}
                             </div>
                         </main>
                     </body>

@@ -233,8 +233,12 @@ body main {background-color: #ffffff; display: flex; width: 100%; max-width: 132
         body main .impressaoContainer {display: flex; margin: 20 auto; width: 100%; max-width: 900px; justify-content: center;}
             body main .impressaoContainer .impressaoTabela {display: flex; flex-direction: column; font-family: 'Ubuntu'; width: 100%; color: #101A28;}
 
-                body main .impressaoContainer .impressaoTabela .dadosVenda {display: flex; border-bottom: 1px solid lightgrey; justify-content: space-between; padding-bottom: 20px;}
+                body main .impressaoContainer .impressaoTabela h1 {font-size: 22px; border-bottom: 1px solid lightgrey; text-align: center; margin-bottom: 10px; padding-bottom: 10px;  text-transform: uppercase;}
+
+                body main .impressaoContainer .impressaoTabela .dadosVenda {display: flex; flex-direction: column; border-bottom: 1px solid lightgrey; padding-bottom: 10px; gap: 5px;}
                     body main .impressaoContainer .impressaoTabela .dadosVenda p {font-size: 20px; text-transform: capitalize;}
+
+                body main .impressaoContainer .impressaoTabela .dataVenda {display: flex; border-bottom: 1px solid lightgrey; justify-content: center; padding-bottom: 10px; gap: 5px;}
 
                 body main .impressaoContainer .impressaoTabela .dadosContainer {display: flex; justify-content: space-between; padding: 15px 0; margin-bottom: 10px; font-size: 16px; font-family: 'Open Sans'; border-bottom: 1px solid lightgrey;}
 

@@ -422,10 +422,9 @@
                     </form>
                     <input type="hidden" name="pagamentoIdHidden" id="pagamentoIdHidden">
                     <div >
-                    <table id="filteredPagamentos" class="tabelaGeral tabelaHistoricoPagamento"></table>
-                        
+                        <table id="filteredPagamentos" class="tabelaGeral tabelaHistoricoPagamento"></table>
                             <!-- Os dados filtrados serão exibidos aqui -->
-                        </div>
+                    </div>
                 </div>
             </div>
 
