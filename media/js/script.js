@@ -771,63 +771,52 @@ function getFilteredHistory() {
 }
 //trata os dados de historico de venda no html pos consulta no php
 function updateFilteredHistory(data) {
-    // Supondo que você já tenha a variável $filteredData com os dados do PHP
-    let $filteredData = data;
     // Inicializa a string HTML da tabela
-    let tableHTML = "<table class='tabelaGeral'><tr> <th>ID</th> <th>Data</th> <th>Paciente</th> <th>Produto</th> <th>Preço (U)</th> <th>Qt.</th> <th>Preço</th> <th>Total</th> <th>Saldo Anterior</th> <th>Saldo Atual</th> </tr> <tbody>";;
+    let tableHTML = "<table class='tabelaGeral'><thead><tr><th>ID</th><th>Data</th><th>Paciente</th><th>Produto</th><th>Preço (U)</th><th>Qt.</th><th>Total</th><th>Saldo Anterior</th><th>Saldo Atual</th></tr></thead><tbody>";
 
-    // Loop através dos IDs de vendas
-    for (let saleId in $filteredData) {
-        if ($filteredData.hasOwnProperty(saleId)) {
-            let saleData = $filteredData[saleId];
+    // Loop através dos dados
+    for (let saleId in data) {
+        if (data.hasOwnProperty(saleId)) {
+            let saleData = data[saleId];
 
-            // Verifica se é um objeto válido (ignora o array de pagamentos)
-            if (typeof saleData === 'object' && saleData.products && saleData.products.length > 0) {
-                // Loop através dos produtos
-                for (let i = 0; i < saleData.products.length; i++) {
-                    let product = saleData.products[i];
-                    // Formata a data para o formato pt-BR
-                    let formattedDate = new Intl.DateTimeFormat('pt-BR', { dateStyle: 'short' }).format(new Date(saleData.sale_date));
+            // Formata a data para o formato pt-BR
+            let formattedDate = new Intl.DateTimeFormat('pt-BR', { dateStyle: 'short' }).format(new Date(saleData.sale_date));
 
-                    // Adiciona a célula para a Data
-            
+            // Adiciona a célula para ID, Data, e Paciente
+            tableHTML += "<tr>";
+            tableHTML += "<td>" + saleId + "</td>";
+            tableHTML += "<td>" + formattedDate + "</td>";
+            tableHTML += "<td>" + saleData.observation + "</td>";
 
-                    // Adiciona uma nova linha à tabela apenas na primeira iteração
-                    if (i === 0) {
-                        tableHTML += "<tr>";
-                        tableHTML += "<td>" + saleData.sale_id + "</td>";
-                        tableHTML += "<td>" + formattedDate + "</td>";
-                        tableHTML += "<td>" + saleData.observation + "</td>";
-                    } else {
-                        // Adiciona células vazias para ID, Data e Observação nas iterações subsequentes
-                        tableHTML += "<tr><td></td><td></td><td></td>";
-                    }
+            // Concatena os produtos, preços e quantidades
+            let productsHTML = "";
+            let pricesHTML = "";
+            let quantitiesHTML = "";
 
-                    // Adiciona as células para Produto, Preço (U), Qt., Preço e Total
-                    tableHTML += "<td>" + product.product_name + "</td>";
-                    tableHTML += "<td> R$ " + (parseFloat(product.price) / parseFloat(product.quantity)).toFixed(2) + "</td>";
-                    tableHTML += "<td>" + product.quantity + "</td>";
-                    tableHTML += "<td> R$ " + parseFloat(product.price).toFixed(2) + "</td>";
-                    
-                    // Adiciona o Total e Saldo A anterior e Saldo Atual apenas na primeira iteração
-                    if (i === 0) {
-                        tableHTML += "<td> R$ " + parseFloat(saleData.total_amount).toFixed(2) + "</td>";
-                        tableHTML += "<td> R$ " + saleData.saldo_anterior + "</td>";
-                        tableHTML += "<td> R$ " + saleData.debito + "</td>";
-                    }
-
-                    tableHTML += "</tr>";
-                }
+            for (let i = 0; i < saleData.products.length; i++) {
+                productsHTML += saleData.products[i].product_name + "<br>";
+                pricesHTML += "R$ " + saleData.products[i].price + "<br>";
+                quantitiesHTML += saleData.products[i].quantity + "<br>";
             }
+
+            // Adiciona as células para Produto, Preço (U), Qt., Preço e Total
+            tableHTML += "<td>" + productsHTML + "</td>";
+            tableHTML += "<td>" + pricesHTML + "</td>";
+            tableHTML += "<td>" + quantitiesHTML + "</td>";
+            tableHTML += "<td>R$ " + saleData.total_amount + "</td>";
+            tableHTML += "<td>R$ " + saleData.saldo_anterior + "</td>";
+            tableHTML += "<td>R$ " + saleData.debito + "</td>";
+            tableHTML += "</tr>";
         }
     }
 
     // Fecha a tabela
-    tableHTML += "</table>";
+    tableHTML += "</tbody></table>";
 
     // Adiciona a tabela ao elemento desejado no DOM (por exemplo, um elemento com o ID "tabela-container")
     document.getElementById("filteredHistorico").innerHTML = tableHTML;
 }
+
 //pega os dados do filtro de historico de vendas e manda para serem tratadas no php
 function getFilteredPagamento() {
     // Chama a função para obter a lista de clientes
