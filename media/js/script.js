@@ -530,7 +530,8 @@ function openInvoiceTab(data) {
                 </div>
             </main>
         </body>
-    </html>`;
+    </html>
+    `;
 
     // Abrir uma nova guia com o extrato
     let invoiceWindow = window.open('', '_blank');
@@ -682,7 +683,6 @@ function updateFilteredData(data) {
             // Se for um pagamento
             console.log("indefinido, loop de pagamento pagamento");
             tableHTML += "<td>Pagto.: " + record.type_of_payment + "</td>";
-            tableHTML += "<td>Pagto.: " + record.type_of_payment + "</td>";
             tableHTML += "<td></td>";  // Coluna 'Produtos' vazia para pagamento
             tableHTML += "<td></td>";  // Coluna 'Preço (U)' vazia para pagamento
             tableHTML += "<td> R$ " + record.amount + "</td>";
@@ -797,22 +797,20 @@ function updateFilteredHistory(data) {
             let pricesHTML = "";
             let quantitiesHTML = "";
 
-                    // Adiciona as células para Produto, Preço (U), Qt., Preço e Total
-                    tableHTML += "<td>" + product.product_name + "</td>";
-                    tableHTML += "<td> R$ " + (parseFloat(product.price) / parseFloat(product.quantity)).toFixed(2) + "</td>";
-                    tableHTML += "<td>" + product.quantity + "</td>";
-                    tableHTML += "<td> R$ " + parseFloat(product.price).toFixed(2) + "</td>";
-
-                    // Adiciona o Total e Saldo A anterior e Saldo Atual apenas na primeira iteração
-                    if (i === 0) {
-                        tableHTML += "<td> R$ " + parseFloat(saleData.total_amount).toFixed(2) + "</td>";
-                        tableHTML += "<td>" + saleData.saldo_anterior + "</td>";
-                        tableHTML += "<td>" + saleData.debito + "</td>";
-                    }
-
-                    tableHTML += "</tr>";
-                }
+            for (let i = 0; i < saleData.products.length; i++) {
+                productsHTML += saleData.products[i].product_name + "<br>";
+                pricesHTML += "R$ " + saleData.products[i].price + "<br>";
+                quantitiesHTML += saleData.products[i].quantity + "<br>";
             }
+
+            // Adiciona as células para Produto, Preço (U), Qt., Preço e Total
+            tableHTML += "<td>" + productsHTML + "</td>";
+            tableHTML += "<td>" + pricesHTML + "</td>";
+            tableHTML += "<td>" + quantitiesHTML + "</td>";
+            tableHTML += "<td>R$ " + saleData.total_amount + "</td>";
+            tableHTML += "<td>R$ " + saleData.saldo_anterior + "</td>";
+            tableHTML += "<td>R$ " + saleData.debito + "</td>";
+            tableHTML += "</tr>";
         }
     }
 
@@ -888,7 +886,7 @@ function updateFilteredPagamentos(data) {
                         "<tr>"+
                             "<th>ID</th>"+
                             "<th>Data de Pagamento</th>"+
-                            "<th>Pagamento via</th>"+
+                            "<th>Observação</th>"+
                             "<th>Total</th>"+
                             "<th>Saldo Anterior</th>"+
                             "<th>Saldo Atual</th>"+
@@ -908,7 +906,7 @@ function updateFilteredPagamentos(data) {
             tableHTML += "<td>Data Inválida</td>";
         }
 
-        tableHTML += "<td>" + (pagamento.type_of_payment || "N/A") + "</td>";
+        tableHTML += "<td>Pagamento: " + (pagamento.type_of_payment || "N/A") + "</td>";
         tableHTML += "<td> R$ " + (pagamento.amount || "N/A") + "</td>";
         tableHTML += "<td> R$ " + (pagamento.saldo_anterior || "N/A") + "</td>";
         tableHTML += "<td> R$ " + (pagamento.saldo_atual || "N/A") + "</td>";
@@ -1251,6 +1249,8 @@ function openPaymentHistoryTab(data) {
 
             // Cria o HTML para os itens de pagamento
             let paymentItemsHTML = `
+                <table class="payment-items">
+                    <thead>
                         <tr>
                             <th>ID</th>
                             <th>Data</th>
@@ -1259,6 +1259,8 @@ function openPaymentHistoryTab(data) {
                             <th>Saldo Anterior</th>
                             <th>Saldo Atual</th>
                         </tr>
+                    </thead>
+                    <tbody>
                         ${data.paymentDetails.map(payment => `
                             <tr>
                                 <td>${payment.payment_id}</td>
@@ -1269,53 +1271,30 @@ function openPaymentHistoryTab(data) {
                                 <td>R$ ${payment.saldo_atual || "N/A"}</td>
                             </tr>
                         `).join('')}
+                    </tbody>
+                </table>
             `;
 
             // Cria o HTML completo para o extrato de pagamento
             let paymentStatementHTML = `
                 <html>
                     <head>
-                        <title>Extrato de Compra</title>
+                        <title>Extrato de Pagamentos</title>
                         <link rel="stylesheet" href="media/css/estilos.css">
                     </head>
                     <body>
                         <header>
-                            <div class="logoMarca">
-                                <figure>
-                                    <img src="media/img/denteJoia.png" alt="">
-                                </figure>
-                                <div class="logoTipo">
-                                    <h1>L.J. - Laboratório de <em>Prótese Dentária Joia</em></h1>
-                                    <address>
-                                        <p>RUA VICENTE PEREIRA DE ASSUNÇÃO, 134 | CEP - 04658000 - VL CONTÂNCIA</p>
-                                        <p>CONTATO: (11) 99836-17314 (11) 94945-2727</p>
-                                    </address>
-                                </div>
-                            </div>
+                            <!-- Conteúdo do cabeçalho -->
                         </header>
                         <main>
-                            <div class="impressaoContainer payment-statement-container">
-                                <div class="impressaoTabela payment-statement-header">
-                                    <h1>Extrato - Histórico de pagamento</h1>
-                                    <div class="dataVenda">
-                                        <span>${minDateBR} à</span>
-                                        <span>${maxDateBR}</span>
-                                    </div>
-                
-                                    <div class="dadosContainer">
-                                        <span>Cliente: ${clientName}</span>
-                                        <span>E-mail: ${clientEmail}</span>
-                                        <span>Contato: ${clientPhone}</span>
-                                    </div>
-                                    
-                                    <table class="tabelaExtrato">
-                                        ${paymentItemsHTML}
-                                    </table>
-                
-                                    <div class="saldoClientContainer">
-                                        <span>Saldo Devedor Atual: <em>R$ ${clientDebitAmount}</em></span>
-                                    </div>
+                            <div class="payment-statement-container">
+                                <div class="payment-statement-header">
+                                    <h2>Extrato de Pagamentos</h2>
+                                    <p>Menor Data: ${minDateBR}</p>
+                                    <p>Maior Data: ${maxDateBR}</p>
                                 </div>
+                                ${paymentDetailsHTML}
+                                ${paymentItemsHTML}
                             </div>
                         </main>
                     </body>
