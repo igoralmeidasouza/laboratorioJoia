@@ -548,12 +548,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Obtém os outros dados do produto
         $productName = isset($_POST['productName']) ? $_POST['productName'] : '';
         $productDescription = isset($_POST['productDescription']) ? $_POST['productDescription'] : '';
-        $priceType1 = formatPrice(isset($_POST['priceType1']) ? $_POST['priceType1'] : '');
-        $priceType2 = formatPrice(isset($_POST['priceType2']) ? $_POST['priceType2'] : '');
-        $priceType3 = formatPrice(isset($_POST['priceType3']) ? $_POST['priceType3'] : '');
-        $priceType4 = formatPrice(isset($_POST['priceType4']) ? $_POST['priceType4'] : '');
-        $priceType5 = formatPrice(isset($_POST['priceType5']) ? $_POST['priceType5'] : '');
-        $priceType6 = formatPrice(isset($_POST['priceType6']) ? $_POST['priceType6'] : '');
+        $priceType1 = isset($_POST['priceType1']) ? $_POST['priceType1'] : '';
+        $priceType2 = isset($_POST['priceType2']) ? $_POST['priceType2'] : '';
+        $priceType3 = isset($_POST['priceType3']) ? $_POST['priceType3'] : '';
+        $priceType4 = isset($_POST['priceType4']) ? $_POST['priceType4'] : '';
+        $priceType5 = isset($_POST['priceType5']) ? $_POST['priceType5'] : '';
+        $priceType6 = isset($_POST['priceType6']) ? $_POST['priceType6'] : '';
 
         // Agora você pode usar essas variáveis para construir e executar sua consulta SQL de atualização
         // Certifique-se de validar e sanitizar os dados recebidos antes de usar em uma consulta SQL
