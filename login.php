@@ -17,8 +17,9 @@
     include 'dbConnection.php'; // Conexão com o banco de dados
     // Define o tempo de vida da sessão para 8 horas (em segundos)
     $eightHours = 8 * 60 * 60; // 8 horas * 60 minutos * 60 segundos
+    $twoHours = 7200;// 2horas
     // Define o tempo de vida do cookie da sessão
-    session_set_cookie_params($eightHours);
+    session_set_cookie_params($twoHours);
     // Inicia a sessão
     session_start();
     $error = "";
