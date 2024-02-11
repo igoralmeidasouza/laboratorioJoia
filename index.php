@@ -190,10 +190,11 @@
                             
                             <button name="historicoFinal" type="button" onclick="getFilteredHistory()">Buscar</button>
                         </div>
-                        <div id="filteredHistorico">
-                            <!-- Os dados filtrados serão exibidos aqui -->
-                        </div>
+
                     </form>
+                    <div id="filteredHistorico">
+                            <!-- Os dados filtrados serão exibidos aqui -->
+                    </div>
                 </div>
             </div>
 
@@ -605,10 +606,10 @@
                             
                             <button name="extratoFinal" type="button" onclick="getFilteredData()">Buscar</button>
                         </div>
-                        <table id="filteredData" class="tabelaGeral tabelaExtrato">
-                            <!-- Os dados filtrados serão exibidos aqui -->
-                        </table>
                     </form>
+                    <table id="filteredData" class="tabelaGeral tabelaExtrato">
+                        <!-- Os dados filtrados serão exibidos aqui -->
+                    </table>
                 </div>
             </div>
 

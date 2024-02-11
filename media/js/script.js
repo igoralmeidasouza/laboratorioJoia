@@ -712,6 +712,7 @@ function updateFilteredData(data) {
 
         tableHTML += "</tr>";
     }
+    tableHTML += "<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td><button onclick='gerarExtratoFinal("+JSON.stringify(data)+")'>Gerar Extrato</button></td></tr></tbody></table>";
 
     // Fecha a tabela
     //tableHTML += "</tbody></table>";
@@ -732,6 +733,7 @@ function getFilteredHistory() {
 
     // Crie um objeto FormData para enviar os dados
     let formData = new FormData();
+    console.log(formData);
     formData.append('clientDropdownHistory', selectedClientHistory);
     //formData.append('formType', validadorFormulario);
     formData.append('startDateHistorico', startHistorico);
@@ -772,6 +774,7 @@ function getFilteredHistory() {
 }
 //trata os dados de historico de venda no html pos consulta no php
 function updateFilteredHistory(data) {
+    console.log(data);
     // Inicializa a string HTML da tabela
     let tableHTML = "<table class='tabelaGeral'>"+
                         "<tr>"+
@@ -823,7 +826,7 @@ function updateFilteredHistory(data) {
     }
 
     // Fecha a tabela
-    tableHTML += "</tbody></table>";
+    tableHTML += "<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td><button onclick='gerarExtratoVendas("+JSON.stringify(data)+")'>Gerar Extrato</button></td></tr></tbody></table>";
 
     // Adiciona a tabela ao elemento desejado no DOM (por exemplo, um elemento com o ID "tabela-container")
     document.getElementById("filteredHistorico").innerHTML = tableHTML;
@@ -1195,7 +1198,8 @@ function gerarExtratoPagamento(pagamentoData) {
 
     // Crie uma instância XMLHttpRequest
     let xhr = new XMLHttpRequest();
-
+    console.log(xhr);
+    console.log("xhr ^");
     // Defina a função de retorno de chamada para processar a resposta
     xhr.onreadystatechange = function () {
         // Verificar se a solicitação foi bem-sucedida
@@ -1432,8 +1436,8 @@ function removeProduto(productId) {
 
 // Botão mostrar senha
 function togglePasswordVisibility() {
-    var passwordField = document.getElementById("password");
-    var showPasswordBtn = document.getElementById("showPasswordBtn");
+    let passwordField = document.getElementById("password");
+    let showPasswordBtn = document.getElementById("showPasswordBtn");
 
     if (passwordField.type === "password") {
         passwordField.type = "text";
@@ -1445,6 +1449,180 @@ function togglePasswordVisibility() {
         showPasswordBtn.classList.add("buttonHidden");
     }
 }
+//---------------------------------------------------------------------------------------------------------------------
+
+function gerarExtratoVendas(dados) {
+    // Cria um novo objeto FormData
+    let formData = new FormData();
+    
+    // Adiciona os dados de vendas ao FormData
+    formData.append('vendasData', JSON.stringify(dados));
+    
+    // Cria um novo objeto XMLHttpRequest
+    let xhr = new XMLHttpRequest();
+    
+    // Configura a solicitação
+    xhr.open('POST', 'treatment.php', true);
+    
+    // Define a função de retorno de chamada (callback) para quando a solicitação for concluída
+    xhr.onload = function() {
+        if (xhr.status >= 200 && xhr.status < 300) {
+            // Requisição bem-sucedida, você pode processar a resposta do PHP aqui
+            let respostaJSON = JSON.parse(xhr.responseText);
+            // Chama a função openPaymentSalesTab com os dados retornados
+            openPaymentSalesTab(respostaJSON);
+        } else {
+            // Ocorreu um erro na requisição
+            console.error('Erro na requisição. Status:', xhr.status);
+        }
+    };
+    
+    // Define a função de retorno de chamada para tratamento de erros na requisição
+    xhr.onerror = function() {
+        console.error('Erro na requisição.');
+    };
+    
+    // Envia a solicitação com o FormData
+    xhr.send(formData);
+}
+
+function openPaymentSalesTab(data) {
+    console.log("--");
+    console.log(data);
+
+    // Verifica se data é um objeto e se possui as propriedades necessárias
+    if (typeof data === 'object' && data.clientData && data.paymentDetails) {
+        try {
+            let minDate = new Date('9999-12-31'); // Inicialize a menor data com um valor muito alto
+            let maxDate = new Date('0000-01-01'); // Inicialize a maior data com um valor muito baixo
+
+            // Loop através dos detalhes de venda para encontrar a menor e a maior data
+            Object.values(data.paymentDetails).forEach(sale => {
+                const saleDate = new Date(sale.sale_date);
+
+                // Atualiza a menor e a maior data se necessário
+                if (saleDate < minDate) {
+                    minDate = saleDate;
+                }
+                if (saleDate > maxDate) {
+                    maxDate = saleDate;
+                }
+            });
+
+            // Converte as datas para o formato brasileiro (dd/mm/yyyy)
+            const minDateBR = minDate.toLocaleDateString('pt-BR');
+            const maxDateBR = maxDate.toLocaleDateString('pt-BR');
+
+            console.log("Menor data encontrada:", minDateBR);
+            console.log("Maior data encontrada:", maxDateBR);
+
+            // Restante do seu código...
+            let clientData = data.clientData;
+            let clientName = clientData.client_name;
+            let clientDebitAmount = clientData.debit_amount;
+            let clientEmail = clientData.client_email;
+            let clientPhone = clientData.phone;
+            //adicionar outros dados se necessario
+
+
+            // Cria o HTML para os itens de venda
+            let saleItemsHTML = `
+                <tr>
+                    <th>ID</th>
+                    <th>Data</th>
+                    <th>Paciente</th>
+                    <th>Produto</th>
+                    <th>Preço (U)</th>
+                    <th>Qt.</th>
+                    <th>Total</th>
+                    <th>Saldo Anterior</th>
+                    <th>Saldo Atual</th>
+                </tr>
+                ${Object.values(data.paymentDetails).map(sale => `
+                    <tr>
+                        <td>${sale.sale_id}</td>
+                        <td>${new Intl.DateTimeFormat('pt-BR').format(new Date(sale.sale_date))}</td>
+                        <td>${sale.client_name}</td>
+                        <td>${sale.products.map(product => product.product_name).join('<br>')}</td>
+                        <td>${sale.products.map(product => 'R$ ' + product.price).join('<br>')}</td>
+                        <td>${sale.products.map(product => product.quantity).join('<br>')}</td>
+                        <td>R$ ${sale.total_amount || "N/A"}</td>
+                        <td>R$ ${sale.saldo_anterior || "N/A"}</td>
+                        <td>R$ ${sale.debito || "N/A"}</td> <!-- Corrigido para exibir debito -->
+                    </tr>
+                `).join('')}
+            `;
+
+
+            // Cria o HTML completo para o extrato de vendas
+            let salesStatementHTML = `
+                <html>
+                    <head>
+                        <title>Extrato de Vendas</title>
+                        <link rel="stylesheet" href="media/css/estilos.css">
+                    </head>
+                    <body>
+                        <header>
+                            <div class="logoMarca">
+                                <figure>
+                                    <img src="media/img/denteJoia.png" alt="">
+                                </figure>
+                                <div class="logoTipo">
+                                    <h1>L.J. - Laboratório de <em>Prótese Dentária Joia</em></h1>
+                                    <address>
+                                        <p>RUA VICENTE PEREIRA DE ASSUNÇÃO, 134 | CEP - 04658000 - VL CONTÂNCIA</p>
+                                        <p>CONTATO: (11) 99836-17314 (11) 94945-2727</p>
+                                    </address>
+                                </div>
+                            </div>
+                        </header>
+                        <main>
+                            <div class="impressaoContainer payment-statement-container">
+                                <div class="impressaoTabela payment-statement-header">
+                                    <h1>Extrato - Histórico de Vendas</h1>
+                                    <div class="dataVenda">
+                                        <span>${minDateBR} à</span>
+                                        <span>${maxDateBR}</span>
+                                    </div>
+                
+                                    <div class="dadosContainer">
+                                        <span>Cliente: ${clientName}</span>
+                                        <span>E-mail: ${clientEmail}</span>
+                                        <span>Contato: ${clientPhone}</span>
+                                    </div>
+                                    
+                                    <table class="tabelaExtrato">
+                                        ${saleItemsHTML}
+                                    </table>
+                
+                                    <div class="saldoClientContainer">
+                                        <span>Saldo Devedor Atual: <em>R$ ${clientDebitAmount}</em></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </main>
+                    </body>
+                </html>
+            `;
+
+            // Abre uma nova guia com o extrato de vendas
+            let salesStatementWindow = window.open('', '_blank');
+
+            // Verifica se a guia foi aberta com sucesso
+            if (salesStatementWindow) {
+                salesStatementWindow.document.write(salesStatementHTML);
+                salesStatementWindow.document.close();
+            } else {
+                console.error('Falha ao abrir nova guia');
+            }
+        } catch (error) {
+            console.error('Erro ao processar os dados:', error);
+        }
+    } else {
+        console.error('Objeto de dados vazio ou não está no formato esperado.');
+    }
+}
+
 
 
 function displayCowsay() {
