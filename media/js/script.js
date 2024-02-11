@@ -1624,6 +1624,155 @@ function openPaymentSalesTab(data) {
 }
 
 
+function gerarExtratoFinal(dados) {
+    // Cria um novo objeto FormData
+    let formData = new FormData();
+    
+    // Adiciona os dados do extrato final ao FormData
+    formData.append('extratoFinalData', JSON.stringify(dados));
+    
+    // Cria um novo objeto XMLHttpRequest
+    let xhr = new XMLHttpRequest();
+    
+    // Configura a solicitação
+    xhr.open('POST', 'treatment.php', true);
+    
+    // Define a função de retorno de chamada (callback) para quando a solicitação for concluída
+    xhr.onload = function() {
+        if (xhr.status >= 200 && xhr.status < 300) {
+            // Requisição bem-sucedida, você pode processar a resposta do PHP aqui
+            let respostaJSON = JSON.parse(xhr.responseText);
+            // Chama a função openExtratoFinalTab com os dados retornados
+            openExtratoFinalTab(respostaJSON);
+        } else {
+            // Ocorreu um erro na requisição
+            console.error('Erro na requisição. Status:', xhr.status);
+        }
+    };
+    
+    // Define a função de retorno de chamada para tratamento de erros na requisição
+    xhr.onerror = function() {
+        console.error('Erro na requisição.');
+    };
+    
+    // Envia a solicitação com o FormData
+    xhr.send(formData);
+}
+
+function openExtratoFinalTab(data) {
+    console.log(data);
+    console.table(data);
+    // Extrai os dados do extratoData
+    let extratoData = data.extratoData;
+
+    // Inicializa um objeto para armazenar os detalhes do extrato agrupados por sale_id
+    let groupedRecords = {};
+
+    // Loop através dos registros para agrupá-los pelo sale_id
+    for (let key in extratoData) {
+        if (extratoData.hasOwnProperty(key)) {
+            let record = extratoData[key];
+
+            // Verifica se já existe uma entrada para o sale_id atual no objeto groupedRecords
+            if (!groupedRecords.hasOwnProperty(record.sale_id)) {
+                // Se não existir, cria uma nova entrada com os detalhes iniciais
+                groupedRecords[record.sale_id] = {
+                    sale_id: record.sale_id,
+                    sale_date: record.sale_date,
+                    observation: record.observation,
+                    products: [],
+                    total_amount: record.total_amount,
+                    saldo_anterior: record.saldo_anterior,
+                    debito: record.debito
+                };
+            }
+
+            // Adiciona o produto, preço e quantidade aos produtos agrupados
+            groupedRecords[record.sale_id].products.push({
+                product_name: record.product_name,
+                price: record.price,
+                quantity: record.quantity
+            });
+        }
+    }
+
+    // Inicializa a string HTML da tabela
+    let tableHTML =
+        "<tr>" +
+        "<th>ID</th>" +
+        "<th>Data</th>" +
+        "<th>Observação</th>" +
+        "<th>Produtos</th>" +
+        "<th>Preço (U)</th>" +
+        "<th>Total</th>" +
+        "<th>Saldo Anterior</th>" +
+        "<th>Saldo Atual</th>" +
+        "</tr>";
+
+    // Loop através dos registros agrupados e adiciona as linhas à tabela
+    for (let sale_id in groupedRecords) {
+        let record = groupedRecords[sale_id];
+
+        // Formata a data do registro de acordo com o formato local 'pt-BR'
+        let formattedRecordDate = new Date(record.sale_date).toLocaleDateString('pt-BR');
+
+        // Adiciona uma nova linha à tabela
+        tableHTML += "<tr>";
+        tableHTML += "<td>" + record.sale_id + "</td>";
+        tableHTML += "<td>" + formattedRecordDate + "</td>";
+        tableHTML += "<td>" + record.observation + "</td>";
+
+        // Adiciona os produtos à célula "Produtos"
+        tableHTML += "<td>";
+        for (let i = 0; i < record.products.length; i++) {
+            let product = record.products[i];
+            tableHTML += product.product_name + "<br>";
+        }
+        tableHTML += "</td>";
+
+        // Adiciona o preço e a quantidade na célula "Preço (U)"
+        tableHTML += "<td>";
+        for (let i = 0; i < record.products.length; i++) {
+            let product = record.products[i];
+            tableHTML += "R$ " + product.price + " x " + product.quantity + "<br>";
+        }
+        tableHTML += "</td>";
+
+        tableHTML += "<td>R$ " + record.total_amount + "</td>";
+        tableHTML += "<td>R$ " + record.saldo_anterior + "</td>";
+        tableHTML += "<td>R$ " + record.debito + "</td>";
+
+        tableHTML += "</tr>";
+    }
+
+    // Adiciona as linhas da tabela referentes aos pagamentos
+    if (data.extratoData.payments && data.extratoData.payments.length > 0) {
+        for (let i = 0; i < data.extratoData.payments.length; i++) {
+            let payment = data.extratoData.payments[i];
+
+            // Formata a data do pagamento de acordo com o formato local 'pt-BR'
+            let formattedPaymentDate = new Date(payment.payment_date).toLocaleDateString('pt-BR');
+
+            // Adiciona uma nova linha à tabela para cada pagamento
+            tableHTML += "<tr>";
+            tableHTML += "<td>" + payment.payment_id + "</td>";
+            tableHTML += "<td>" + formattedPaymentDate + "</td>";
+            tableHTML += "<td>Pagto.: " + payment.type_of_payment + "</td>";
+            tableHTML += "<td></td>"; // Coluna 'Produtos' vazia para pagamento
+            tableHTML += "<td></td>"; // Coluna 'Preço (U)' vazia para pagamento
+            tableHTML += "<td>R$ " + payment.amount + "</td>";
+            tableHTML += "<td>R$ " + payment.saldo_anterior + "</td>";
+            tableHTML += "<td>R$ " + payment.debito + "</td>";
+            tableHTML += "</tr>";
+        }
+    }
+
+    // Abre uma nova aba com a tabela gerada
+    let novaAba = window.open('');
+    novaAba.document.write('<html><head><title>Extrato Final</title></head><body><table border="1">' + tableHTML + '</table></body></html>');
+}
+
+
 
 function displayCowsay() {
     let cowsayResponse = `

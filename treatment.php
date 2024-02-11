@@ -712,7 +712,41 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Se não houver dados de venda válidos, retorna um erro em JSON
         echo json_encode(['error' => 'Dados de vendas inválidos']);
     }
+}elseif(isset($_POST['extratoFinalData'])) {
+    // Decodifica os dados JSON em um array associativo
+    $extratoFinalData = json_decode($_POST['extratoFinalData'], true);
+
+    // Verifica se o array de extratoFinalData é um array e se possui elementos
+    if (is_array($extratoFinalData) && count($extratoFinalData) > 0) {
+        // Obtém o client_id do primeiro objeto de venda
+        $clientId = intval($extratoFinalData[0]['client_id']);
+
+        // Consulta os dados do cliente com base no ID
+        $sqlCliente = "SELECT * FROM clients WHERE client_id = $clientId"; // Corrige o nome da tabela
+        $resultCliente = $conn->query($sqlCliente);
+
+        if ($resultCliente) {
+            // Verifica se foi encontrado um cliente com o ID fornecido
+            if ($rowCliente = $resultCliente->fetch_assoc()) {
+                // Combina os dados do cliente e os detalhes do venda em um único array
+                $result = array('clientData' => $rowCliente, 'extratoData' => $extratoFinalData);
+
+                // Retorna os dados combinados em formato JSON
+                echo json_encode($result);
+            } else {
+                // Se nenhum cliente for encontrado, retorna um erro em JSON
+                echo json_encode(['error' => 'Cliente não encontrado']);
+            }
+        } else {
+            // Se houver um erro na consulta do cliente, retorna um erro em JSON
+            echo json_encode(['error' => 'Erro na consulta do cliente: ' . $conn->error]);
+        }
+    } else {
+        // Se não houver dados de venda válidos, retorna um erro em JSON
+        echo json_encode(['error' => 'Dados de extrato final inválidos']);
+    }
 }
+
 elseif(isset($_POST['logout'])) {
         // Remove todas as variáveis de sessão
         session_unset();
