@@ -136,7 +136,7 @@ body main {background-color: #ffffff; display: flex; width: 100%; max-width: 132
             /* Tabela consultar Geral */
             body main .bemVindo .vitrine .formularios .tabelaGeral { text-transform: capitalize; padding-top: 25px; width: 100%;}
                 body main .bemVindo .vitrine .formularios .tabelaGeral tbody tr td, 
-                body main .bemVindo .vitrine .formularios .tabelaGeral tbody tr th {border-bottom: solid 1px #4293E0; padding: 2px 10px; max-width: 190px; font-size: 13px;}
+                body main .bemVindo .vitrine .formularios .tabelaGeral tbody tr th {border-bottom: solid 1px #4293E0; padding: 2px 10px; max-width: 190px; font-size: 13px; text-align: center;}
                     body main .bemVindo .vitrine .formularios .tabelaGeral tbody tr td:nth-child(3) {max-width: 290px;}
                         body main .bemVindo .vitrine .formularios .tabelaGeral tbody tr td button {cursor: pointer; padding-top: 6px; width: 100%; display: flex; justify-content: center;}
                                 body main .bemVindo .vitrine .formularios .tabelaGeral tbody tr td button svg {color: #6a7071; transition: all 0.5s ease-in-out;}
@@ -154,10 +154,10 @@ body main {background-color: #ffffff; display: flex; width: 100%; max-width: 132
                 body main .bemVindo .vitrine .formularios .tabelaConsultarClientes tbody {width: 100%;}
                     body main .bemVindo .vitrine .formularios .tabelaConsultarClientes tbody tr th,
                     body main .bemVindo .vitrine .formularios .tabelaConsultarClientes tbody tr td {font-size: 12px; text-align: center; line-height: 21px;}
-                        body main .bemVindo .vitrine .formularios .tabelaConsultarClientes tbody tr td:nth-child(2) {max-width: 200px;}
+                        body main .bemVindo .vitrine .formularios .tabelaConsultarClientes tbody tr td:nth-child(2) {max-width: 200px; text-align: left;}
                         body main .bemVindo .vitrine .formularios .tabelaConsultarClientes tbody tr td:nth-child(3) {max-width: 230px;}
                         body main .bemVindo .vitrine .formularios .tabelaConsultarClientes tbody tr td:nth-child(4) {width: 12%;}
-                        body main .bemVindo .vitrine .formularios .tabelaConsultarClientes tbody tr td:nth-child(5) {max-width: 138px;}
+                        body main .bemVindo .vitrine .formularios .tabelaConsultarClientes tbody tr td:nth-child(5) {max-width: 140px;}
                         body main .bemVindo .vitrine .formularios .tabelaConsultarClientes tbody tr td:nth-child(6) {width: 22%; text-align: left;}
                         body main .bemVindo .vitrine .formularios .tabelaConsultarClientes tbody tr td:nth-child(7) {width: 10%;}
                            
