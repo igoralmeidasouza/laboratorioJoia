@@ -378,7 +378,7 @@ function updateCartDisplay() {
                         "<td>" + item.quantity + "</td>" +
                         "<td>" + item.paciente + "</td>" +
                         "<td> R$ " + tott + "</td>" + 
-                        "<td><button onclick=\"removeCartItem(" + i + ")\">"+
+                        "<td><button class='geradorDeExtrato' onclick=\"removeCartItem(" + i + ")\">"+
                                 "<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='ai ai-TrashCan'>"+
                                     "<path d='M4 6h16l-1.58 14.22A2 2 0 0 1 16.432 22H7.568a2 2 0 0 1-1.988-1.78L4 6z'/><path d='M7.345 3.147A2 2 0 0 1 9.154 2h5.692a2 2 0 0 1 1.81 1.147L18 6H6l1.345-2.853z'/><path d='M2 6h20'/><path d='M10 11v5'/><path d='M14 11v5'/>"+
                                 "</svg>"+
@@ -712,7 +712,7 @@ function updateFilteredData(data) {
 
         tableHTML += "</tr>";
     }
-    tableHTML += "<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td><button onclick='gerarExtratoFinal("+JSON.stringify(data)+")'>Gerar Extrato</button></td></tr></tbody></table>";
+    tableHTML += "<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td><button class='geradorDeExtrato' onclick='gerarExtratoFinal("+JSON.stringify(data)+")'>Gerar Extrato</button></td></tr></tbody></table>";
 
     // Fecha a tabela
     //tableHTML += "</tbody></table>";
@@ -826,7 +826,7 @@ function updateFilteredHistory(data) {
     }
 
     // Fecha a tabela
-    tableHTML += "<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td><button onclick='gerarExtratoVendas("+JSON.stringify(data)+")'>Gerar Extrato</button></td></tr></tbody></table>";
+    tableHTML += "<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td><button class='geradorDeExtrato' onclick='gerarExtratoVendas("+JSON.stringify(data)+")'>Gerar Extrato</button></td></tr></tbody></table>";
 
     // Adiciona a tabela ao elemento desejado no DOM (por exemplo, um elemento com o ID "tabela-container")
     document.getElementById("filteredHistorico").innerHTML = tableHTML;
@@ -930,7 +930,7 @@ function updateFilteredPagamentos(data) {
                     "<td></td>"+
                     "<td></td>"+
                     "<td></td>"+
-                    "<td><button name='gerarExtrato' onclick='gerarExtratoPagamento(" + JSON.stringify(dataArray) + ")'>Gerar Extrato</button></td>"+
+                    "<td><button class='geradorDeExtrato' name='gerarExtrato' onclick='gerarExtratoPagamento(" + JSON.stringify(dataArray) + ")'>Gerar Extrato</button></td>"+
                 "</tr>";
 
     // Add the table to the desired element in the DOM (e.g., an element with the ID "tabela-container")
