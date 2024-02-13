@@ -1708,26 +1708,54 @@ function openExtratoFinalTab(data) {
     const clientPhone = clientData.phone;
     // Exemplo de como utilizar os dados dos clientes
     let tableHTML =
-        "<h2>Dados do Cliente</h2>" +
-        "<p><strong>data inicial:</strong> " + minDateBR + "</p>" +
-        "<p><strong>data final:</strong> " + maxDateBR + "</p>" +
-        "<p><strong>ID do Cliente:</strong> " + clientId + "</p>" +
-        "<p><strong>Nome do Cliente:</strong> " + clientName + "</p>" +
-        "<p><strong>Email do Cliente:</strong> " + clientEmail + "</p>" +
-        "<p><strong>Endereço do Cliente:</strong> " + clientAddress + "</p>" +
-        "<p><strong>Cidade do Cliente:</strong> " + clientCity + "</p>" +
-        "<p><strong>Telefone do Cliente:</strong> " + clientPhone + "</p>";
+            '<html> '+
+            '<head> '+
+                '<title>Extrato de Compra</title> '+
+                '<link rel="stylesheet" href="media/css/estilos.css"> '+
+            '</head> '+
+            '<body> '+
+                '<header> '+
+                    '<div class="logoMarca"> '+
+                        '<figure> '+
+                            ' <img src="media/img/denteJoia.png" alt=""> '+
+                        '</figure> '+
+                        '<div class="logoTipo"> '+
+                            '<h1>L.J. - Laboratório de <em>Prótese Dentária Joia</em></h1> '+
+                            '<address> '+
+                                '<p>RUA VICENTE PEREIRA DE ASSUNÇÃO, 134 | CEP - 04658000 - VL CONTÂNCIA</p> '+
+                                '<p>CONTATO: (11) 99836-17314 (11) 94945-2727</p> '+
+                            '</address> '+
+                        '</div> '+
+                    ' </div> '+
+                '</header> '+
+                '<main> ' +
+                    "<div class='impressaoContainer'>" +
+                        "<div class='impressaoTabela'>" +
+                            "<h1>Extrato</h1>" +
+                            "<div class='dataVenda'>" +
+                                "<span>" + minDateBR + "</span>" +
+                                "<span>à " + maxDateBR + "</span>" +
+                            "</div>" +
+                            "<div class='dadosContainer'>" +
+                                "<span>Cliente: " + clientName + "</span>" +
+                                "<span>Email: " + clientEmail + "</span>" +
+                                "<span>Endereço: " + clientAddress + "</span>" +
+                                "<span>Cidade: " + clientCity + "</span>" +
+                                "<span>Telefone: " + clientPhone + "</span>" +
+                            "</div>";
     tableHTML +=
-        "<tr>" +
-        "<th>ID</th>" +
-        "<th>Data</th>" +
-        "<th>Observação</th>" +
-        "<th>Produtos</th>" +
-        "<th>Preço (U)</th>" +
-        "<th>Total</th>" +
-        "<th>Saldo Anterior</th>" +
-        "<th>Saldo Atual</th>" +
-        "</tr>";
+                    '<div class="impressaoTabela"> ' +
+                        "<table class='tabelaExtrato tabelaExtratoFinal'>" +
+                            "<tr>" +
+                                "<th>ID</th>" +
+                                "<th>Data</th>" +
+                                "<th>Observação</th>" +
+                                "<th>Produtos</th>" +
+                                "<th>Preço (U)</th>" +
+                                "<th>Total</th>" +
+                                "<th>Saldo Anterior</th>" +
+                                "<th>Saldo Atual</th>" +
+                            "</tr>";
 
     // Cria um objeto para rastrear pedidos agrupados por sale_id
     let groupedOrders = {};
@@ -1813,12 +1841,13 @@ function openExtratoFinalTab(data) {
         }
 
         tableHTML += "</tr>";
+        
     }
 
     console.log("ultimo heroi da terra!");
     // Abre uma nova aba com a tabela gerada
     let novaAba = window.open('');
-    novaAba.document.write('<html><head><title>Extrato Final</title></head><body><table border="1">' + tableHTML + '</table></body></html>');
+    novaAba.document.write( tableHTML + "</table></div></div></div></main></body></html>");
 }
 
 

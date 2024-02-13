@@ -263,6 +263,12 @@ body main {background-color: #ffffff; display: flex; width: 100%; max-width: 132
                         body main .impressaoContainer .impressaoTabela .saldoClientContainer span:first-child {padding-bottom: 20px; border-top: none; padding-top: 0;}
                         body main .impressaoContainer .impressaoTabela .saldoClientContainer span em {display: flex; flex-direction: row; width: 100%; max-width: 132px; justify-content: flex-end;}
 
+                        /* Modificação exclusiva para o extrato FINAL da sessão extrato */
+                        body main .impressaoContainer .impressaoTabela .tabelaExtratoFinal tbody tr th, 
+                        body main .impressaoContainer .impressaoTabela .tabelaExtratoFinal tbody tr td {font-size: 14px;}
+                            body main .impressaoContainer .impressaoTabela .tabelaExtratoFinal tbody tr td:last-child {min-width: 119px;}
+    
+
                             
 
 
