@@ -1660,44 +1660,64 @@ function gerarExtratoFinal(dados) {
 }
 
 function openExtratoFinalTab(data) {
-    console.log(data);
-    console.table(data);
-    // Extrai os dados do extratoData
-    let extratoData = data.extratoData;
+    
+    const clientData = data.clientData;
+    const extratoData = data.extratoData;
+    const payments = extratoData.payments || [];
+    // Inicializa as datas mínima e máxima com valores extremos
+    let minDate = new Date('9999-12-31');
+    let maxDate = new Date('0000-01-01');
 
-    // Inicializa um objeto para armazenar os detalhes do extrato agrupados por sale_id
-    let groupedRecords = {};
+    // Encontra as datas mínima e máxima nos registros de vendas
+    Object.values(extratoData).forEach(record => {
+        const saleDate = new Date(record.sale_date);
 
-    // Loop através dos registros para agrupá-los pelo sale_id
-    for (let key in extratoData) {
-        if (extratoData.hasOwnProperty(key)) {
-            let record = extratoData[key];
-
-            // Verifica se já existe uma entrada para o sale_id atual no objeto groupedRecords
-            if (!groupedRecords.hasOwnProperty(record.sale_id)) {
-                // Se não existir, cria uma nova entrada com os detalhes iniciais
-                groupedRecords[record.sale_id] = {
-                    sale_id: record.sale_id,
-                    sale_date: record.sale_date,
-                    observation: record.observation,
-                    products: [],
-                    total_amount: record.total_amount,
-                    saldo_anterior: record.saldo_anterior,
-                    debito: record.debito
-                };
-            }
-
-            // Adiciona o produto, preço e quantidade aos produtos agrupados
-            groupedRecords[record.sale_id].products.push({
-                product_name: record.product_name,
-                price: record.price,
-                quantity: record.quantity
-            });
+        if (saleDate < minDate) {
+            minDate = saleDate;
         }
-    }
+        if (saleDate > maxDate) {
+            maxDate = saleDate;
+        }
+    });
 
-    // Inicializa a string HTML da tabela
+    // Encontra as datas mínima e máxima nos registros de pagamentos
+    payments.forEach(payment => {
+        const paymentDate = new Date(payment.payment_date);
+
+        if (paymentDate < minDate) {
+            minDate = paymentDate;
+        }
+        if (paymentDate > maxDate) {
+            maxDate = paymentDate;
+        }
+    });
+
+    // Converte as datas para o formato brasileiro (dd/mm/yyyy)
+    const minDateBR = minDate.toLocaleDateString('pt-BR');
+    const maxDateBR = maxDate.toLocaleDateString('pt-BR');
+
+    console.log("Menor data encontrada:", minDateBR);
+    console.log("Maior data encontrada:", maxDateBR);
+    //-------------------------------------------------------
+    // Acesso aos dados do cliente
+    const clientId = clientData.client_id;
+    const clientName = clientData.client_name;
+    const clientEmail = clientData.client_email;
+    const clientAddress = clientData.address;
+    const clientCity = clientData.city;
+    const clientPhone = clientData.phone;
+    // Exemplo de como utilizar os dados dos clientes
     let tableHTML =
+        "<h2>Dados do Cliente</h2>" +
+        "<p><strong>data inicial:</strong> " + minDateBR + "</p>" +
+        "<p><strong>data final:</strong> " + maxDateBR + "</p>" +
+        "<p><strong>ID do Cliente:</strong> " + clientId + "</p>" +
+        "<p><strong>Nome do Cliente:</strong> " + clientName + "</p>" +
+        "<p><strong>Email do Cliente:</strong> " + clientEmail + "</p>" +
+        "<p><strong>Endereço do Cliente:</strong> " + clientAddress + "</p>" +
+        "<p><strong>Cidade do Cliente:</strong> " + clientCity + "</p>" +
+        "<p><strong>Telefone do Cliente:</strong> " + clientPhone + "</p>";
+    tableHTML +=
         "<tr>" +
         "<th>ID</th>" +
         "<th>Data</th>" +
@@ -1709,69 +1729,97 @@ function openExtratoFinalTab(data) {
         "<th>Saldo Atual</th>" +
         "</tr>";
 
-    // Loop através dos registros agrupados e adiciona as linhas à tabela
-    for (let sale_id in groupedRecords) {
-        let record = groupedRecords[sale_id];
+    // Cria um objeto para rastrear pedidos agrupados por sale_id
+    let groupedOrders = {};
+
+    // Loop através dos dados e agrupa os pedidos pelo sale_id
+    for (let key in extratoData) {
+        if (extratoData.hasOwnProperty(key) && typeof extratoData[key] === 'object' && extratoData[key].length === undefined) {
+            const saleId = extratoData[key].sale_id;
+
+            // Se o sale_id já existir no objeto, adiciona o produto ao array existente
+            if (groupedOrders.hasOwnProperty(saleId)) {
+                groupedOrders[saleId].products.push({
+                    product_name: extratoData[key].product_name,
+                    price: extratoData[key].price,
+                    quantity: extratoData[key].quantity,
+                });
+            } else {
+                // Se o sale_id não existir, cria uma nova entrada no objeto
+                groupedOrders[saleId] = {
+                    sale_id: extratoData[key].sale_id,
+                    sale_date: extratoData[key].sale_date,
+                    observation: extratoData[key].observation,
+                    products: [{
+                        product_name: extratoData[key].product_name,
+                        price: extratoData[key].price,
+                        quantity: extratoData[key].quantity,
+                    }],
+                    total_amount: extratoData[key].total_amount,
+                    saldo_anterior: extratoData[key].saldo_anterior,
+                    debito: extratoData[key].debito,
+                };
+            }
+        }
+    }
+
+    // Mescla os arrays de pagamentos e vendas
+    let allRecords = [...payments, ...Object.values(groupedOrders)];
+
+    // Ordena todos os registros (pedidos e pagamentos) por data em ordem decrescente
+    allRecords.sort((a, b) => new Date(a.sale_date || a.payment_date) - new Date(b.sale_date || b.payment_date));
+
+    // Loop através dos registros e adiciona as linhas à tabela
+    for (let i = 0; i < allRecords.length; i++) {
+        let record = allRecords[i];
 
         // Formata a data do registro de acordo com o formato local 'pt-BR'
-        let formattedRecordDate = new Date(record.sale_date).toLocaleDateString('pt-BR');
+        let formattedRecordDate = new Date(record.sale_date || record.payment_date).toLocaleDateString('pt-BR');
 
         // Adiciona uma nova linha à tabela
         tableHTML += "<tr>";
-        tableHTML += "<td>" + record.sale_id + "</td>";
+        tableHTML += "<td>" + (record.sale_id || record.payment_id) + "</td>";
         tableHTML += "<td>" + formattedRecordDate + "</td>";
-        tableHTML += "<td>" + record.observation + "</td>";
 
-        // Adiciona os produtos à célula "Produtos"
-        tableHTML += "<td>";
-        for (let i = 0; i < record.products.length; i++) {
-            let product = record.products[i];
-            tableHTML += product.product_name + "<br>";
+        if (record.payment_id !== undefined) {
+            // Se for um pagamento
+            tableHTML += "<td>Pagto.: " + record.type_of_payment + "</td>";
+            tableHTML += "<td></td>";  // Coluna 'Produtos' vazia para pagamento
+            tableHTML += "<td></td>";  // Coluna 'Preço (U)' vazia para pagamento
+            tableHTML += "<td> R$ " + record.amount + "</td>";
+            tableHTML += "<td> R$ " + record.saldo_anterior + "</td>";
+            tableHTML += "<td> R$ " + record.debito + "</td>";
+        } else {
+            // Se for uma venda
+            tableHTML += "<td> Pac.: " + record.observation + "</td>";
+
+            // Adiciona os produtos à célula "Produtos"
+            tableHTML += "<td>";
+            for (let j = 0; j < record.products.length; j++) {
+                tableHTML += record.products[j].product_name + "<br>";
+            }
+            tableHTML += "</td>";
+
+            // Adiciona o preço e a quantidade na célula "Preço (U)"
+            tableHTML += "<td>";
+            for (let j = 0; j < record.products.length; j++) {
+                tableHTML += "R$ " + record.products[j].price + " x " + record.products[j].quantity + "<br>";
+            }
+            tableHTML += "</td>";
+
+            tableHTML += "<td>R$ " + record.total_amount + "</td>";
+            tableHTML += "<td>R$ " + record.saldo_anterior + "</td>";
+            tableHTML += "<td>R$ " + record.debito + "</td>";
         }
-        tableHTML += "</td>";
-
-        // Adiciona o preço e a quantidade na célula "Preço (U)"
-        tableHTML += "<td>";
-        for (let i = 0; i < record.products.length; i++) {
-            let product = record.products[i];
-            tableHTML += "R$ " + product.price + " x " + product.quantity + "<br>";
-        }
-        tableHTML += "</td>";
-
-        tableHTML += "<td>R$ " + record.total_amount + "</td>";
-        tableHTML += "<td>R$ " + record.saldo_anterior + "</td>";
-        tableHTML += "<td>R$ " + record.debito + "</td>";
 
         tableHTML += "</tr>";
     }
 
-    // Adiciona as linhas da tabela referentes aos pagamentos
-    if (data.extratoData.payments && data.extratoData.payments.length > 0) {
-        for (let i = 0; i < data.extratoData.payments.length; i++) {
-            let payment = data.extratoData.payments[i];
-
-            // Formata a data do pagamento de acordo com o formato local 'pt-BR'
-            let formattedPaymentDate = new Date(payment.payment_date).toLocaleDateString('pt-BR');
-
-            // Adiciona uma nova linha à tabela para cada pagamento
-            tableHTML += "<tr>";
-            tableHTML += "<td>" + payment.payment_id + "</td>";
-            tableHTML += "<td>" + formattedPaymentDate + "</td>";
-            tableHTML += "<td>Pagto.: " + payment.type_of_payment + "</td>";
-            tableHTML += "<td></td>"; // Coluna 'Produtos' vazia para pagamento
-            tableHTML += "<td></td>"; // Coluna 'Preço (U)' vazia para pagamento
-            tableHTML += "<td>R$ " + payment.amount + "</td>";
-            tableHTML += "<td>R$ " + payment.saldo_anterior + "</td>";
-            tableHTML += "<td>R$ " + payment.debito + "</td>";
-            tableHTML += "</tr>";
-        }
-    }
-
+    console.log("ultimo heroi da terra!");
     // Abre uma nova aba com a tabela gerada
     let novaAba = window.open('');
     novaAba.document.write('<html><head><title>Extrato Final</title></head><body><table border="1">' + tableHTML + '</table></body></html>');
 }
-
 
 
 function displayCowsay() {
