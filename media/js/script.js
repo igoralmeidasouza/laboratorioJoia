@@ -1710,11 +1710,12 @@ function openExtratoFinalTab(data) {
     const clientAddress = clientData.address;
     const clientCity = clientData.city;
     const clientPhone = clientData.phone;
+    const clientAmount = clientData.debit_amount;
     // Exemplo de como utilizar os dados dos clientes
     let tableHTML =
             '<html> '+
             '<head> '+
-                '<title>Extrato de Compra</title> '+
+                '<title>Extrato</title> '+
                 '<link rel="stylesheet" href="media/css/estilos.css"> '+
             '</head> '+
             '<body> '+
@@ -1849,13 +1850,26 @@ function openExtratoFinalTab(data) {
         }
 
         tableHTML += "</tr>";
-        
+                    
+            
     }
+
 
     console.log("ultimo heroi da terra!");
     // Abre uma nova aba com a tabela gerada
     let novaAba = window.open('');
-    novaAba.document.write( tableHTML + "</table></div></div></div></main></body></html>");
+    novaAba.document.write( tableHTML + 
+                            "</table>" +
+                        "</div>" +
+                        "<div class='saldoClientContainer'>" +
+                            "<span>Débito atual: <em>R$ "+ clientAmount +"</em></span>"+
+                        "</div>"+
+                    "</div>" +
+                "</div>"+
+            "</main>" +
+        "</body>" +
+    "</html>"
+    );
 }
 
 
