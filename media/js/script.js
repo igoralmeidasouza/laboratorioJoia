@@ -1862,7 +1862,7 @@ function openExtratoFinalTab(data) {
                             "</table>" +
                         "</div>" +
                         "<div class='saldoClientContainer'>" +
-                            "<span>Saldo Devedor Atual: <em>R$ "+ clientAmount +"</em></span>"+
+                            "<span>Débito atual: <em>R$ "+ clientAmount +"</em></span>"+
                         "</div>"+
                     "</div>" +
                 "</div>"+
