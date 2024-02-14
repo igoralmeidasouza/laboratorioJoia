@@ -95,7 +95,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Check for the specific action based on the provided key
         if (isset($_POST['update_payment'])) {
             $client_id_payment = $_POST['client_id_payment'];
-            $payment_date = $_POST['payment_date'];
+            //$payment_date = $_POST['payment_date'];
             $amount = $_POST['amount'];
             $type_of_payment = $_POST['type_of_payment'];
     
@@ -116,7 +116,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
             // Insere o novo pagamento com saldos atual e anterior
             $sql_payment = "INSERT INTO clientpayments (client_id, payment_date, amount, type_of_payment, saldo_anterior, saldo_atual) 
-                            VALUES ('$client_id_payment', '$payment_date', '$formattedValue', '$type_of_payment', '$saldo_anterior', '$saldo_atual')";
+                            VALUES ('$client_id_payment', NOW(), '$formattedValue', '$type_of_payment', '$saldo_anterior', '$saldo_atual')";
             $conn->query($sql_payment);
     
             // Atualiza o débito atual do cliente na tabela clients
