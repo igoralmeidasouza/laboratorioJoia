@@ -1737,10 +1737,14 @@ function openExtratoFinalTab(data) {
                                 "<span>à " + maxDateBR + "</span>" +
                             "</div>" +
                             "<div class='dadosContainer'>" +
-                                "<span>Cliente: " + clientName + "</span>" +
-                                "<span>Email: " + clientEmail + "</span>" +
-                                "<span>Endereço: " + clientAddress + "</span>" +
-                                "<span>Cidade: " + clientCity + "</span>" +
+                                "<div class='divisaoDadosContainer'>" +
+                                    "<span>Cliente: " + clientName + "</span>" +
+                                    "<span>Email: " + clientEmail + "</span>" +
+                                "</div>" +
+                                "<div class='divisaoDadosContainer'>" +
+                                    "<span>Endereço: " + clientAddress + "</span>" +
+                                    "<span>Cidade: " + clientCity + "</span>" +
+                                "</div>" +
                                 "<span>Telefone: " + clientPhone + "</span>" +
                             "</div>";
     tableHTML +=
@@ -1831,7 +1835,7 @@ function openExtratoFinalTab(data) {
             // Adiciona o preço e a quantidade na célula "Preço (U)"
             tableHTML += "<td>";
             for (let j = 0; j < record.products.length; j++) {
-                tableHTML += "R$ " + record.products[j].price + " x " + record.products[j].quantity + "<br>";
+                tableHTML +=   record.products[j].quantity + " x " + "R$ " + record.products[j].price + "<br>";
             }
             tableHTML += "</td>";
 
