@@ -1422,6 +1422,9 @@ function removeProduto(productId) {
                 // Ative a visibilidade da mensagem
                 document.getElementById("mensagemPositiva").style.opacity = 1;
                 document.getElementById("mensagemPositiva").style.visibility = "visible";
+                // Remove o item excluído da lista na UI
+                //let produtoRemovido = document.getElementById("produto_" + productId);
+                //produtoRemovido.parentNode.removeChild(produtoRemovido);
                 // Define um temporizador para ocultar a mensagem após 5 segundos
                 setTimeout(function () {
                     document.getElementById("mensagemPositiva").style.opacity = '0';
@@ -1433,6 +1436,7 @@ function removeProduto(productId) {
         xhr.send("product_id_delete=" + productId);
     }
 }
+
 
 // Botão mostrar senha
 function togglePasswordVisibility() {
