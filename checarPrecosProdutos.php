@@ -7,7 +7,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($product_id !== null) {
         // Fetch product prices from the database based on the correct columns
-        $result = $conn->query("SELECT price_type_1, price_type_2, price_type_3, price_type_4, price_type_5, price_type_6 FROM products WHERE product_id = '$product_id'");
+        $result = $conn->query("SELECT price_type_1, price_type_2, price_type_3, price_type_4, price_type_5, price_type_6 FROM products WHERE product_id = '$product_id' AND status = 'ativado'");
         echo "TRUE1";
         if ($result !== false) {
             $row = $result->fetch_assoc();

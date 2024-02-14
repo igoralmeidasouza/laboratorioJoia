@@ -152,7 +152,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     elseif (isset($_POST['get_clients'])) {
         // Query the database to get client options
-        $clientQuery = "SELECT client_id, client_name FROM clients";
+        $clientQuery = "SELECT client_id, client_name FROM clients WHERE status = 'ativado'";
         $clientResult = $conn->query($clientQuery);
 
         // Generate HTML for client options
@@ -189,7 +189,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo $pricesHTML;
     } elseif (isset($_POST['get_products'])) {
         // Handling POST request for getting product options
-        $productQuery = "SELECT product_id, product_name FROM products";
+        $productQuery = "SELECT product_id, product_name FROM products WHERE status = 'ativado'";
         $productResult = $conn->query($productQuery);
 
         // Generate HTML for product options
@@ -760,7 +760,7 @@ elseif(isset($_POST['logout'])) {
 } elseif (isset($_POST['client_id_delete'])) {// Check if the client ID is set in the request
     // Get the client ID from the request
     $clientId = $_POST['client_id_delete'];
-    $delQuery = "DELETE FROM clients WHERE client_id = $clientId";
+    $delQuery = "UPDATE clients SET `status` = 'desativado' WHERE client_id = $clientId";
     // Perform the deletion in the database
     //$resultCliente = $conn->query($delQuery);
     if($conn->query($delQuery)){
@@ -775,7 +775,7 @@ elseif(isset($_POST['logout'])) {
 } elseif (isset($_POST['product_id_delete'])) {// Check if the client ID is set in the request
     // Get the client ID from the request
     $productId = $_POST['product_id_delete'];
-    $delQuery = "DELETE FROM products WHERE product_id = $productId";
+    $delQuery = "UPDATE products SET `status` = 'desativado' WHERE product_id = $productId;";
     // Perform the deletion in the database
     //$resultCliente = $conn->query($delQuery);
     if($conn->query($delQuery)){

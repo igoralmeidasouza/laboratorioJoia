@@ -206,7 +206,7 @@
                     include 'dbConnection.php';
 
                     // Consulta os clientes
-                    $sqlclients = "SELECT * FROM clients";
+                    $sqlclients = "SELECT * FROM clients WHERE status = 'ativado'";
                     $resultClients = $conn->query($sqlclients);
 
                     if ($resultClients->num_rows > 0) {
@@ -359,7 +359,7 @@
                             <?php
                                 include 'dbConnection.php';
                                 // Pegando os clientes do banco de dados.
-                                $result = $conn->query("SELECT client_id, client_name FROM clients");
+                                $result = $conn->query("SELECT client_id, client_name FROM clients WHERE status = 'ativado'");
 
                                 if ($result->num_rows > 0) {
                                     while ($row = $result->fetch_assoc()) {
@@ -443,7 +443,7 @@
                         include 'dbConnection.php';
                         
                         // Consulta os produtos
-                        $sql = "SELECT * FROM products";
+                        $sql = "SELECT * FROM products WHERE status = 'ativado'";
                         $resultProducts = $conn->query($sql);
 
                         if ($resultProducts->num_rows > 0) {
