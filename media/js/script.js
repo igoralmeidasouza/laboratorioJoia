@@ -398,7 +398,9 @@ function updateCartDisplay() {
     }
     cartHTML += "<button class="+'botaoVendas'+" type="+'button'+" onclick="+'executeSale()'+">Finalizar Pedido</button>";
     cartDisplay.innerHTML = cartHTML;
+    document.getElementById("quantity").value = 1; //atualiza a quantidade de produtos para 1 quando tiver alteração no carrinho
     atualizaInput() //verifico se tem o id chave e decido se mantenho ou não o dropdown habilitado
+    
 }
 
 //função que executa a venda e manda os dados para gerar o extrato de venda na sequencia
