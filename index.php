@@ -465,7 +465,7 @@
                                 </tr>";
 
                             while ($row = $resultProducts->fetch_assoc()) {
-                                echo "<tr>";
+                                echo "<tr id='produto".$row['product_id']."'>";
                                 echo "<td>" . $row["product_id"] . "</td>";
                                 echo "<td>" . $row["product_name"] . "</td>";
                                 echo "<td>" . $row["product_description"] . "</td>";
