@@ -361,7 +361,7 @@ function updateCartDisplay() {
     cartHTML += "<button type="+'button'+" onclick="+'clearCart()'+"><em>X </em>Limpar Carrinho</button></div>";
 
     if (cartItems.length > 0) {
-        cartHTML += "<table class="+'tabelaVenda'+"><tr><th>Cliente</th><th>Produto</th><th>Produto (u)</th><th>Qt.</th><th>Paciente</th><th>Preço Total</th><th>Remover</th></tr>";
+        cartHTML += "<table id='existe' class="+'tabelaVenda'+"><tr><th>Cliente</th><th>Produto</th><th>Produto (u)</th><th>Qt.</th><th>Paciente</th><th>Preço Total</th><th>Remover</th></tr>";
         for (let i = 0; i < cartItems.length; i++) {
             let item = cartItems[i];
             let total1 = item.total;
@@ -398,6 +398,7 @@ function updateCartDisplay() {
     }
     cartHTML += "<button class="+'botaoVendas'+" type="+'button'+" onclick="+'executeSale()'+">Finalizar Pedido</button>";
     cartDisplay.innerHTML = cartHTML;
+    atualizaInput() //verifico se tem o id chave e decido se mantenho ou não o dropdown habilitado
 }
 
 //função que executa a venda e manda os dados para gerar o extrato de venda na sequencia
@@ -1871,7 +1872,18 @@ function openExtratoFinalTab(data) {
     "</html>"
     );
 }
-
+// Função para habilitar ou desabilitar o input com base na existência do ID
+function atualizaInput() {
+    var input = document.getElementById("client");
+    // Verifica se o elemento com o ID "meuElemento" existe
+    if (document.getElementById("existe")) {
+        // Se existir, desabilita o input
+        input.disabled = true;
+    } else {
+        // Se não existir, habilita o input
+        input.disabled = false;
+    }
+}
 
 function displayCowsay() {
     let cowsayResponse = `
