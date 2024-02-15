@@ -222,10 +222,9 @@
                                 <th>Devedor</th>
                                 <th>Excluir</th>
                             </tr>";
-
-                            $id = 1;
+                            
                         while ($row = $resultClients->fetch_assoc()) {
-                            echo "<tr id='cliente$id'>";
+                            echo "<tr id='cliente" . $row["client_id"] . "'>";
                             echo "<td>" . $row["client_id"] . "</td>";
                             echo "<td>" . $row["client_name"] . "</td>";
                             echo "<td>" . $row["client_email"] . "</td>";
@@ -247,7 +246,6 @@
                                     </button>
                                 </td>";
                             echo "</tr>";
-                            $id++;
                         }
 
                         echo "</table>";

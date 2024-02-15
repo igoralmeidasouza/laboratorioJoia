@@ -1396,6 +1396,11 @@ function removeCliente(clientId) {
                 // Ative a visibilidade da mensagem
                 document.getElementById("mensagemPositiva").style.opacity = 1;
                 document.getElementById("mensagemPositiva").style.visibility = "visible";
+
+                // Remove o item excluído da lista na UI
+                const linhaDoProduto = document.getElementById('cliente' + clientId).closest('tr');
+                linhaDoProduto.style.display = 'none';
+
                 // Define um temporizador para ocultar a mensagem após 5 segundos
                 setTimeout(function () {
                     document.getElementById("mensagemPositiva").style.opacity = '0';
