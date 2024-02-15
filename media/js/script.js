@@ -485,6 +485,7 @@ function openInvoiceTab(data) {
         <head>
             <title>Extrato de Compra</title>
             <link rel="stylesheet" href="media/css/estilos.css">
+            <link rel="icon" href="media/img/icones/tooth.ico">
         </head>
         <body>
             <header>
@@ -1310,6 +1311,7 @@ function openPaymentHistoryTab(data) {
                     <head>
                         <title>Extrato de Compra</title>
                         <link rel="stylesheet" href="media/css/estilos.css">
+                        <link rel="icon" href="media/img/icones/tooth.ico">
                     </head>
                     <body>
                         <header>
@@ -1564,6 +1566,7 @@ function openPaymentSalesTab(data) {
                     <head>
                         <title>Extrato de Vendas</title>
                         <link rel="stylesheet" href="media/css/estilos.css">
+                        <link rel="icon" href="media/img/icones/tooth.ico">
                     </head>
                     <body>
                         <header>
@@ -1717,6 +1720,7 @@ function openExtratoFinalTab(data) {
             '<head> '+
                 '<title>Extrato</title> '+
                 '<link rel="stylesheet" href="media/css/estilos.css"> '+
+                '<link rel="icon" href="media/img/icones/tooth.ico">'+
             '</head> '+
             '<body> '+
                 '<header> '+

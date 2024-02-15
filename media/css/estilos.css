@@ -5,6 +5,7 @@ body{font: 500 17px "Open Sans"; line-height: 28px; letter-spacing: 0.01px; colo
 @keyframes trocaCor { 0% { color: #ffffff; } 50% { color: #4293E0; } 100% { color: #EDEFEF; } }
 
 body {background-color: #0093E9; background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);}
+link[rel="icon"] {filter: invert(1);}
 
 body header {background-color: #ffffff; display: flex; width: 100%; max-width: 1320px; margin: 30px auto 0 auto; position: relative; border-radius: 25px 25px 0 0;}
     /* notificação do PHP */
