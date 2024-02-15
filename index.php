@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="media/css/estilos.css">
+    <link rel="icon" href="media/img/icones/tooth.ico">
     <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
@@ -110,7 +111,7 @@
 
                             <div class="containerInputLabel">
                                 <!-- Client Dropdown -->
-                                <select id="client" name="client">
+                                <select id="client" class="unlock" name="client">
                                     <!-- Clients will be displayed here -->
                                 </select>
                                 <label for="client">Cliente</label>
@@ -222,8 +223,9 @@
                                 <th>Excluir</th>
                             </tr>";
 
+                            $id = 1;
                         while ($row = $resultClients->fetch_assoc()) {
-                            echo "<tr>";
+                            echo "<tr id='cliente$id'>";
                             echo "<td>" . $row["client_id"] . "</td>";
                             echo "<td>" . $row["client_name"] . "</td>";
                             echo "<td>" . $row["client_email"] . "</td>";
@@ -245,6 +247,7 @@
                                     </button>
                                 </td>";
                             echo "</tr>";
+                            $id++;
                         }
 
                         echo "</table>";
