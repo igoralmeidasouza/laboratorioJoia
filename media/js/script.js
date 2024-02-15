@@ -6,15 +6,34 @@ document.addEventListener('DOMContentLoaded', function () {
     const vitrineDivs = document.querySelectorAll('.bemVindo > .vitrine');
     const subBotoes = document.querySelectorAll('.subBotao');
 
+    subBotoes.forEach(subBotao => {
+        subBotao.addEventListener('click', function (event) {
+            // Remover a classe 'subBotaoAtivo' de todos os subBotões
+            subBotoes.forEach(botao => {
+                botao.classList.remove('subBotaoAtivo');
+            });
+
+            // Adicionar a classe 'subBotaoAtivo' ao subBotão clicado
+            this.classList.add('subBotaoAtivo');
+        });
+    });
+
     menuItems.forEach((item, index) => {
         item.addEventListener('click', function (event) {
             if (event.target.closest('.subBotao')) {
+                // Remover a classe 'subBotaoAtivo' de todos os subBotões ao clicar em um subBotão
+                subBotoes.forEach(botao => {
+                    botao.classList.remove('subBotaoAtivo');
+                });
                 return; // Ignorar cliques nos subBotoes
             }
+
+            const isActive = this.classList.contains('ativa');
 
             // Remover a classe 'ativa' de todas as li
             menuItems.forEach(menuItem => {
                 menuItem.classList.remove('ativa');
+                menuItem.classList.add('desativada');
             });
 
             // Remover a classe 'ativa' de todas as divs
@@ -23,17 +42,23 @@ document.addEventListener('DOMContentLoaded', function () {
                 div.classList.add('desativada');
             });
 
-            // Adicionar a classe 'ativa' à li clicada
-            this.classList.add('ativa');
+            if (!isActive) {
+                // Adicionar a classe 'ativa' à li clicada
+                this.classList.add('ativa');
+                this.classList.remove('desativada');
 
-            // Encontrar a div correspondente pelo data-target
-            const targetDivClass = this.dataset.target;
-            const targetDiv = document.querySelector(`.${targetDivClass}`);
+                // Encontrar a div correspondente pelo data-target
+                const subMenu = this.querySelector('.subMenu');
+                if (subMenu) {
+                    const targetDivClass = subMenu.querySelector('.subBotao.subBotaoAtivo').dataset.target;
+                    const targetDiv = document.querySelector(`.${targetDivClass}`);
 
-            // Adicionar a classe 'ativa' à div correspondente
-            if (targetDiv) {
-                targetDiv.classList.add('ativa');
-                targetDiv.classList.remove('desativada');
+                    // Adicionar a classe 'ativa' à div correspondente
+                    if (targetDiv) {
+                        targetDiv.classList.add('ativa');
+                        targetDiv.classList.remove('desativada');
+                    }
+                }
             }
         });
     });

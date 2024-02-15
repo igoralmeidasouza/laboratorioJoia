@@ -43,17 +43,20 @@ body main {background-color: #ffffff; display: flex; width: 100%; max-width: 132
 
                     /* sub botões - botão debody main .bemVindo .imagemDashboardsativado */
                     body main .menuLateral ul .menu-item .subMenu {opacity: 0; visibility: hidden; transition: all 0.5s ease;}
-                        body main .menuLateral ul .menu-item ul .subBotao {opacity: 0; visibility: hidden; z-index: 1; text-transform: none; height: max-content; line-height: 20px; position: relative;  transition: all 0.5s ease; margin-left: 5px;}
-                            body main .menuLateral ul .menu-item ul .subBotao:hover {margin-left: 10px;}
-                                body main .menuLateral ul .menu-item ul .subBotao::before {content: ""; background: url(../img/icones/setinhaMenu.gif); width: 3px; height: 5px; position: absolute; opacity: 0; top: 7px; transition: all 0.7s ease; left: -10px; filter: brightness(0.5);}
-                                body main .menuLateral ul .menu-item ul .subBotao:hover::before{opacity: 1; left: -7px;}
+                        body main .menuLateral ul .menu-item ul .subBotao {opacity: 0; visibility: hidden; z-index: 1; text-transform: none; height: max-content; line-height: 20px; position: relative;  /*transition: all 0.5s ease;*/ margin-left: 5px;}
+                            body main .menuLateral ul .menu-item ul .subBotao:hover {padding-left: 10px; background-color: rgba(0, 0, 0, 0.1); border-radius: 4px; color: #101A28; transition: all 0.3s ease-in-out;}
+                                body main .menuLateral ul .menu-item ul .subBotao::before {content: ""; background: url(../img/icones/setinhaMenu.gif); width: 3px; height: 5px; position: absolute; opacity: 0; top: 5px; transition: all 0.7s ease; left: -10px; filter: brightness(0.5);}
+                                body main .menuLateral ul .menu-item ul .subBotao:hover::before{opacity: 1; left: 3px;}
+                        body main .menuLateral ul .menu-item ul .subBotaoAtivo {padding-left: 10px; background-color: rgba(0, 0, 0, 0.1); border-radius: 4px; color: #101A28;}
+                            body main .menuLateral ul .menu-item ul .subBotaoAtivo::before {content: ""; background: url(../img/icones/setinhaMenu.gif); width: 3px; height: 5px; position: absolute; opacity: 1; top: 5px; left: 3px; transition: all 0.7s ease; filter: brightness(0.5);}
+                                    
 
             /* o botão fica ativo em azul ao clicar */
-            body main .menuLateral ul .ativa {background-color: #0071cd; color: #ffffff; z-index: 1; transition: all 0.2s ease; height: max-content;}
+            body main .menuLateral ul .ativa {background-color: #0071cd; color: #ffffff; z-index: 1; /*transition: all 0.2s ease*/; height: max-content;}
                 body main .menuLateral ul .ativa:hover {color: #ffffff;}
                     /* sub botões - botão ativado */
                     body main .menuLateral ul .ativa .subMenu {padding: 7px 15px; border-top: solid 1px #ffffff; opacity: 1; visibility: visible;}
-                        body main .menuLateral ul .ativa ul .subBotao {opacity: 1; visibility: visible; z-index: 1; color: #ffffff; height: 15px; margin-top: 5px; text-align: left; font-size: 12px; transition: all 0.5s ease;}
+                        body main .menuLateral ul .ativa ul .subBotao {opacity: 1; visibility: visible; z-index: 1; color: #ffffff; height: 15px; margin-top: 5px; text-align: left; font-size: 12px; transition: all 0.3s ease; display: flex; align-items: center;}
                             body main .menuLateral ul .ativa ul .subBotao:first-child {margin-top: 0px;}
 
             /* Botão logout */
@@ -138,7 +141,7 @@ body main {background-color: #ffffff; display: flex; width: 100%; max-width: 132
             body main .bemVindo .vitrine .formularios .tabelaGeral { text-transform: capitalize; padding-top: 25px; width: 100%;}
                 body main .bemVindo .vitrine .formularios .tabelaGeral tbody tr td, 
                 body main .bemVindo .vitrine .formularios .tabelaGeral tbody tr th {border-bottom: solid 1px #4293E0; padding: 2px 10px; max-width: 190px; font-size: 13px; text-align: center;}
-                    body main .bemVindo .vitrine .formularios .tabelaGeral tbody tr td:nth-child(3) {max-width: 290px;}
+                    body main .bemVindo .vitrine .formularios .tabelaGeral tbody tr td:nth-child(3) {max-width: 280px; text-align: left;}
                         body main .bemVindo .vitrine .formularios .tabelaGeral tbody tr td button {cursor: pointer; padding-top: 6px; width: 100%; display: flex; justify-content: center;}
                                 body main .bemVindo .vitrine .formularios .tabelaGeral tbody tr td button svg {color: #6a7071; transition: all 0.5s ease-in-out;}
                                     body main .bemVindo .vitrine .formularios .tabelaGeral tbody tr td button:hover svg {color: #ff0404;}

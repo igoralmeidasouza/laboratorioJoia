@@ -81,6 +81,9 @@
                 </li>
                 <li class="extratos menu-item desativada" data-target="vitrineExtratos" onclick="getClients()">
                     <p>Extratos</p>
+                    <ul class="subMenu">
+                        <li class="subBotao" data-target="vitrineExtratos">Consultar Extratos</li>
+                    </ul>
                 </li>
             </ul>
                 <!--botao de logout -->
