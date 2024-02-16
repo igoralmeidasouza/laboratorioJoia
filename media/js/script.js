@@ -730,7 +730,7 @@ function updateFilteredData(data) {
             // Adiciona o preço e a quantidade na célula "Preço (U)"
             tableHTML += "<td>";
             for (let j = 0; j < record.products.length; j++) {
-                tableHTML += "R$ " + record.products[j].price + " x " + record.products[j].quantity + "<br>";
+                tableHTML += "R$ " + (record.products[j].price / record.products[j].quantity) + " x " + record.products[j].quantity + "<br>";
             }
             tableHTML += "</td>";
 
@@ -839,7 +839,7 @@ function updateFilteredHistory(data) {
 
             for (let i = 0; i < saleData.products.length; i++) {
                 productsHTML += saleData.products[i].product_name + "<br>";
-                pricesHTML += "R$ " + saleData.products[i].price + "<br>";
+                pricesHTML += "R$ " + (saleData.products[i].price / saleData.products[i].quantity) + "<br>";
                 quantitiesHTML += saleData.products[i].quantity + "<br>";
             }
 
@@ -1585,7 +1585,7 @@ function openPaymentSalesTab(data) {
                         <td>${new Intl.DateTimeFormat('pt-BR').format(new Date(sale.sale_date))}</td>
                         <td>${sale.client_name}</td>
                         <td>${sale.products.map(product => product.product_name).join('<br>')}</td>
-                        <td>${sale.products.map(product => 'R$ ' + product.price).join('<br>')}</td>
+                        <td>${sale.products.map(product => 'R$ ' + (product.price / product.quantity)).join('<br>')}</td>
                         <td>${sale.products.map(product => product.quantity).join('<br>')}</td>
                         <td>R$ ${sale.total_amount || "N/A"}</td>
                         <td>R$ ${sale.saldo_anterior || "N/A"}</td>
@@ -1879,7 +1879,7 @@ function openExtratoFinalTab(data) {
             // Adiciona o preço e a quantidade na célula "Preço (U)"
             tableHTML += "<td>";
             for (let j = 0; j < record.products.length; j++) {
-                tableHTML +=   record.products[j].quantity + " x " + "R$ " + record.products[j].price + "<br>";
+                tableHTML +=   record.products[j].quantity + " x " + "R$ " + (record.products[j].price / record.products[j].quantity) + "<br>";
             }
             tableHTML += "</td>";
 
