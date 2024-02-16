@@ -4,8 +4,8 @@ body{font: 500 17px "Open Sans"; line-height: 28px; letter-spacing: 0.01px; colo
 
 @keyframes trocaCor { 0% { color: #ffffff; } 50% { color: #4293E0; } 100% { color: #EDEFEF; } }
 
-body {background-color: #0093E9; background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);}
-link[rel="icon"] {filter: invert(1);}
+body {background-color: #0093E9; background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%); height: 100%;}
+link[rel="icon"] { filter: invert(1); }
 
 body header {background-color: #ffffff; display: flex; width: 100%; max-width: 1320px; margin: 30px auto 0 auto; position: relative; border-radius: 25px 25px 0 0;}
     /* notificação do PHP */
@@ -47,7 +47,7 @@ body main {background-color: #ffffff; display: flex; width: 100%; max-width: 132
                             body main .menuLateral ul .menu-item ul .subBotao:hover {padding-left: 10px; background-color: rgba(0, 0, 0, 0.1); border-radius: 4px; color: #101A28; transition: all 0.3s ease-in-out;}
                                 body main .menuLateral ul .menu-item ul .subBotao::before {content: ""; background: url(../img/icones/setinhaMenu.gif); width: 3px; height: 5px; position: absolute; opacity: 0; top: 5px; transition: all 0.7s ease; left: -10px; filter: brightness(0.5);}
                                 body main .menuLateral ul .menu-item ul .subBotao:hover::before{opacity: 1; left: 3px;}
-                        body main .menuLateral ul .menu-item ul .subBotaoAtivo {padding-left: 10px; background-color: rgba(0, 0, 0, 0.1); border-radius: 4px; color: #101A28;}
+                        body main .menuLateral ul .menu-item ul .subBotaoAtivo {padding-left: 10px; background-color: rgba(0, 0, 0, 0.15); border-radius: 4px; color: #101A28;}
                             body main .menuLateral ul .menu-item ul .subBotaoAtivo::before {content: ""; background: url(../img/icones/setinhaMenu.gif); width: 3px; height: 5px; position: absolute; opacity: 1; top: 5px; left: 3px; transition: all 0.7s ease; filter: brightness(0.5);}
                             body main .menuLateral ul .menu-item ul .subBotaoAtivo::after {position: absolute; content: ""; border-style: solid; border-width: 7px 10px 7px 0; border-color: transparent #0071cd transparent transparent; left: 231px;}
                                     
@@ -57,7 +57,7 @@ body main {background-color: #ffffff; display: flex; width: 100%; max-width: 132
                 body main .menuLateral ul .ativa:hover {color: #ffffff;}
                     /* sub botões - botão ativado */
                     body main .menuLateral ul .ativa .subMenu {padding: 7px 15px; border-top: solid 1px #ffffff; opacity: 1; visibility: visible;}
-                        body main .menuLateral ul .ativa ul .subBotao {opacity: 1; visibility: visible; z-index: 1; color: #ffffff; height: 15px; margin-top: 5px; text-align: left; font-size: 12px; transition: all 0.3s ease; display: flex; align-items: center;}
+                        body main .menuLateral ul .ativa ul .subBotao {opacity: 1; visibility: visible; z-index: 1; height: 15px; margin-top: 5px; text-align: left; font-size: 12px; transition: all 0.3s ease; display: flex; align-items: center;}
                             body main .menuLateral ul .ativa ul .subBotao:first-child {margin-top: 0px;}
 
             /* Botão logout */

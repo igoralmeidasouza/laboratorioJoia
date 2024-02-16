@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="media/css/estilos.css">
-    <link rel="icon" href="media/img/icones/tooth.ico">
+    <link rel="icon" href="media/img/icones/toothIcone.png">
     <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="/laboratorioJoia/media/js/script.js"></script>
     
-    <title>Painel de controle</title>
+    <title>Laboratório Joia</title>
 </head>
 <body>
     <?php
