@@ -1227,16 +1227,12 @@ function gerarExtratoPagamento(pagamentoData) {
 
     // Crie uma instância XMLHttpRequest
     let xhr = new XMLHttpRequest();
-    console.log(xhr);
-    console.log("xhr ^");
     // Defina a função de retorno de chamada para processar a resposta
     xhr.onreadystatechange = function () {
         // Verificar se a solicitação foi bem-sucedida
         if (xhr.readyState == 4) {
             if (xhr.status == 200) {
                 // Trate a resposta, se necessário
-                console.log('Resposta da solicitação:', xhr.responseText);
-                console.log("------------");
                 let response = JSON.parse(xhr.responseText); // Converter a resposta em um objeto JavaScript usando JSON.parse()
                 console.log(response);
                 if (response.error) {
@@ -1261,10 +1257,7 @@ function gerarExtratoPagamento(pagamentoData) {
 
 //Gerar o extrato de pagamento na outra aba --------------------
 function openPaymentHistoryTab(data) {
-    console.log("--");
-    console.log(data);
     let resultado1 = typeof data;
-    console.log(resultado1);
     let minDate = new Date('9999-12-31'); // Inicialize a menor data com um valor muito alto
     let maxDate = new Date('0000-01-01'); // Inicialize a maior data com um valor muito baixo
 
@@ -1382,6 +1375,12 @@ function openPaymentHistoryTab(data) {
                             </div>
                         </main>
                     </body>
+                    <script>
+                    // Add a delay of 2 seconds (2000 milliseconds)
+                    setTimeout(function() {
+                        window.print();
+                    }, 1000);
+                    </script>
                 </html>
             `;
 
@@ -1644,6 +1643,12 @@ function openPaymentSalesTab(data) {
                             </div>
                         </main>
                     </body>
+                    <script>
+                                // Add a delay of 2 seconds (2000 milliseconds)
+                                setTimeout(function() {
+                                    window.print();
+                                }, 1000);
+                    </script>
                 </html>
             `;
 
@@ -1893,8 +1898,6 @@ function openExtratoFinalTab(data) {
             
     }
 
-
-    console.log("ultimo heroi da terra!");
     // Abre uma nova aba com a tabela gerada
     let novaAba = window.open('');
     novaAba.document.write( tableHTML + 
@@ -1906,7 +1909,10 @@ function openExtratoFinalTab(data) {
                     "</div>" +
                 "</div>"+
             "</main>" +
-        "</body>" +
+        "</body><script>" +
+        "setTimeout(function() {" +
+        "    window.print();" +
+        "}, 1000);</script>" +
     "</html>"
     );
 }
