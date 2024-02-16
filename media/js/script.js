@@ -245,7 +245,6 @@ function updatePriceDropdown() {
             data: { product_id: selectedProductId }, // Use the correct variable holding the selected product ID
             success: function(response) {
                 // Parse the JSON response
-                console.log('Response:', response);
                 var prices = JSON.parse(response);
 
                 // Clear previous options
@@ -365,19 +364,6 @@ function removeCartItem(index, event) {
     // Atualize a exibição do carrinho
     updateCartDisplay();
 
-    // Acesse os atributos data do elemento pai (<p>) para obter os dados
-    let dataClient = event.currentTarget.parentNode.getAttribute('data-client');
-    let dataProduct = event.currentTarget.parentNode.getAttribute('data-product');
-    let dataQuantity = event.currentTarget.parentNode.getAttribute('data-quantity');
-    let dataPaciente = event.currentTarget.parentNode.getAttribute('data-paciente');
-    let dataTotal = event.currentTarget.parentNode.getAttribute('data-total');
-
-    // Use os dados conforme necessário (por exemplo, para a lógica de venda)
-    console.log("Data Client:", dataClient);
-    console.log("Data Product:", dataProduct);
-    console.log("Data Quantity:", dataQuantity);
-    console.log("Data Paciente:", dataPaciente);
-    console.log("Data Total:", dataTotal);
 }
 // atualiza o carrinho
 function updateCartDisplay() {
@@ -449,14 +435,12 @@ function executeSale() {
         cart: cartItems
         // Adicione outros dados do formulário conforme necessário
     };
-    console.log(formData);
 
     let xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {
             if (xhr.status == 200) {
                 try {
-                    console.log(xhr.responseText);
                     let response = JSON.parse(xhr.responseText);
 
                     if (response.success) {
@@ -480,7 +464,6 @@ function executeSale() {
 }
 //função que cria extrato de venda para impressão
 function openInvoiceTab(data) {
-    console.log(data);
     // Cria um objeto Date para obter a data atual
     let dataAtual = new Date();
 
@@ -636,9 +619,6 @@ function getFilteredData() {
 //esse boss faz o extrato final com pagamentos e vendas por cliente... aqui ja é o tratamento
 //ou seja do php para o html atravez do javascript
 function updateFilteredData(data) {
-    // Converte o objeto data em uma array
-    //let dataArray = Object.values(data);
-    console.log(data);
     // Inicializa a string HTML da tabela
     let tableHTML =
                     "<tr>"+
@@ -695,7 +675,6 @@ function updateFilteredData(data) {
 
     // Loop através dos registros e adiciona as linhas à tabela
     for (let i = 0; i < allRecords.length; i++) {
-        console.log("entra no for loop");
         let record = allRecords[i];
 
         // Formata a data do registro de acordo com o formato local 'pt-BR'
@@ -708,7 +687,6 @@ function updateFilteredData(data) {
 
         if (record.payment_id !== undefined) {
             // Se for um pagamento
-            console.log("indefinido, loop de pagamento pagamento");
             tableHTML += "<td>Pagto.: " + record.type_of_payment + "</td>";
             tableHTML += "<td></td>";  // Coluna 'Produtos' vazia para pagamento
             tableHTML += "<td></td>";  // Coluna 'Preço (U)' vazia para pagamento
@@ -716,7 +694,6 @@ function updateFilteredData(data) {
             tableHTML += "<td> R$ " + record.saldo_anterior + "</td>";
             tableHTML += "<td> R$ " + record.debito + "</td>";
         } else {
-            console.log("loop de venda venda");
             // Se for uma venda
             tableHTML += "<td> Pac.: " + record.observation + "</td>";
 
@@ -754,21 +731,15 @@ function updateFilteredData(data) {
 //manda os dados para consultar historico de venda no php
 function getFilteredHistory() {
     // Chama a função para obter a lista de clientes
-
     let selectedClientHistory = document.getElementById("clientDropdownHistory").value;
-    //let validadorFormulario = "2";
     let startHistorico = document.getElementById("startDateHistorico").value;
     let endtHistorico = document.getElementById("endDateHistorico").value;
 
     // Crie um objeto FormData para enviar os dados
     let formData = new FormData();
-    console.log(formData);
     formData.append('clientDropdownHistory', selectedClientHistory);
-    //formData.append('formType', validadorFormulario);
     formData.append('startDateHistorico', startHistorico);
     formData.append('endDateHistorico', endtHistorico);
-    console.log(formData);
-    //formData.append();
 
     // Crie uma instância XMLHttpRequest
     let xhr = new XMLHttpRequest();
@@ -778,7 +749,6 @@ function getFilteredHistory() {
         if (xhr.readyState == 4) {
             if (xhr.status == 200) {
                 // Trate a resposta, se necessário
-                console.log(xhr.responseText);
                 let response = JSON.parse(xhr.responseText);
                 
 
@@ -803,7 +773,6 @@ function getFilteredHistory() {
 }
 //trata os dados de historico de venda no html pos consulta no php
 function updateFilteredHistory(data) {
-    console.log(data);
     // Inicializa a string HTML da tabela
     let tableHTML = "<table class='tabelaGeral'>"+
                         "<tr>"+
@@ -864,9 +833,7 @@ function updateFilteredHistory(data) {
 //pega os dados do filtro de historico de vendas e manda para serem tratadas no php
 function getFilteredPagamento() {
     // Chama a função para obter a lista de clientes
-
     let selectedClientPagamento = document.getElementById("clienteDropdownPagamento").value;
-
     let startPagamento = document.getElementById("startDatePagamento").value;
     let endtPagamento = document.getElementById("endDatePagamento").value;
 
@@ -875,7 +842,6 @@ function getFilteredPagamento() {
     formData.append('clienteDropdownPagamento', selectedClientPagamento);
     formData.append('startDatePagamento', startPagamento);
     formData.append('endDatePagamento', endtPagamento);
-    console.log(formData);
 
     // Crie uma instância XMLHttpRequest
     let xhr = new XMLHttpRequest();
@@ -885,9 +851,7 @@ function getFilteredPagamento() {
         if (xhr.readyState == 4) {
             if (xhr.status == 200) {
                 // Trate a resposta, se necessário
-                console.log(xhr.responseText);
                 let response = JSON.parse(xhr.responseText);
-                console.log(response);
 
                 if (response.error) {
                     // Trate o erro, se houver
@@ -984,7 +948,6 @@ function atualizarForm() {
                 if (xhr.status == 200) {
                     // Trate a resposta, se necessário
                     let response = JSON.parse(xhr.responseText);
-                    console.log(response);
                     if (response.error) {
                         // Trate o erro, se houver
                         console.error('Erro na consulta: ' + response.error);
@@ -1053,7 +1016,6 @@ function updateClient(){
       formData.append('neighborhood', neighborhood);
       formData.append('city', city);
       formData.append('zipcode', zipcode);
-      console.log(formData)
       // Crie uma instância XMLHttpRequest
       let xhr = new XMLHttpRequest();
   
@@ -1098,7 +1060,6 @@ function productForm(){
                     if (xhr.status == 200) {
                         // Trate a resposta, se necessário
                         let response = JSON.parse(xhr.responseText);
-                        console.log(response);
                         if (response.error) {
                             // Trate o erro, se houver
                             console.error('Erro na consulta: ' + response.error);
@@ -1189,8 +1150,6 @@ function updateProduct() {
     formData.append('priceType5', priceType5);
     formData.append('priceType6', priceType6);
 
-    console.log(formData);
-
     // Crie uma instância XMLHttpRequest
     let xhr = new XMLHttpRequest();
 
@@ -1234,7 +1193,6 @@ function gerarExtratoPagamento(pagamentoData) {
             if (xhr.status == 200) {
                 // Trate a resposta, se necessário
                 let response = JSON.parse(xhr.responseText); // Converter a resposta em um objeto JavaScript usando JSON.parse()
-                console.log(response);
                 if (response.error) {
                     // Trate o erro, se houver
                     console.error('Erro na requisição: ' + response.error);
@@ -1257,17 +1215,17 @@ function gerarExtratoPagamento(pagamentoData) {
 
 //Gerar o extrato de pagamento na outra aba --------------------
 function openPaymentHistoryTab(data) {
-    let resultado1 = typeof data;
-    let minDate = new Date('9999-12-31'); // Inicialize a menor data com um valor muito alto
-    let maxDate = new Date('0000-01-01'); // Inicialize a maior data com um valor muito baixo
-
+    //let resultado1 = typeof data;
     // Verifica se data é um objeto e se possui as propriedades necessárias
     if (typeof data === 'object' && data.clientData && data.paymentDetails) {
         try {
-            // Loop através dos detalhes de pagamento para encontrar a menor e a maior data
-            data.paymentDetails.forEach(payment => {
-                const paymentDate = new Date(payment.payment_date.slice(0, 10)); // Obtém os primeiros 10 caracteres da data
-
+            let minDate = new Date('9999-12-31'); // Inicialize a menor data com um valor muito alto
+            let maxDate = new Date('0000-01-01'); // Inicialize a maior data com um valor muito baixo
+            
+            // Converte os detalhes de venda em uma matriz e, em seguida, itera sobre ela
+            Object.values(data.paymentDetails).forEach(payment => {
+                const paymentDate = new Date(payment.payment_date);
+    
                 // Atualiza a menor e a maior data se necessário
                 if (paymentDate < minDate) {
                     minDate = paymentDate;
@@ -1276,13 +1234,10 @@ function openPaymentHistoryTab(data) {
                     maxDate = paymentDate;
                 }
             });
-
+    
             // Converte as datas para o formato brasileiro (dd/mm/yyyy)
             const minDateBR = minDate.toLocaleDateString('pt-BR');
             const maxDateBR = maxDate.toLocaleDateString('pt-BR');
-
-            console.log("Menor data encontrada:", minDateBR);
-            console.log("Maior data encontrada:", maxDateBR);
 
             // Restante do seu código...
             let clientData = data.clientData;
@@ -1527,9 +1482,6 @@ function gerarExtratoVendas(dados) {
 }
 
 function openPaymentSalesTab(data) {
-    console.log("--");
-    console.log(data);
-
     // Verifica se data é um objeto e se possui as propriedades necessárias
     if (typeof data === 'object' && data.clientData && data.paymentDetails) {
         try {
@@ -1552,9 +1504,6 @@ function openPaymentSalesTab(data) {
             // Converte as datas para o formato brasileiro (dd/mm/yyyy)
             const minDateBR = minDate.toLocaleDateString('pt-BR');
             const maxDateBR = maxDate.toLocaleDateString('pt-BR');
-
-            console.log("Menor data encontrada:", minDateBR);
-            console.log("Maior data encontrada:", maxDateBR);
 
             // Restante do seu código...
             let clientData = data.clientData;
@@ -1743,11 +1692,8 @@ function openExtratoFinalTab(data) {
     const minDateBR = minDate.toLocaleDateString('pt-BR');
     const maxDateBR = maxDate.toLocaleDateString('pt-BR');
 
-    console.log("Menor data encontrada:", minDateBR);
-    console.log("Maior data encontrada:", maxDateBR);
     //-------------------------------------------------------
     // Acesso aos dados do cliente
-    const clientId = clientData.client_id;
     const clientName = clientData.client_name;
     const clientEmail = clientData.client_email;
     const clientAddress = clientData.address;
