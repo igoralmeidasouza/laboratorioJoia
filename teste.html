@@ -49,15 +49,18 @@
     </body>
 </html>
 
-<div class="saldoClientContainer">
-    <span>Saldo Devedor Atual: <em>R$ ${clientDebitAmount}</em></span>
-</div>
-
-<select id="client" class="unlock" name="client">
-    <!-- Clients will be displayed here -->
-</select>
-<label for="client">Cliente</label>
-
-<div class="cartDisplay">
-    
-</div>
+"<div class='dataVenda'>" +
+    "<span>" + minDateBR + "</span>" +
+    "<span>à " + maxDateBR + "</span>" +
+"</div>" +
+"<div class='dadosContainer'>" +
+    "<div class='divisaoDadosContainer'>" +
+        "<span>Cliente: " + clientName + "</span>" +
+        "<span>Email: " + clientEmail + "</span>" +
+    "</div>" +
+    "<div class='divisaoDadosContainer'>" +
+        "<span>Endereço: " + clientAddress + "</span>" +
+        "<span>Cidade: " + clientCity + "</span>" +
+    "</div>" +
+    "<span>Telefone: " + clientPhone + "</span>" +
+"</div>";

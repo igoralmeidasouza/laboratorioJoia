@@ -1734,13 +1734,13 @@ function openExtratoFinalTab(data) {
                             "<div class='dadosContainer'>" +
                                 "<div class='divisaoDadosContainer'>" +
                                     "<span>Cliente: " + clientName + "</span>" +
-                                    "<span>Email: " + clientEmail + "</span>" +
+                                    "<span>Endereço: " + clientAddress + ", "+ clientData.number + ", "+ clientData.neighborhood +", "+ clientCity + "</span>" +
+                                    
                                 "</div>" +
                                 "<div class='divisaoDadosContainer'>" +
-                                    "<span>Endereço: " + clientAddress + "</span>" +
-                                    "<span>Cidade: " + clientCity + "</span>" +
+                                    "<span>Email: " + clientEmail + "</span>" +
+                                    "<span>Telefone: " + clientPhone + "</span>" +
                                 "</div>" +
-                                "<span>Telefone: " + clientPhone + "</span>" +
                             "</div>";
     tableHTML +=
                     '<div class="impressaoTabela"> ' +
@@ -1750,7 +1750,7 @@ function openExtratoFinalTab(data) {
                                 "<th>Data</th>" +
                                 "<th>Observação</th>" +
                                 "<th>Produtos</th>" +
-                                "<th>Preço (U)</th>" +
+                                "<th>Preço (qt. x un.)</th>" +
                                 "<th>Total</th>" +
                                 "<th>Saldo Anterior</th>" +
                                 "<th>Saldo Atual</th>" +
