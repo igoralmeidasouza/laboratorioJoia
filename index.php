@@ -65,7 +65,7 @@
                     <p>Clientes</p>
                     <ul class="subMenu">
                         <li class="subBotao" data-target="vitrineConultarClientes">Consultar Clientes</li>
-                        <li class="subBotao" data-target="vitrineAlterarClientes">Alterar Clientes</li>
+                        <li class="subBotao" data-target="vitrineAlterarClientes" onclick="getClients()">Alterar Clientes</li>
                         <li class="subBotao" data-target="vitrineCadastrarClientes">Cadastrar Clientes</li>
                         <li class="subBotao" data-target="vitrinePagamento">Pagamento</li>
                         <li class="subBotao" data-target="vitrineHistoricoPagamento" onclick="getClients()">Histórico de Pagamento</li>
@@ -75,7 +75,7 @@
                     <p>Produtos</p>
                     <ul class="subMenu">
                         <li class="subBotao" data-target="vitrineConsultarProdutos">Consultar Produtos</li>
-                        <li class="subBotao" data-target="vitrineAlterarProdutos">Alterar Produtos</li>
+                        <li class="subBotao" data-target="vitrineAlterarProdutos" onclick="getProducts()">Alterar Produtos</li>
                         <li class="subBotao" data-target="vitrineCadastrarProdutos">Cadastrar Produtos</li>
                     </ul>
                 </li>
@@ -267,7 +267,7 @@
                     <p>Alterar Clientes</p>
                     
                     <form id="clientForm" class="formularioGeral formularioCadastrarClientes">
-                        <select id="clientDropdownAtualizar" name="client" onclick="getClients()" onchange="atualizarForm()">
+                        <select id="clientDropdownAtualizar" name="client" onchange="atualizarForm()">
                             <!-- Opções do dropdown devem ser carregadas dinamicamente no lado do servidor -->
                         </select>
                         <label for="clientDropdownAtualizar">Selecione um cliente:</label>
@@ -510,7 +510,7 @@
                     <!-- Formulário para atualizar produtos -->
                     <form id="updateProductForm" name="clientform" class="formularioGeral formularioCadastrarClientes">
                             <!-- Dropdown para selecionar o produto -->
-                            <select id="productDropdown" name="product" onclick="getProducts()" onchange="productForm()">
+                            <select id="productDropdown" name="product" onchange="productForm()">
                                 <!-- Options serão preenchidas dinamicamente pelo JavaScript -->
                             </select>
                             <label for="productDropdown">Selecione um produto:</label>
