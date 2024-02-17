@@ -19,6 +19,14 @@
         $resultadoNegativo = "";
         include 'treatment.php';
         include 'dbConnection.php';
+    
+        if($_SESSION['positivo'] || $_SESSION['negativo'] != ''){
+            $resultadoPositivo = $_SESSION['positivo'];
+            $resultadoNegativo = $_SESSION['negativo'];
+            $_SESSION['positivo'] = '';
+            $_SESSION['negativo'] = '';
+        }
+        
     ?>
 
     <header>
@@ -381,10 +389,6 @@
                             <span class="debito" id="current_debt">N/A</span>
                             <span class="labelDebito">Divida Atual</span>
                         </div>
-                        <!-- usado para colocar a data de pagamento manualmente
-                        <input type="date" id="payment_date" name="payment_date" required>
-                        <label for="payment_date">Data do pagamento</label>
-                            -->        
                         <input type="text" id="amount" name="amount" placeholder="R$ 0,00 - Insira valor a ser descontado da divida." required>
                         <label for="amount">Valor Pago</label>
 

@@ -46,6 +46,8 @@
                 // Usuário autenticado com sucesso
                 $_SESSION['logged_in'] = true;
                 $_SESSION['username'] = $username;
+                $_SESSION['positivo'] = '';
+                $_SESSION['negativo'] = '';
                 header("Location: index.php"); // Redireciona para a página principal
                 exit;
             } else {

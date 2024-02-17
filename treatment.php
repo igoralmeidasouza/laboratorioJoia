@@ -51,9 +51,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     VALUES ('$client_name', '$client_email', '$telefone', '$cpf_cnpj', '$address', '$number', '$complemento', '$neighborhood', '$city', '$zipcode', '$formattedValue1')";
 
             if ($conn->query($sql) === TRUE) {
-                $resultadoPositivo = "Cliente adicionado com sucesso!";
+                //$resultadoPositivo = "Cliente adicionado com sucesso!";
+                $_SESSION['positivo'] = "Cliente adicionado com sucesso!";
+                header("Location: index.php");
             } else {
-                $resultadoNegativo = "Erro ao adicionar cliente: " . $conn->error;
+                $_SESSION['negativo'] = "Erro ao adicionar cliente: " . $conn->error;
+                header("Location: index.php");
+                //$resultadoNegativo = "Erro ao adicionar cliente: " . $conn->error;
             }
         }
 
@@ -80,10 +84,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 VALUES ('$product_name', '$product_description', $price_type_1, $price_type_2, $price_type_3, $price_type_4, $price_type_5, $price_type_6)";
     
         if ($conn->query($sql) === TRUE) {
-            $resultadoPositivo = "Produto cadastrado com sucesso!";
+            //$resultadoPositivo = "Produto cadastrado com sucesso!";
+            $_SESSION['positivo'] = "Produto cadastrado com sucesso!";
         } 
         else {
-            $resultadoNegativo = "Error: " . $sql . "<br>" . $conn->error;
+            //$resultadoNegativo = "Error: " . $sql . "<br>" . $conn->error;
+            $_SESSION['negativo'] = "Error: " . $sql . "<br>" . $conn->error;
+
         }
     // Close the database connection
     $conn->close();
@@ -501,11 +508,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     //echo json_encode(['success' => 'Dados do cliente atualizados com sucesso']);
                     $resultadoPositivo = "Dados do cliente atualizados com sucesso";
                     echo json_encode(array("mensagemPositiva" => $resultadoPositivo));
+                    //header("Location: index.php");
                 } else {
                     // Se houver um erro na atualização, envie uma mensagem de erro
                     //echo json_encode(['error' => 'Erro na atualização dos dados do cliente']);
                     $resultadoPositivo = "Erro na atualização dos dados do cliente";
                     echo json_encode(array("mensagemPositiva" => $resultadoPositivo));
+                    //header("Location: index.php");
                 }
             } else {
                 // Se algum dos dados necessários não foi fornecido, envie uma mensagem de erro

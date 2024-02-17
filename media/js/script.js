@@ -179,7 +179,9 @@ document.addEventListener('DOMContentLoaded', function () {
         setTimeout(function () {
             mensagemPositivaDiv.style.opacity = '0';
             mensagemPositivaDiv.style.visibility = 'hidden';
-        }, 5000); // 5 segundos 
+            //mensagemPositivaDiv.innerHTML = '';
+            //window.location.href = "index.php"
+        }, 5000); // 5 segundos
     }
 
     if (mensagemNegativaDiv.innerHTML !== '') {
@@ -189,7 +191,9 @@ document.addEventListener('DOMContentLoaded', function () {
         setTimeout(function () {
             mensagemNegativaDiv.style.opacity = '0';
             mensagemNegativaDiv.style.visibility = 'hidden';
-        }, 5000); // 5 segundos 
+            //mensagemNegativaDiv.innerHTML = '';
+            //window.location.href = "index.php"
+        }, 5000); // 5 segundos
     }
 /*
     if (mensagemNegativaDiv.innerHTML !== '' || mensagemPositivaDiv.innerHTML !== ''){
@@ -541,6 +545,12 @@ function openInvoiceTab(data) {
                 </div>
             </main>
         </body>
+        <script>
+        // Add a delay of 2 seconds (2000 milliseconds)
+        setTimeout(function() {
+            window.print();
+        }, 1000);
+        </script>
     </html>`;
 
     // Abrir uma nova guia com o extrato
@@ -1034,6 +1044,7 @@ function updateClient(){
             setTimeout(function () {
                 document.getElementById("mensagemPositiva").style.opacity = '0';
                 document.getElementById("mensagemPositiva").style.visibility = 'hidden';
+                window.location.href = "index.php"
             }, 5000); // 5 segundos 
         }
     };
@@ -1168,6 +1179,7 @@ function updateProduct() {
                     setTimeout(function () {
                         document.getElementById("mensagemPositiva").style.opacity = '0';
                         document.getElementById("mensagemPositiva").style.visibility = 'hidden';
+                        window.location.href = "index.php"
                     }, 5000); // 5 segundos 
                 }
     };
@@ -1865,14 +1877,27 @@ function openExtratoFinalTab(data) {
 // Função para habilitar ou desabilitar o input com base na existência do ID
 function atualizaInput() {
     var input = document.getElementById("client");
+    var input2 = document.getElementById("paciente");
     // Verifica se o elemento com o ID "meuElemento" existe
     if (document.getElementById("existe")) {
         // Se existir, desabilita o input
         input.disabled = true;
+        input2.disabled = true;
     } else {
         // Se não existir, habilita o input
         input.disabled = false;
+        input2.disabled = false;
     }
+}
+
+
+function generateUUID() {
+    // Implementation to generate a UUID (you can use any library or method)
+    // Here, we're using a simple implementation for demonstration purposes
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+    });
 }
 
 function displayCowsay() {
