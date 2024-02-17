@@ -39,7 +39,7 @@
             <span><?php echo $resultadoNegativo; ?></span>
         </div>
 
-        <a href="#" class="dashBoard">
+        <a href="index.php" class="dashBoard">
             <img src="media/img/icones/iconePainelDeControle.svg" alt="">
             <p>dashBoard</p>
         </a>
