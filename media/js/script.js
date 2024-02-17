@@ -687,7 +687,7 @@ function updateFilteredData(data) {
 
         if (record.payment_id !== undefined) {
             // Se for um pagamento
-            tableHTML += "<td>Pagto.: " + record.type_of_payment + "</td>";
+            tableHTML += "<td>Pagamento: <em style='display: block'>" + record.type_of_payment + "</em></td>";
             tableHTML += "<td></td>";  // Coluna 'Produtos' vazia para pagamento
             tableHTML += "<td></td>";  // Coluna 'Preço (U)' vazia para pagamento
             tableHTML += "<td> R$ " + record.amount + "</td>";
@@ -695,7 +695,7 @@ function updateFilteredData(data) {
             tableHTML += "<td> R$ " + record.debito + "</td>";
         } else {
             // Se for uma venda
-            tableHTML += "<td> Pac.: " + record.observation + "</td>";
+            tableHTML += "<td> Paciente: <em style='display: block'>" + record.observation + "</em></td>";
 
             // Adiciona os produtos à célula "Produtos"
             tableHTML += "<td>";
@@ -1734,13 +1734,13 @@ function openExtratoFinalTab(data) {
                             "<div class='dadosContainer'>" +
                                 "<div class='divisaoDadosContainer'>" +
                                     "<span>Cliente: " + clientName + "</span>" +
-                                    "<span>Email: " + clientEmail + "</span>" +
+                                    "<span>Endereço: " + clientAddress + ", "+ clientData.number + ", "+ clientData.neighborhood +", "+ clientCity + "</span>" +
+                                    
                                 "</div>" +
                                 "<div class='divisaoDadosContainer'>" +
-                                    "<span>Endereço: " + clientAddress + "</span>" +
-                                    "<span>Cidade: " + clientCity + "</span>" +
+                                    "<span>Email: " + clientEmail + "</span>" +
+                                    "<span>Telefone: " + clientPhone + "</span>" +
                                 "</div>" +
-                                "<span>Telefone: " + clientPhone + "</span>" +
                             "</div>";
     tableHTML +=
                     '<div class="impressaoTabela"> ' +
@@ -1750,7 +1750,7 @@ function openExtratoFinalTab(data) {
                                 "<th>Data</th>" +
                                 "<th>Observação</th>" +
                                 "<th>Produtos</th>" +
-                                "<th>Preço (U)</th>" +
+                                "<th>Preço (qt. x un.)</th>" +
                                 "<th>Total</th>" +
                                 "<th>Saldo Anterior</th>" +
                                 "<th>Saldo Atual</th>" +
@@ -1810,7 +1810,7 @@ function openExtratoFinalTab(data) {
 
         if (record.payment_id !== undefined) {
             // Se for um pagamento
-            tableHTML += "<td>Pagto.: " + record.type_of_payment + "</td>";
+            tableHTML += "<td>Pagto.: <em style='display: block'>" + record.type_of_payment + "</em></td>";
             tableHTML += "<td></td>";  // Coluna 'Produtos' vazia para pagamento
             tableHTML += "<td></td>";  // Coluna 'Preço (U)' vazia para pagamento
             tableHTML += "<td> R$ " + record.amount + "</td>";
@@ -1818,7 +1818,7 @@ function openExtratoFinalTab(data) {
             tableHTML += "<td> R$ " + record.debito + "</td>";
         } else {
             // Se for uma venda
-            tableHTML += "<td> Pac.: " + record.observation + "</td>";
+            tableHTML += "<td> Pac.: <em style='display: block'>" + record.observation + "</em></td>";
 
             // Adiciona os produtos à célula "Produtos"
             tableHTML += "<td>";

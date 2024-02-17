@@ -4,7 +4,7 @@ body{font: 500 17px "Open Sans"; line-height: 28px; letter-spacing: 0.01px; colo
 
 @keyframes trocaCor { 0% { color: #ffffff; } 50% { color: #4293E0; } 100% { color: #EDEFEF; } }
 
-body {background-color: #0093E9; background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%); height: 100%;}
+html, html body {background-color: #0093E9; background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);}
 link[rel="icon"] { filter: invert(1); }
 
 body header {background-color: #ffffff; display: flex; width: 100%; max-width: 1320px; margin: 30px auto 0 auto; position: relative; border-radius: 25px 25px 0 0;}
@@ -164,7 +164,7 @@ body main {background-color: #ffffff; display: flex; width: 100%; max-width: 132
                     body main .bemVindo .vitrine .formularios .tabelaConsultarClientes tbody tr td {font-size: 12px; text-align: center; line-height: 21px;}
                         body main .bemVindo .vitrine .formularios .tabelaConsultarClientes tbody tr td:nth-child(2) {max-width: 200px; text-align: left;}
                         body main .bemVindo .vitrine .formularios .tabelaConsultarClientes tbody tr td:nth-child(3) {max-width: 230px;}
-                        body main .bemVindo .vitrine .formularios .tabelaConsultarClientes tbody tr td:nth-child(4) {width: 12%;}
+                        body main .bemVindo .vitrine .formularios .tabelaConsultarClientes tbody tr td:nth-child(4) {width: 12.5%;}
                         body main .bemVindo .vitrine .formularios .tabelaConsultarClientes tbody tr td:nth-child(5) {max-width: 140px;}
                         body main .bemVindo .vitrine .formularios .tabelaConsultarClientes tbody tr td:nth-child(6) {width: 22%; text-align: left;}
                         body main .bemVindo .vitrine .formularios .tabelaConsultarClientes tbody tr td:nth-child(7) {width: 10%;}
@@ -239,12 +239,12 @@ body main {background-color: #ffffff; display: flex; width: 100%; max-width: 132
                         body main .bemVindo .vitrine .formularios .formularioExtrato .inputMesmaLinha button {width: 200px; margin-bottom: 10px;}
 
         /* pagina de impressão - about:blank - nova guia */
-        body main .impressaoContainer {display: flex; margin: 20 auto; width: 100%; max-width: 900px; justify-content: center;}
+        body main .impressaoContainer {display: flex; margin: 10px auto; width: 100%; max-width: 900px; justify-content: center;}
             body main .impressaoContainer .impressaoTabela {display: flex; flex-direction: column; font-family: 'Ubuntu'; width: 100%; color: #101A28;}
 
-                body main .impressaoContainer .impressaoTabela h1 {font-size: 22px; border-bottom: 1px solid lightgrey; text-align: center; margin-bottom: 10px; padding-bottom: 10px;  text-transform: uppercase;}
+                body main .impressaoContainer .impressaoTabela h1 {font-size: 22px; text-align: center; text-transform: uppercase;}
 
-                body main .impressaoContainer .impressaoTabela .dadosVenda {display: flex; flex-direction: column; border-bottom: 1px solid lightgrey; padding-bottom: 10px; gap: 5px;}
+                body main .impressaoContainer .impressaoTabela .dadosVenda {display: flex; border-bottom: 1px solid lightgrey; justify-content: center; padding-bottom: 5px; gap: 5px;}
                     body main .impressaoContainer .impressaoTabela .dadosVenda p {font-size: 20px; text-transform: capitalize;}
 
                 body main .impressaoContainer .impressaoTabela .dataVenda {display: flex; border-bottom: 1px solid lightgrey; justify-content: center; padding-bottom: 10px; gap: 5px;}
@@ -271,11 +271,13 @@ body main {background-color: #ffffff; display: flex; width: 100%; max-width: 132
 
                         /* Modificação exclusiva para o extrato FINAL da sessão extrato */
                         body main .impressaoContainer .impressaoTabela .tabelaExtratoFinal tbody tr th, 
-                        body main .impressaoContainer .impressaoTabela .tabelaExtratoFinal tbody tr td {font-size: 14px;}
-                            body main .impressaoContainer .impressaoTabela .tabelaExtratoFinal tbody tr td:last-child {min-width: 92px;}
+                        body main .impressaoContainer .impressaoTabela .tabelaExtratoFinal tbody tr td {font-size: 12.5px;}
+                            body main .impressaoContainer .impressaoTabela .tabelaExtratoFinal tbody tr td:nth-child(3) {font-weight: 600; max-width: 100px;}
                             body main .impressaoContainer .impressaoTabela .tabelaExtratoFinal tbody tr td:nth-child(3),
                             body main .impressaoContainer .impressaoTabela .tabelaExtratoFinal tbody tr td:nth-child(4),
                             body main .impressaoContainer .impressaoTabela .tabelaExtratoFinal tbody tr td:nth-child(5) {text-align: left;}
+
+                        body main .impressaoContainer .impressaoTabela .tabelaExtratoFinal tbody tr td em {font-weight: 500;}
     
 
                             
