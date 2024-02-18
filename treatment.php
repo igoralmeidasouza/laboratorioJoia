@@ -218,55 +218,59 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Retrieve data from the POST request
         $data = json_decode($_POST['carrinhoValores'], true);
         // Extract variables from the data
-        $selectedClient = $data['client'];
-        $selectedProduct = $data['product'];
-        $quantity = $data['quantity'];
-        $selectedPaciente = $data['paciente'];
-        $total = $data['total'];
-        $cartItems = $data['cart'];
-    
-        // Fetching the current debit amount before the sale
-        $fetchDebitQuery = "SELECT debit_amount FROM clients WHERE client_id = $selectedClient";
-        $resultDebit = $conn->query($fetchDebitQuery);
-        $debitAmountBeforeSale = $resultDebit->fetch_assoc()['debit_amount'];
-    
-        // Your existing logic for inserting data into the database
-        $insertHistoryQuery = "INSERT INTO saleshistory (client_id, sale_date, total_amount, saldo_anterior, debito) 
-                               VALUES ($selectedClient, NOW(), $total, $debitAmountBeforeSale, $debitAmountBeforeSale + $total)";
-        $conn->query($insertHistoryQuery);
-        $saleId = $conn->insert_id;
-    
-        // Iterar sobre os itens do carrinho e adicionar à tabela de detalhes de vendas (salesdetails)
-        foreach ($cartItems as $cartItem) {
-            $productId = $cartItem['product'];
-            $itemQuantity = $cartItem['quantity'];
-            $itemTotal = $cartItem['total'];
-    
-            $insertDetailsQuery = "INSERT INTO salesdetails (sale_id, product_id, quantity, price, observation) 
-                                   VALUES ($saleId, $productId, $itemQuantity, $itemTotal, '$selectedPaciente')";
-            $conn->query($insertDetailsQuery);
+        if($data['cart']){
+            $selectedClient = $data['client'];
+            $selectedProduct = $data['product'];
+            $quantity = $data['quantity'];
+            $selectedPaciente = $data['paciente'];
+            $total = $data['total'];
+            $cartItems = $data['cart'];
+        
+            // Fetching the current debit amount before the sale
+            $fetchDebitQuery = "SELECT debit_amount FROM clients WHERE client_id = $selectedClient";
+            $resultDebit = $conn->query($fetchDebitQuery);
+            $debitAmountBeforeSale = $resultDebit->fetch_assoc()['debit_amount'];
+        
+            // Your existing logic for inserting data into the database
+            $insertHistoryQuery = "INSERT INTO saleshistory (client_id, sale_date, total_amount, saldo_anterior, debito) 
+                                VALUES ($selectedClient, NOW(), $total, $debitAmountBeforeSale, $debitAmountBeforeSale + $total)";
+            $conn->query($insertHistoryQuery);
+            $saleId = $conn->insert_id;
+        
+            // Iterar sobre os itens do carrinho e adicionar à tabela de detalhes de vendas (salesdetails)
+            foreach ($cartItems as $cartItem) {
+                $productId = $cartItem['product'];
+                $itemQuantity = $cartItem['quantity'];
+                $itemTotal = $cartItem['total'];
+        
+                $insertDetailsQuery = "INSERT INTO salesdetails (sale_id, product_id, quantity, price, observation) 
+                                    VALUES ($saleId, $productId, $itemQuantity, $itemTotal, '$selectedPaciente')";
+                $conn->query($insertDetailsQuery);
+            }
+        
+            // Atualizar o débito do cliente na tabela de clientes (clients)
+            $updateClientQuery = "UPDATE clients SET debit_amount = debit_amount + $total WHERE client_id = $selectedClient";
+            $conn->query($updateClientQuery);
+        
+            // Example: Fetch client data from the database
+            $fetchClientQuery = "SELECT * FROM clients WHERE client_id = $selectedClient";
+            $result = $conn->query($fetchClientQuery);
+        
+            // Check if the query was successful
+            if ($result) {
+                $clientData = $result->fetch_assoc(); // Adjust this based on your database structure
+                $data['clientData'] = $clientData;
+                $data['lastSaleId'] = $saleId;
+            } else {
+                $data['clientData'] = null;
+            }
+        
+            // Example: Respond with a success message and the modified data
+            echo json_encode(['success' => true, 'data' => $data]);
         }
-    
-        // Atualizar o débito do cliente na tabela de clientes (clients)
-        $updateClientQuery = "UPDATE clients SET debit_amount = debit_amount + $total WHERE client_id = $selectedClient";
-        $conn->query($updateClientQuery);
-    
-        // Example: Fetch client data from the database
-        $fetchClientQuery = "SELECT * FROM clients WHERE client_id = $selectedClient";
-        $result = $conn->query($fetchClientQuery);
-    
-        // Check if the query was successful
-        if ($result) {
-            $clientData = $result->fetch_assoc(); // Adjust this based on your database structure
-            $data['clientData'] = $clientData;
-            $data['lastSaleId'] = $saleId;
-        } else {
-            $data['clientData'] = null;
+        else{
+            echo json_encode(['success' => false, 'data' => $data]);
         }
-    
-        // Example: Respond with a success message and the modified data
-        echo json_encode(['success' => true, 'data' => $data]);
-
     } elseif (isset($_POST['startDate'])) {
         // Coloque aqui a lógica para processar a consulta do extrato com filtro
         // Certifique-se de validar e sanitizar as entradas do usuário, como as datas

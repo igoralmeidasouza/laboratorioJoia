@@ -420,7 +420,7 @@ function updateCartDisplay() {
     } else {
         cartHTML += "<span>Seu carrinho está vazio.</span>";
     }
-    cartHTML += "<button class="+'botaoVendas'+" type="+'button'+" onclick="+'executeSale()'+">Finalizar Pedido</button>";
+    cartHTML += "<button id='botaovendas' class="+'botaoVendas'+" type="+'button'+" onclick="+'executeSale()'+">Finalizar Pedido</button>";
     cartDisplay.innerHTML = cartHTML;
     document.getElementById("quantity").value = 1; //atualiza a quantidade de produtos para 1 quando tiver alteração no carrinho
     atualizaInput() //verifico se tem o id chave e decido se mantenho ou não o dropdown habilitado
@@ -429,51 +429,55 @@ function updateCartDisplay() {
 
 //função que executa a venda e manda os dados para gerar o extrato de venda na sequencia
 function executeSale() {
-    let selectedClient = document.getElementById("client").value;
-    let selectedProduct = document.getElementById("product").value;
-    let quantity = document.getElementById("quantity").value;
-    let selectedPaciente = document.getElementById("paciente").value;
 
-    // Calcula o valor total
-    let totalValue = cartItems.reduce(function (sum, item) {
-        return sum + item.total;
-    }, 0);
-    
-    let formData = {
-        client: selectedClient,
-        product: selectedProduct,
-        quantity: quantity,
-        paciente: selectedPaciente,
-        total: totalValue,
-        cart: cartItems
-        // Adicione outros dados do formulário conforme necessário
-    };
+    let confirmSale = window.confirm('Confirmar Pedido?');
+    if (confirmSale) {
+        let selectedClient = document.getElementById("client").value;
+        let selectedProduct = document.getElementById("product").value;
+        let quantity = document.getElementById("quantity").value;
+        let selectedPaciente = document.getElementById("paciente").value;
 
-    let xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4) {
-            if (xhr.status == 200) {
-                try {
-                    let response = JSON.parse(xhr.responseText);
+        // Calcula o valor total
+        let totalValue = cartItems.reduce(function (sum, item) {
+            return sum + item.total;
+        }, 0);
+        
+        let formData = {
+            client: selectedClient,
+            product: selectedProduct,
+            quantity: quantity,
+            paciente: selectedPaciente,
+            total: totalValue,
+            cart: cartItems
+            // Adicione outros dados do formulário conforme necessário
+        };
 
-                    if (response.success) {
-                        // Chamar a função para abrir uma nova guia com o extrato
-                        openInvoiceTab(response.data);
-                    } else {
-                        alert("Erro ao processar a venda: " + response.error);
+        let xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4) {
+                if (xhr.status == 200) {
+                    try {
+                        let response = JSON.parse(xhr.responseText);
+
+                        if (response.success) {
+                            // Chamar a função para abrir uma nova guia com o extrato
+                            openInvoiceTab(response.data);
+                        } else {
+                            alert("Erro ao processar o pedido: Carrinho vazio!" ); //+ response.error <- caso queira ver o erro precisamente
+                        }
+                    } catch (error) {
+                        console.error('Erro ao fazer parse da resposta JSON', error);
                     }
-                } catch (error) {
-                    console.error('Erro ao fazer parse da resposta JSON', error);
+                } else {
+                    alert("Erro na solicitação. Status: " + xhr.status);
                 }
-            } else {
-                alert("Erro na solicitação. Status: " + xhr.status);
             }
-        }
-    };
+        };
 
-    xhr.open("POST", "treatment.php", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send("carrinhoValores=" + JSON.stringify(formData));
+        xhr.open("POST", "treatment.php", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.send("carrinhoValores=" + JSON.stringify(formData));
+    }
 }
 //função que cria extrato de venda para impressão
 function openInvoiceTab(data) {
@@ -1885,8 +1889,9 @@ function openExtratoFinalTab(data) {
 }
 // Função para habilitar ou desabilitar o input com base na existência do ID
 function atualizaInput() {
-    var input = document.getElementById("client");
-    var input2 = document.getElementById("paciente");
+    let input = document.getElementById("client");
+    let input2 = document.getElementById("paciente");
+    let botao = document.getElementById("botaovendas");
     // Verifica se o elemento com o ID "meuElemento" existe
     if (document.getElementById("existe")) {
         // Se existir, desabilita o input
@@ -1897,16 +1902,24 @@ function atualizaInput() {
         input.disabled = false;
         input2.disabled = false;
     }
+
+    if(document.getElementById("existe") && botao){
+        //console.log("tru");
+        botao.disabled = false;
+    }
+    else{
+        console.log("falso");
+        botao.disabled = true;
+    }
 }
 
-
-function generateUUID() {
-    // Implementation to generate a UUID (you can use any library or method)
-    // Here, we're using a simple implementation for demonstration purposes
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-        return v.toString(16);
-    });
+function confirmPayment() {
+    // Display a confirmation dialog
+    let result = confirm("Atualizar debito do cliente?");
+    
+    // If user clicks OK, return true to submit the form
+    // If user clicks Cancel, return false to prevent form submission
+    return result;
 }
 
 function displayCowsay() {

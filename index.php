@@ -370,7 +370,7 @@
             <div class="vitrine vitrinePagamento desativada">
                 <div class="formularios">
                     <p>Atualize os Débitos do Cliente</p>
-                    <form name="paymentform" action="index.php" method="post" class="formularioGeral formularioCadastrarClientes">
+                    <form name="paymentform" action="index.php" method="post" class="formularioGeral formularioCadastrarClientes" onsubmit="return confirmPayment()">
                         <select id="client_id_payment" name="client_id_payment" required>
                             <?php
                                 include 'dbConnection.php';
