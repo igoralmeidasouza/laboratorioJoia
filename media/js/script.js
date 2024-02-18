@@ -1904,11 +1904,9 @@ function atualizaInput() {
     }
 
     if(document.getElementById("existe") && botao){
-        //console.log("tru");
         botao.disabled = false;
     }
     else{
-        console.log("falso");
         botao.disabled = true;
     }
 }
