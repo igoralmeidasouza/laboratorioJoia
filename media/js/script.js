@@ -133,7 +133,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     input.value = formattedValue; 
     }
-
+    
     // Adiciona eventos aos campos
     document.getElementById('cpf_cnpj').addEventListener('input', function() {
         formatarCpfCnpj(this);
@@ -160,6 +160,15 @@ document.addEventListener("DOMContentLoaded", function() {
             formatarSaldoDevedor(this);
         });
     }
+    document.getElementById('clientCpfCnpj').addEventListener('input', function() {
+        formatarCpfCnpj(this);
+    });
+    document.getElementById('clientPhone').addEventListener('input', function() {
+        formatarNumeroTelefone(this);
+    });
+    document.getElementById('clientZipcode').addEventListener('input', function() {
+        formatarCEP(this);
+    });
     for (let i = 1; i <= 6; i++) {
         adicionarEventoInputParaFormatarSaldoDevedor('price_type_' + i);
         adicionarEventoInputParaFormatarSaldoDevedor('priceType' + i);
