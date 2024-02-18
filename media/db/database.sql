@@ -1,3 +1,8 @@
+--1 Baixar XAMPP, criar pasta na HTDOCS (laboratorioJoia) e colocar os arquivos nela. Depois navegar no: [`localhost](http://localhost)/laboratorioJoia` ou `127.0.0.1/laboratorioJoia` para acessar o arquivo PHP.
+--2 Ao abrir o XAMPP, ligar o Apache e MySQL.
+--3 Entrar na aba `phpmyadmin` > `criar novo` “laboratoriojoia” > `acessar` “laboratoriojoia” > `SQL` > colar script e executar.
+
+
 -- Create Clients table
 CREATE TABLE Clients (
     client_id INT AUTO_INCREMENT PRIMARY KEY,
