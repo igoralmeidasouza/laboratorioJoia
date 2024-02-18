@@ -20,11 +20,14 @@
         include 'treatment.php';
         include 'dbConnection.php';
     
-        if($_SESSION['positivo'] || $_SESSION['negativo'] != ''){
-            $resultadoPositivo = $_SESSION['positivo'];
+        if($_SESSION['positivo'] != ''){
+            $resultadoPositivo = $_SESSION['positivo'];  
+
+            
+        }
+        elseif($_SESSION['negativo'] != ''){
             $resultadoNegativo = $_SESSION['negativo'];
-            $_SESSION['positivo'] = '';
-            $_SESSION['negativo'] = '';
+            
         }
         
     ?>
@@ -36,7 +39,7 @@
         </div>
         <!-- notificação negativa do php -->
         <div class="mensagem mensagemNegativa" id="mensagemNegativa"> 
-            <span><?php echo $resultadoNegativo; ?></span>
+            <span><?php echo $resultadoNegativo;?></span>
         </div>
 
         <a href="index.php" class="dashBoard">
@@ -56,6 +59,7 @@
             </div>
         </div>
     </header>
+    
     <main>
         <div class="menuLateral">
             <ul>
@@ -618,8 +622,13 @@
                     <table id="filteredData" class="tabelaGeral tabelaExtrato">
                         <!-- Os dados filtrados serão exibidos aqui -->
                     </table>
+                    
                 </div>
             </div>
+            <?php
+            $_SESSION['positivo'] = '';
+            $_SESSION['negativo'] = '';
+            ?>
 
         </div>
     </main>

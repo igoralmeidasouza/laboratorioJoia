@@ -133,7 +133,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Commit the transaction
             $conn->commit();
     
-            $resultadoPositivo = "Conta atualizada com sucesso!";
+            //$resultadoPositivo = "Conta atualizada com sucesso!";
+            $_SESSION['positivo'] = "Conta atualizada com sucesso!";
+            header("Location: index.php");
         } elseif (isset($_POST['get_client_debt'])) {
             // Handle the request to get client debt
             $client_id = $_POST['client_id'];
@@ -148,7 +150,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo "N/A";
             }
         } else {
-            $resultadoNegativo = "Requisição inválida.";
+            //$resultadoPositivo = "Conta atualizada com sucesso!";
+            $_SESSION['negativo'] = "Requisição invalida!";
+            header("Location: index.php");
         }
     
         // Close the database connection
