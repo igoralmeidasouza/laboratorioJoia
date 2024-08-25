@@ -187,18 +187,22 @@
                             </script>
 
                             <style>
-                                .dentadura{display: none; position: relative; width: 100%; overflow-x: clip; padding-top: 25px;}
-                                    .dentadura.ativo{display: block;}
-                                        .dentadura .content{width: 100%; display: flex; border-top: solid 1px lightgrey; padding-top: 25px;}
-                                            .dentadura .content .containerInputLabel{max-width: 200px; overflow-x: clip; position: relative; z-index: 1;}
-                                            .dentadura .content .box{position: relative; z-index: 10; width: 100%; max-width: 300px; margin: 0 auto;  padding: 5px 10px;}
-                                                .dentadura .content .box::before{position: absolute; content: ''; width: 100%; height: 1px; transform: translate(-50%,-50%); left: 50%; top: calc(50% - 3px); background: #007bff; z-index: -1; pointer-events: none;}
-                                                .dentadura .content .box::after{position: absolute; content: ''; width: 1px; height: 100%; transform: translate(-50%,-50%); left: 50%; top: 50%; background: #007bff; z-index: -1; pointer-events: none;}
-                                                .dentadura .content .box svg g path{cursor: pointer; transition: all 0.5s ease;}
-                                                    .dentadura .content .box svg g path:first-child{fill: #fff;}
-                                                    .dentadura .content .box svg g path:last-child{fill:none;stroke:#000;stroke-miterlimit:10}
-                                                    .dentadura .content .box svg g:hover path{fill: #E8F0FE;}
-                                                    .dentadura .content .box svg g path.ativo{fill: #0071CD;}
+                                .dentadura{position: relative; width: 100%; overflow-x: clip; padding-top: 25px;}
+                                    .dentadura .content{width: 100%; display: flex; border-top: solid 1px lightgrey; padding-top: 25px;}
+                                        .dentadura .content .containerInputLabel{max-width: 200px; overflow-x: clip; position: relative; z-index: 1;}
+                                        .dentadura .content .box{position: relative; z-index: 10; width: 100%; max-width: 300px; margin: 0 auto;  padding: 5px 10px;}
+                                            .dentadura .content .box::before{position: absolute; content: ''; width: 100%; height: 1px; transform: translate(-50%,-50%); left: 50%; top: calc(50% - 3px); background: #007bff; z-index: -1; pointer-events: none;}
+                                            .dentadura .content .box::after{position: absolute; content: ''; width: 1px; height: 100%; transform: translate(-50%,-50%); left: 50%; top: 50%; background: #007bff; z-index: -1; pointer-events: none;}
+
+                                            .dentadura .content .box ul{display: flex; justify-content: space-between;}
+                                                .dentadura .content .box ul li{font: 400 10px/10px 'Ubuntu'; color: #010101; position: relative;}
+                                                    .dentadura .content .box ul li::before{}
+
+                                            .dentadura .content .box svg g path{cursor: pointer; transition: all 0.5s ease;}
+                                                .dentadura .content .box svg g path:first-child{fill: #fff;}
+                                                .dentadura .content .box svg g path:last-child{fill:none;stroke:#000;stroke-miterlimit:10}
+                                                .dentadura .content .box svg g:hover path{fill: #E8F0FE;}
+                                                .dentadura .content .box svg g path.ativo{fill: #0071CD;}
                                         
 
                             </style>
@@ -211,6 +215,7 @@
                                 </div>
 
                                 <div class="box">
+                                    <ul><li>48</li><li>47</li><li>46</li><li>45</li><li>44</li><li>43</li><li>42</li><li>41</li><li>31</li><li>32</li><li>33</li><li>34</li><li>35</li><li>36</li><li>37</li><li>38</li></ul>
                                     <svg class="dentes" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 617.94 158.35">
                                         <g class="dente_48">
                                             <path d="M48.88 101.93c.82 3.29.65 6.73.43 10.11-.35 5.46-.8 10.91-1.34 16.36-.22 2.13-.49 4.37-1.78 6.08-1.28 1.7-3.95 2.56-5.61 1.22l-.03-.02c-1.58-2.78-5.11-4.28-8.21-3.49-1.12.28-2.17.83-3.29 1.12-3.16.82-6.45-.47-9.71-.6-2.99-.12-5.94.74-8.71 1.85-1.23.49-2.53 1.05-3.84.81-2.3-.42-3.41-3-4.14-5.22-.9-2.74-1.81-5.51-2.07-8.38-.45-4.96 1.04-9.89 2.65-14.6 1.18-3.44 2.91-7.31 6.42-8.26 3.67-1 7.46 1.76 11.23 1.26 1.24-.16 2.41-.68 3.58-1.16 6.45-2.66 13.85-4.36 20.32-1.77 1.01.41 2 .93 2.72 1.74.72.83 1.11 1.89 1.38 2.95Z"/>
@@ -340,6 +345,7 @@
                                             <path d="M590.09 63.27c-1.64-.87-3.85-1.74-5.53-3.41a8.33 8.33 0 0 1-2.09-3.46c-.41-1.38-.46-2.85-.5-4.29-.17-5.61-.34-11.24.17-16.83.14-1.47.57-3.25 1.99-3.67 1.15-.34 2.3.43 3.37.98 2.24 1.14 4.84 1.38 7.35 1.17 2.5-.21 7.84-.02 10.29-.55 3.18-.69 3.51-2.03 6.74-2.37.47-.05.97-.09 1.4.1.46.2.77.62 1.04 1.04 2.07 3.19 2.95 7.04 3.09 10.85.15 3.8-.39 7.59-.93 11.36-.14.98-.28 1.98-.74 2.85-.55 1.05-1.51 1.82-2.51 2.45-.83.53-1.72.97-2.68 1.18-2.98.65-4.82-.72-7.79-.04-2.86.65-3.57 1.63-6.81 2.45-1.66.42-3.34 1.1-5.86.19Z"/>
                                         </g>
                                     </svg>
+                                    <ul><li>18</li><li>17</li><li>16</li><li>15</li><li>14</li><li>13</li><li>12</li><li>11</li><li>21</li><li>22</li><li>23</li><li>24</li><li>25</li><li>26</li><li>27</li><li>28</li></ul>
                                 </div>
                             </div>
                         </div>

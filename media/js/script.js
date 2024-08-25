@@ -344,7 +344,6 @@ function addToCart() {
 
     // Ensure you have selected options
     if (selectedClient.value && selectedProduct.value && selectedPrice && selectedPaciente) {
-        $('.dentadura').addClass('ativo'); //Adiciona o SVG da dentadura
         // Get the names and IDs
         let clientName = selectedClient.options[selectedClient.selectedIndex].text;
         let clientId = selectedClient.value;
