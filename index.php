@@ -208,7 +208,7 @@
                                         
                             </style>
 
-                            <p>Marcação do dente</p>
+                            <p>Marcação dentaria</p>
                             <div class="content">
                                 <div class="containerInputLabel">
                                     <input type="text" id="cor" name="cor" placeholder="Cor">
