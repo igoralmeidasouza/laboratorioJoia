@@ -195,11 +195,12 @@
                                                 .dentadura .content .box::before{position: absolute; content: ''; width: 100%; height: 1px; transform: translate(-50%,-50%); left: 50%; top: calc(50% - 3px); background: #007bff; z-index: -1; pointer-events: none;}
                                                 .dentadura .content .box::after{position: absolute; content: ''; width: 1px; height: 100%; transform: translate(-50%,-50%); left: 50%; top: 50%; background: #007bff; z-index: -1; pointer-events: none;}
                                                 .dentadura .content .box svg g path{cursor: pointer; transition: all 0.5s ease;}
+                                                    .dentadura .content .box svg g path:first-child{fill: #fff;}
+                                                    .dentadura .content .box svg g path:last-child{fill:none;stroke:#000;stroke-miterlimit:10}
                                                     .dentadura .content .box svg g:hover path{fill: #E8F0FE;}
                                                     .dentadura .content .box svg g path.ativo{fill: #0071CD;}
                                         
-                                                    .dentadura .content .box svg g path:first-child{fill: #fff;}
-                                                    .dentadura .content .box svg g path:last-child{fill:none;stroke:#000;stroke-miterlimit:10}
+
                             </style>
 
                             <p>Marcação do dente</p>
