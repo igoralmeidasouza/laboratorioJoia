@@ -340,6 +340,7 @@ function addToCart() {
     let selectedPrice = parseFloat(document.getElementById("price").value);
     let quantity = parseInt(document.getElementById("quantity").value);
     let selectedPaciente = document.getElementById("paciente").value;
+    let cor = document.getElementById("cor").value;
 
     // Ensure you have selected options
     if (selectedClient.value && selectedProduct.value && selectedPrice && selectedPaciente) {
@@ -359,6 +360,7 @@ function addToCart() {
             price: selectedPrice,
             quantity: quantity,
             paciente: selectedPaciente,
+            cor: cor,
             total: selectedPrice * quantity
         };
 
@@ -396,6 +398,7 @@ function updateCartDisplay() {
                         "' data-product='" + item.product +
                         "' data-quantity='" + item.quantity +
                         "' data-paciente='" + item.paciente +
+                        "' data-cor='" + item.cor +
                         "' data-total='" + tott + "'>" +
                         "<tr><td>" + item.clientName + "</td>" +
                         "<td>" + item.productName + "</td>" +
@@ -437,6 +440,7 @@ function executeSale() {
         let selectedProduct = document.getElementById("product").value;
         let quantity = document.getElementById("quantity").value;
         let selectedPaciente = document.getElementById("paciente").value;
+        //let cor = document.getElementById("cor").value;
 
         // Calcula o valor total
         let totalValue = cartItems.reduce(function (sum, item) {
