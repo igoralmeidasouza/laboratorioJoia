@@ -387,7 +387,7 @@ function updateCartDisplay() {
     cartHTML += "<button type="+'button'+" onclick="+'clearCart()'+"><em>X </em>Limpar Carrinho</button></div>";
 
     if (cartItems.length > 0) {
-        cartHTML += "<table id='existe' class="+'tabelaVenda'+"><tr><th>Cliente</th><th>Produto</th><th>Produto (u)</th><th>Qt.</th><th>Paciente</th><th>Preço Total</th><th>Remover</th></tr>";
+        cartHTML += "<table id='existe' class="+'tabelaVenda'+"><tr><th>Cliente</th><th>Produto</th><th>Produto (u)</th><th>Qt.</th><th>Cor</th><th>Paciente</th><th>Preço Total</th><th>Remover</th></tr>";
         for (let i = 0; i < cartItems.length; i++) {
             let item = cartItems[i];
             let total1 = item.total;
@@ -403,6 +403,7 @@ function updateCartDisplay() {
                         "<td>" + item.productName + "</td>" +
                         "<td> R$ " + item.price + "</td>" +
                         "<td>" + item.quantity + "</td>" +
+                        "<td>" + item.cor + "</td>" +
                         "<td>" + item.paciente + "</td>" +
                         "<td> R$ " + tott + "</td>" + 
                         "<td><button class='geradorDeExtrato' onclick=\"removeCartItem(" + i + ")\">"+
