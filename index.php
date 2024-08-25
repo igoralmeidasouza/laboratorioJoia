@@ -187,9 +187,10 @@
                             </script>
 
                             <style>
-                                .dentadura{display: none; position: relative; width: 100%; overflow: clip; margin-top: 25px;}
+                                .dentadura{display: none; position: relative; width: 100%; overflow-x: clip; margin-top: 25px;}
                                     .dentadura::before{position: absolute; content: ''; width: calc(100% + 581px); height: 1px; transform: translate(-50%,-50%); left: 50%; top: 50%; background: #007bff; z-index: -1;}
                                     .dentadura.ativo{display: block;}
+                                        .dentadura .containerInputLabel{max-width: 300px;}
                                         .dentadura .box{position: relative; z-index: 1; width: 100%; max-width: 300px; margin: 0 auto; border: solid 1px #007bff; padding: 10px; border-radius: 4px; background: #fff;}
                                             .dentadura .box svg g path{cursor: pointer; transition: all 0.5s ease;}
                                                 .dentadura .box svg g:hover path{fill: red;}
@@ -198,6 +199,13 @@
                                                 .box svg g path:first-child{fill: #fff;}
                                                 .box svg g path:last-child{fill:none;stroke:#000;stroke-miterlimit:10}
                             </style>
+
+                            <div class="containerInputLabel">
+                                <!-- Paciente (Patient) Input -->
+                                <input type="text" id="Cor" name="paciente" placeholder="Cor">
+                                <label for="paciente">Cor</label>
+                            </div>
+
                             <div class="box">
                                 <svg class="dentes" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 617.94 158.35">
                                     <g class="dente_48">
