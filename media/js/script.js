@@ -341,7 +341,18 @@ function addToCart() {
     let quantity = parseInt(document.getElementById("quantity").value);
     let selectedPaciente = document.getElementById("paciente").value;
     let cor = document.getElementById("cor").value;
-
+    let denteNumero = '';
+    //capturar numero do dente
+    document.querySelectorAll('path.ativo').forEach(function(activePath) {
+        let dente = activePath.getAttribute('class');
+        
+        let match = dente.match(/dente_(\d+)/)
+        if(dente){
+            denteNumero = match[1];
+            console.log('dente ativo: ', denteNumero);
+        }
+    });
+    console.log('2dente ativo: ', denteNumero);
     // Ensure you have selected options
     if (selectedClient.value && selectedProduct.value && selectedPrice && selectedPaciente) {
         // Get the names and IDs
@@ -360,6 +371,7 @@ function addToCart() {
             quantity: quantity,
             paciente: selectedPaciente,
             cor: cor,
+            denteNumero: denteNumero,
             total: selectedPrice * quantity
         };
 
@@ -387,7 +399,7 @@ function updateCartDisplay() {
     cartHTML += "<button type="+'button'+" onclick="+'clearCart()'+"><em>X </em>Limpar Carrinho</button></div>";
 
     if (cartItems.length > 0) {
-        cartHTML += "<table id='existe' class="+'tabelaVenda'+"><tr><th>Cliente</th><th>Produto</th><th>Produto (u)</th><th>Qt.</th><th>Cor</th><th>Paciente</th><th>Preço Total</th><th>Remover</th></tr>";
+        cartHTML += "<table id='existe' class="+'tabelaVenda'+"><tr><th>Cliente</th><th>Produto</th><th>Produto (u)</th><th>Qt.</th><th>Cor</th><th>Dente</th><th>Paciente</th><th>Preço Total</th><th>Remover</th></tr>";
         for (let i = 0; i < cartItems.length; i++) {
             let item = cartItems[i];
             let total1 = item.total;
@@ -398,12 +410,14 @@ function updateCartDisplay() {
                         "' data-quantity='" + item.quantity +
                         "' data-paciente='" + item.paciente +
                         "' data-cor='" + item.cor +
+                        "' data-cor='" + item.denteNumero +
                         "' data-total='" + tott + "'>" +
                         "<tr><td>" + item.clientName + "</td>" +
                         "<td>" + item.productName + "</td>" +
                         "<td> R$ " + item.price + "</td>" +
                         "<td>" + item.quantity + "</td>" +
                         "<td>" + item.cor + "</td>" +
+                        "<td>" + item.denteNumero + "</td>" +
                         "<td>" + item.paciente + "</td>" +
                         "<td> R$ " + tott + "</td>" + 
                         "<td><button class='geradorDeExtrato' onclick=\"removeCartItem(" + i + ")\">"+
