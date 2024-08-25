@@ -188,16 +188,17 @@
 
                             <style>
                                 .dentadura{position: relative; width: 100%; overflow-x: clip; padding-top: 25px;}
-                                    .dentadura .content{width: 100%; display: flex; border-top: solid 1px lightgrey; padding-top: 25px;}
+                                    .dentadura .content{width: 100%; display: flex; border-top: solid 1px lightgrey; padding-top: 25px; gap: 30px}
                                         .dentadura .content .containerInputLabel{max-width: 200px; overflow-x: clip; position: relative; z-index: 1;}
-                                        .dentadura .content .box{position: relative; z-index: 10; width: 100%; max-width: 300px; margin: 0 auto;  padding: 5px 10px;}
-                                            .dentadura .content .box::before{position: absolute; content: ''; width: 100%; height: 1px; transform: translate(-50%,-50%); left: 50%; top: calc(50% - 3px); background: #007bff; z-index: -1; pointer-events: none;}
+                                        .dentadura .content .box{position: relative;z-index: 10;width: 100%;max-width: 360px;margin: 0 auto;padding: 5px 10px;}
+                                            .dentadura .content .box::before{position: absolute;content: '';width: 100%;height: 1px;transform: translate(-50%,-50%);left: 50%;top: 50%;background: #007bff;z-index: -1;pointer-events: none;}
                                             .dentadura .content .box::after{position: absolute; content: ''; width: 1px; height: 100%; transform: translate(-50%,-50%); left: 50%; top: 50%; background: #007bff; z-index: -1; pointer-events: none;}
 
-                                            .dentadura .content .box ul{display: flex; justify-content: space-between; padding: 0 5px;}
-                                            .dentadura .content .box ul:last-child{padding: 0 7px;}
-                                                .dentadura .content .box ul li{font: 400 10px/10px 'Ubuntu'; color: #010101; position: relative;}
-                                                    .dentadura .content .box ul li::before{}
+                                            .dentadura .content .box ul{display: flex;justify-content: space-between;padding: 0 5px 15px;}
+                                            .dentadura .content .box ul:last-child{padding: 5px 12px 0 13px;}
+                                                .dentadura .content .box ul li{font: 400 12px/10px 'Ubuntu';color: #010101;position: relative;}
+                                                    .dentadura .content .box ul:first-child li::before{position: absolute;content: '';width: 1px;height: 6px;transform: translateX(-50%);left: 50%;bottom: -10px;background: #0071CD;}
+                                                    .dentadura .content .box ul:last-child li::before{position: absolute;content: '';width: 1px;height: 7px;transform: translateX(-50%);left: 50%;top: -10px;background: #0071CD;z-index: 1;}
 
                                             .dentadura .content .box svg g path{cursor: pointer; transition: all 0.5s ease;}
                                                 .dentadura .content .box svg g path:first-child{fill: #fff;}
@@ -205,7 +206,6 @@
                                                 .dentadura .content .box svg g:hover path{fill: #E8F0FE;}
                                                 .dentadura .content .box svg g path.ativo{fill: #0071CD;}
                                         
-
                             </style>
 
                             <p>Marcação do dente</p>
