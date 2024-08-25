@@ -190,11 +190,11 @@
                                 .dentadura{display: none; position: relative; width: 100%; overflow-x: clip; margin-top: 25px;}
                                     .dentadura::before{position: absolute; content: ''; width: calc(100% + 581px); height: 1px; transform: translate(-50%,-50%); left: 50%; top: 50%; background: #007bff; z-index: -1;}
                                     .dentadura.ativo{display: block;}
-                                        .dentadura .containerInputLabel{max-width: 300px;}
+                                        .dentadura .containerInputLabel{max-width: 200px; overflow-x: clip;}
                                         .dentadura .box{position: relative; z-index: 1; width: 100%; max-width: 300px; margin: 0 auto; border: solid 1px #007bff; padding: 10px; border-radius: 4px; background: #fff;}
                                             .dentadura .box svg g path{cursor: pointer; transition: all 0.5s ease;}
-                                                .dentadura .box svg g:hover path{fill: red;}
-                                                .dentadura .box svg g path.ativo{fill: blue;}
+                                                .dentadura .box svg g:hover path{fill: #E8F0FE;}
+                                                .dentadura .box svg g path.ativo{fill: #0071CD;}
                                     
                                                 .box svg g path:first-child{fill: #fff;}
                                                 .box svg g path:last-child{fill:none;stroke:#000;stroke-miterlimit:10}
