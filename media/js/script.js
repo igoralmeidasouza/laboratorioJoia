@@ -341,17 +341,19 @@ function addToCart() {
     let quantity = parseInt(document.getElementById("quantity").value);
     let selectedPaciente = document.getElementById("paciente").value;
     let cor = document.getElementById("cor").value;
-    let denteNumero = '';
-    //capturar numero do dente
+    let denteNumeros = [];
+
+    //capturar numero dos dentes ativos
     document.querySelectorAll('path.ativo').forEach(function(activePath) {
         let dente = activePath.getAttribute('class');
         
         let match = dente.match(/dente_(\d+)/)
         if(dente){
-            denteNumero = match[1];
-            console.log('dente ativo: ', denteNumero);
+            denteNumeros.push(match[1]);
+            console.log('dente ativo: ', denteNumeros);
         }
     });
+    let denteNumero = denteNumeros.join(', ');
     console.log('2dente ativo: ', denteNumero);
     // Ensure you have selected options
     if (selectedClient.value && selectedProduct.value && selectedPrice && selectedPaciente) {
@@ -410,7 +412,7 @@ function updateCartDisplay() {
                         "' data-quantity='" + item.quantity +
                         "' data-paciente='" + item.paciente +
                         "' data-cor='" + item.cor +
-                        "' data-cor='" + item.denteNumero +
+                        "' data-dentes='" + item.denteNumero +
                         "' data-total='" + tott + "'>" +
                         "<tr><td>" + item.clientName + "</td>" +
                         "<td>" + item.productName + "</td>" +
