@@ -204,13 +204,14 @@ body main {background-color: #ffffff; display: flex; width: 100%; max-width: 132
                         body main .bemVindo .vitrine .formularios .formularioRealizarVenda .tabelaCarrinho .tabelaVenda {margin: 25px 0;}
                             body main .bemVindo .vitrine .formularios .formularioRealizarVenda .tabelaCarrinho .tabelaVenda tbody tr th, 
                             body main .bemVindo .vitrine .formularios .formularioRealizarVenda .tabelaCarrinho .tabelaVenda tbody tr td {text-align: left;}
-                                body main .bemVindo .vitrine .formularios .formularioRealizarVenda .tabelaCarrinho .tabelaVenda tbody tr th:nth-child(1) {width: 25%;}
-                                body main .bemVindo .vitrine .formularios .formularioRealizarVenda .tabelaCarrinho .tabelaVenda tbody tr th:nth-child(2) {width: 19%;} 
-                                body main .bemVindo .vitrine .formularios .formularioRealizarVenda .tabelaCarrinho .tabelaVenda tbody tr th:nth-child(3) {width: 11%;}
-                                body main .bemVindo .vitrine .formularios .formularioRealizarVenda .tabelaCarrinho .tabelaVenda tbody tr th:nth-child(4) {width: 5%;}
-                                body main .bemVindo .vitrine .formularios .formularioRealizarVenda .tabelaCarrinho .tabelaVenda tbody tr th:nth-child(5) {width: 20%;}
-                                body main .bemVindo .vitrine .formularios .formularioRealizarVenda .tabelaCarrinho .tabelaVenda tbody tr th:nth-child(6) {width: 11%;}
-                                body main .bemVindo .vitrine .formularios .formularioRealizarVenda .tabelaCarrinho .tabelaVenda tbody tr th:nth-child(7) {width: 11%; }
+                            body main .bemVindo .vitrine .formularios .formularioRealizarVenda .tabelaCarrinho .tabelaVenda tbody tr th:nth-child(1) {width: 25%;}
+                            body main .bemVindo .vitrine .formularios .formularioRealizarVenda .tabelaCarrinho .tabelaVenda tbody tr th:nth-child(2) {width: 19%;} 
+                            body main .bemVindo .vitrine .formularios .formularioRealizarVenda .tabelaCarrinho .tabelaVenda tbody tr th:nth-child(3) {width: 12%;}
+                            body main .bemVindo .vitrine .formularios .formularioRealizarVenda .tabelaCarrinho .tabelaVenda tbody tr th:nth-child(4) {width: 5%;}
+                            body main .bemVindo .vitrine .formularios .formularioRealizarVenda .tabelaCarrinho .tabelaVenda tbody tr th:nth-child(5) {width: 7%;}
+                            body main .bemVindo .vitrine .formularios .formularioRealizarVenda .tabelaCarrinho .tabelaVenda tbody tr th:nth-child(6) {width: 20%;}
+                            body main .bemVindo .vitrine .formularios .formularioRealizarVenda .tabelaCarrinho .tabelaVenda tbody tr th:nth-child(7) {width: 11%;}
+                            body main .bemVindo .vitrine .formularios .formularioRealizarVenda .tabelaCarrinho .tabelaVenda tbody tr th:nth-child(8) {width: 11%;}
 
                                 body main .bemVindo .vitrine .formularios .formularioRealizarVenda .tabelaCarrinho .tabelaVenda tbody tr td button {border: none;}
                                     body main .bemVindo .vitrine .formularios .formularioRealizarVenda .tabelaCarrinho .tabelaVenda tbody tr td button:hover {background-color: #fff;}

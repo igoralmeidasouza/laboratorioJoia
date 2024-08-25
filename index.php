@@ -187,7 +187,7 @@
                             </script>
 
                             <style>
-                                .dentadura{position: relative; width: 100%; overflow-x: clip; padding-top: 25px;}
+                                .dentadura{position: relative; width: 100%; overflow-x: clip; margin-top: 13px;}
                                     .dentadura .content{width: 100%; display: flex; border-top: solid 1px lightgrey; padding-top: 25px; gap: 30px}
                                         .dentadura .content .containerInputLabel{max-width: 200px; overflow-x: clip; position: relative; z-index: 1;}
                                         .dentadura .content .box{position: relative;z-index: 10;width: 100%;max-width: 360px;margin: 0 auto;padding: 5px 10px;}
