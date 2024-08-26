@@ -518,12 +518,14 @@ function openInvoiceTab(data) {
     let totalValue = data.total;
     let saldoAnterior = saldoDevedorClient - totalValue;
     let totalValueString = totalValue.toFixed(2).replace(/\./g, ','); // Convertendo para string com vírgula
-    let itemsHTML = "<tr><th>Produto</th><th>Produto (u)</th><th>Qt.</th><th>Preço Total</th></tr>";
+    let itemsHTML = "<tr><th>Produto</th><th>Produto (u)</th><th>Qt.</th><th>Cor</th><th>Dente</th><th>Preço Total</th></tr>";
     itemsHTML += data.cart.map(item => `
             <tr>
                 <td> ${item.productName}</td>
                 <td> R$ ${item.price}</td>
                 <td>${item.quantity}</td>
+                <td>${item.cor}</td>
+                <td>${item.denteNumero}</td>
                 <td> R$ ${item.total.toFixed(2).replace(/\./g, ',')}</td>
             </tr>
         <!--<hr>-->
