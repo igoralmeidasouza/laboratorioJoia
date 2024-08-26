@@ -177,18 +177,20 @@
                         <div class="dentadura">
                             <script>
                                 document.addEventListener('DOMContentLoaded', function() {
+                                    // Adiciona evento de clique aos paths
                                     document.querySelectorAll('path').forEach(function(path) {
                                         path.addEventListener('click', function() {
                                             const parentClass = path.closest('g').classList.value; // Pega as classes do elemento pai <g>
-                                            path.classList.toggle('ativo'); // Adiciona a classe 'ativo' ao <path>
-                                            path.classList.toggle(parentClass); // Adiciona as classes do <g> ao <path>
+                                            path.classList.toggle('ativo'); // Adiciona/Remove a classe 'ativo' ao <path>
+                                            path.classList.toggle(parentClass); // Adiciona/Remove as classes do <g> ao <path>
                                             console.log(path.getAttribute('class')); // Exibe as classes atuais do <path> no console
                                         });
                                     });
+
                                     // Adiciona evento de clique ao botão de reset
                                     document.getElementById('botaoCarrinho').addEventListener('click', function() {
                                         document.querySelectorAll('path').forEach(function(path) {
-                                            path.classList.remove('ativo'); // Remove a classe 'ativo' de todos os <path>
+                                            path.removeAttribute('class'); // Remove completamente o atributo class de todos os <path>
                                         });
                                     });
                                 });
