@@ -540,7 +540,7 @@ function openInvoiceTab(data) {
     // splitar string de dentes para virar lista e ser usada nos svgs
     let dentesSvg = Array.from(new Set(dentesArray));
     // Converter de volta para uma string com 'dente_' na frente de cada número
-    let dentesString = dentesSvg.map(dente => `dente_${dente}`).join(' ');
+    let dentesString = dentesSvg.map(dente => `dente${dente}`).join(' ');
 
     console.log('dentes que serao ativos no svg: ', dentesSvg);
     console.log('Dentes String:', dentesString); // Exibe a string final no console
@@ -590,7 +590,7 @@ function openInvoiceTab(data) {
  
                         <div class="box">
                             <ul><li>18</li><li>17</li><li>16</li><li>15</li><li>14</li><li>13</li><li>12</li><li>11</li><li>21</li><li>22</li><li>23</li><li>24</li><li>25</li><li>26</li><li>27</li><li>28</li></ul>
-                            <svg id="dentes" class="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 617.94 158.35">
+                            <svg id="dentes" class="${dentesString}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 617.94 158.35">
                                 <g class="dente_48">
                                     <path d="M48.88 101.93c.82 3.29.65 6.73.43 10.11-.35 5.46-.8 10.91-1.34 16.36-.22 2.13-.49 4.37-1.78 6.08-1.28 1.7-3.95 2.56-5.61 1.22l-.03-.02c-1.58-2.78-5.11-4.28-8.21-3.49-1.12.28-2.17.83-3.29 1.12-3.16.82-6.45-.47-9.71-.6-2.99-.12-5.94.74-8.71 1.85-1.23.49-2.53 1.05-3.84.81-2.3-.42-3.41-3-4.14-5.22-.9-2.74-1.81-5.51-2.07-8.38-.45-4.96 1.04-9.89 2.65-14.6 1.18-3.44 2.91-7.31 6.42-8.26 3.67-1 7.46 1.76 11.23 1.26 1.24-.16 2.41-.68 3.58-1.16 6.45-2.66 13.85-4.36 20.32-1.77 1.01.41 2 .93 2.72 1.74.72.83 1.11 1.89 1.38 2.95Z"/>
                                     <path d="M40.58 135.7c1.66 1.34 4.33.48 5.61-1.22 1.29-1.71 1.56-3.95 1.78-6.08.54-5.45.99-10.9 1.34-16.36.22-3.38.39-6.82-.43-10.11-.27-1.06-.66-2.12-1.38-2.95-.72-.81-1.71-1.33-2.72-1.74-6.47-2.59-13.87-.89-20.32 1.77-1.17.48-2.34 1-3.58 1.16-3.77.5-7.56-2.26-11.23-1.26-3.51.95-5.24 4.82-6.42 8.26-1.61 4.71-3.1 9.64-2.65 14.6.26 2.87 1.17 5.64 2.07 8.38.73 2.22 1.84 4.8 4.14 5.22 1.31.24 2.61-.32 3.84-.81 2.77-1.11 5.72-1.97 8.71-1.85 3.26.13 6.55 1.42 9.71.6 1.12-.29 2.17-.84 3.29-1.12 3.1-.79 6.63.71 8.21 3.49"/>
@@ -731,8 +731,7 @@ function openInvoiceTab(data) {
                 </div>
             </main>
         </body>
-        <script>git 
-        console.log('dentes para o svg(novo):', ${dentesString});
+        <script>
         // Add a delay of 2 seconds (2000 milliseconds)
         setTimeout(function() {
             window.print();
