@@ -542,7 +542,7 @@ function openInvoiceTab(data) {
             <link rel="icon" href="media/img/icones/toothIcone.png">
         </head>
         <body>
-            <header>
+            <header class="extrato">
                 <div class="logoMarca">
                     <figure>
                         <img src="media/img/denteJoia.png" alt="">
