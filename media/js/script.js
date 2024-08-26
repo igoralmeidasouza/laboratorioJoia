@@ -539,7 +539,11 @@ function openInvoiceTab(data) {
 
     // splitar string de dentes para virar lista e ser usada nos svgs
     let dentesSvg = Array.from(new Set(dentesArray));
+    // Converter de volta para uma string com 'dente_' na frente de cada número
+    let dentesString = dentesSvg.map(dente => `dente_${dente}`).join(' ');
+
     console.log('dentes que serao ativos no svg: ', dentesSvg);
+    console.log('Dentes String:', dentesString); // Exibe a string final no console
     let invoiceHTML = `
     <html>
         <head>
@@ -547,7 +551,7 @@ function openInvoiceTab(data) {
             <link rel="preconnect" href="https://fonts.googleapis.com">
             <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
             <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Readex+Pro:wght@160..700&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
-            <link rel="stylesheet" href="media/css/estilos.css">
+            <link rel="stylesheet" href="media/css/estilos.css?teste">
             <link rel="icon" href="media/img/icones/toothIcone.png">
         </head>
         <body>
@@ -727,8 +731,8 @@ function openInvoiceTab(data) {
                 </div>
             </main>
         </body>
-        <script>
-        console.log('dentes para o svg:', ${dentesSvg});
+        <script>git 
+        console.log('dentes para o svg(novo):', ${dentesString});
         // Add a delay of 2 seconds (2000 milliseconds)
         setTimeout(function() {
             window.print();
