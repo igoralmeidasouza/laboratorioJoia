@@ -282,8 +282,42 @@ body main {background-color: #ffffff; display: flex; width: 100%; max-width: 132
                 body main .impressaoContainer .impressaoTabela .box svg g path{transition: all 0.5s ease;}
                     body main .impressaoContainer .impressaoTabela .box svg g path:first-child{fill: #fff;}
                     body main .impressaoContainer .impressaoTabela .box svg g path:last-child{fill:none;stroke:#000;stroke-miterlimit:10}
-                    body main .impressaoContainer .impressaoTabela .box svg g:hover path{fill: #E8F0FE;}
-                    body main .impressaoContainer .impressaoTabela .box svg g path.ativo{fill: #0071CD;}
+
+                    body main .impressaoContainer .impressaoTabela .box svg.dente11 g.dente_11 path,
+                    body main .impressaoContainer .impressaoTabela .box svg.dente12 g.dente_12 path,
+                    body main .impressaoContainer .impressaoTabela .box svg.dente13 g.dente_13 path,
+                    body main .impressaoContainer .impressaoTabela .box svg.dente14 g.dente_14 path,
+                    body main .impressaoContainer .impressaoTabela .box svg.dente15 g.dente_15 path,
+                    body main .impressaoContainer .impressaoTabela .box svg.dente16 g.dente_16 path,
+                    body main .impressaoContainer .impressaoTabela .box svg.dente17 g.dente_17 path,
+                    body main .impressaoContainer .impressaoTabela .box svg.dente18 g.dente_18 path,
+
+                    body main .impressaoContainer .impressaoTabela .box svg.dente21 g.dente_21 path,
+                    body main .impressaoContainer .impressaoTabela .box svg.dente22 g.dente_22 path,
+                    body main .impressaoContainer .impressaoTabela .box svg.dente23 g.dente_23 path,
+                    body main .impressaoContainer .impressaoTabela .box svg.dente24 g.dente_24 path,
+                    body main .impressaoContainer .impressaoTabela .box svg.dente25 g.dente_25 path,
+                    body main .impressaoContainer .impressaoTabela .box svg.dente26 g.dente_26 path,
+                    body main .impressaoContainer .impressaoTabela .box svg.dente27 g.dente_27 path,
+                    body main .impressaoContainer .impressaoTabela .box svg.dente28 g.dente_28 path,
+
+                    body main .impressaoContainer .impressaoTabela .box svg.dente31 g.dente_31 path,
+                    body main .impressaoContainer .impressaoTabela .box svg.dente32 g.dente_32 path,
+                    body main .impressaoContainer .impressaoTabela .box svg.dente33 g.dente_33 path,
+                    body main .impressaoContainer .impressaoTabela .box svg.dente34 g.dente_34 path,
+                    body main .impressaoContainer .impressaoTabela .box svg.dente35 g.dente_35 path,
+                    body main .impressaoContainer .impressaoTabela .box svg.dente36 g.dente_36 path,
+                    body main .impressaoContainer .impressaoTabela .box svg.dente37 g.dente_37 path,
+                    body main .impressaoContainer .impressaoTabela .box svg.dente38 g.dente_38 path,
+
+                    body main .impressaoContainer .impressaoTabela .box svg.dente41 g.dente_41 path,
+                    body main .impressaoContainer .impressaoTabela .box svg.dente42 g.dente_42 path,
+                    body main .impressaoContainer .impressaoTabela .box svg.dente43 g.dente_43 path,
+                    body main .impressaoContainer .impressaoTabela .box svg.dente44 g.dente_44 path,
+                    body main .impressaoContainer .impressaoTabela .box svg.dente45 g.dente_45 path,
+                    body main .impressaoContainer .impressaoTabela .box svg.dente46 g.dente_46 path,
+                    body main .impressaoContainer .impressaoTabela .box svg.dente47 g.dente_47 path,
+                    body main .impressaoContainer .impressaoTabela .box svg.dente48 g.dente_48 path{fill: #0071CD;}
 
 
             body main .impressaoContainer .impressaoTabela .saldoClientContainer {display: flex; flex-direction: column; align-items: flex-end;}
