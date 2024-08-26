@@ -514,12 +514,18 @@ function openInvoiceTab(data) {
     let emailClient = data.clientData.client_email;
     let contatoClient = data.clientData.phone;
 
+    let dentesArray = [];
+
     //let nomePaciente = item.paciente;
     let totalValue = data.total;
     let saldoAnterior = saldoDevedorClient - totalValue;
     let totalValueString = totalValue.toFixed(2).replace(/\./g, ','); // Convertendo para string com vírgula
     let itemsHTML = "<tr><th>Produto</th><th>Produto (u)</th><th>Qt.</th><th>Cor</th><th>Dente</th><th>Preço Total</th></tr>";
-    itemsHTML += data.cart.map(item => `
+    itemsHTML += data.cart.map(item => {
+        // split para converter a string de dentes em array
+        let dentes = item.denteNumero.split(', ');
+        dentesArray = dentesArray.concat(dentes); //concatena
+        return `
             <tr>
                 <td> ${item.productName}</td>
                 <td> R$ ${item.price}</td>
@@ -528,9 +534,12 @@ function openInvoiceTab(data) {
                 <td>${item.denteNumero}</td>
                 <td> R$ ${item.total.toFixed(2).replace(/\./g, ',')}</td>
             </tr>
-        <!--<hr>-->
-    `).join('');
+        <!--<hr>-->`;
+    }).join('');
 
+    // splitar string de dentes para virar lista e ser usada nos svgs
+    let dentesSvg = Array.from(new Set(dentesArray));
+    console.log('dentes que serao ativos no svg: ', dentesSvg);
     let invoiceHTML = `
     <html>
         <head>
@@ -585,6 +594,7 @@ function openInvoiceTab(data) {
             </main>
         </body>
         <script>
+        console.log('dentes para o svg:', ${dentesSvg});
         // Add a delay of 2 seconds (2000 milliseconds)
         setTimeout(function() {
             window.print();
