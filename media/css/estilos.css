@@ -265,6 +265,25 @@ body main {background-color: #ffffff; display: flex; width: 100%; max-width: 132
                         body main .impressaoContainer .impressaoTabela .tabelaExtrato tbody tr th:last-child, 
                         body main .impressaoContainer .impressaoTabela .tabelaExtrato tbody tr td:last-child {text-align: right;}
 
+
+                /* impressao da arcada dentaria */
+                body main .impressaoContainer .impressaoTabela .box{position: relative;z-index: 10;width: 100%;max-width: 360px;margin: 0px auto 20px;padding: 5px 10px;}
+                    body main .impressaoContainer .impressaoTabela .box::before{position: absolute;content: '';width: 100%;height: 1px;transform: translate(-50%,-50%);left: 50%;top: 50%;background: #007bff;z-index: -1;pointer-events: none;}
+                    body main .impressaoContainer .impressaoTabela .box::after{position: absolute; content: ''; width: 1px; height: 100%; transform: translate(-50%,-50%); left: 50%; top: 50%; background: #007bff; z-index: -1; pointer-events: none;}
+
+                    body main .impressaoContainer .impressaoTabela .box ul{display: flex;justify-content: space-between;padding: 0 5px 15px;}
+                    body main .impressaoContainer .impressaoTabela .box ul:last-child{padding: 5px 12px 0 13px;}
+                        body main .impressaoContainer .impressaoTabela .box ul li{font: 400 12px/10px 'Ubuntu';color: #010101;position: relative;}
+                            body main .impressaoContainer .impressaoTabela .box ul:first-child li::before{position: absolute;content: '';width: 1px;height: 6px;transform: translateX(-50%);left: 50%;bottom: -10px;background: #0071CD;}
+                            body main .impressaoContainer .impressaoTabela .box ul:last-child li::before{position: absolute;content: '';width: 1px;height: 7px;transform: translateX(-50%);left: 50%;top: -10px;background: #0071CD;z-index: 1;}
+
+                    body main .impressaoContainer .impressaoTabela .box svg g path{transition: all 0.5s ease;}
+                        body main .impressaoContainer .impressaoTabela .box svg g path:first-child{fill: #fff;}
+                        body main .impressaoContainer .impressaoTabela .box svg g path:last-child{fill:none;stroke:#000;stroke-miterlimit:10}
+                        body main .impressaoContainer .impressaoTabela .box svg g:hover path{fill: #E8F0FE;}
+                        body main .impressaoContainer .impressaoTabela .box svg g path.ativo{fill: #0071CD;}
+
+
                 body main .impressaoContainer .impressaoTabela .saldoClientContainer {display: flex; flex-direction: column; align-items: flex-end;}
                     body main .impressaoContainer .impressaoTabela .saldoClientContainer span {width: 100%; display: flex; font-size: 20px; justify-content: flex-end; border-top: 1px solid lightgrey; padding: 10px 0}
                         body main .impressaoContainer .impressaoTabela .saldoClientContainer span:first-child {padding-bottom: 20px; border-top: none; padding-top: 0;}
