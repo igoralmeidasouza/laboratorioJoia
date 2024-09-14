@@ -350,11 +350,9 @@ function addToCart() {
         let match = dente.match(/dente_(\d+)/)
         if(dente){
             denteNumeros.push(match[1]);
-            console.log('dente ativo: ', denteNumeros);
         }
     });
     let denteNumero = denteNumeros.join(', ');
-    console.log('2dente ativo: ', denteNumero);
     // Ensure you have selected options
     if (selectedClient.value && selectedProduct.value && selectedPrice && selectedPaciente) {
         // Get the names and IDs
@@ -406,6 +404,7 @@ function updateCartDisplay() {
             let item = cartItems[i];
             let total1 = item.total;
             let tott = total1.toFixed(2).replace(/\./g, ','); // Convertendo para string com vírgula
+            let totalAjustado = total1.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }); //ajusta o valor para ser BRL
                 
             cartHTML += "<span data-client='" + item.client +
                         "' data-product='" + item.product +
@@ -416,12 +415,12 @@ function updateCartDisplay() {
                         "' data-total='" + tott + "'>" +
                         "<tr><td>" + item.clientName + "</td>" +
                         "<td>" + item.productName + "</td>" +
-                        "<td> R$ " + item.price + "</td>" +
+                        "<td>" + item.price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) + "</td>" +
                         "<td>" + item.quantity + "</td>" +
                         "<td>" + item.cor + "</td>" +
                         "<td>" + item.denteNumero + "</td>" +
                         "<td>" + item.paciente + "</td>" +
-                        "<td> R$ " + tott + "</td>" + 
+                        "<td>" + totalAjustado + "</td>" + 
                         "<td><button class='geradorDeExtrato' onclick=\"removeCartItem(" + i + ")\">"+
                                 "<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='ai ai-TrashCan'>"+
                                     "<path d='M4 6h16l-1.58 14.22A2 2 0 0 1 16.432 22H7.568a2 2 0 0 1-1.988-1.78L4 6z'/><path d='M7.345 3.147A2 2 0 0 1 9.154 2h5.692a2 2 0 0 1 1.81 1.147L18 6H6l1.345-2.853z'/><path d='M2 6h20'/><path d='M10 11v5'/><path d='M14 11v5'/>"+
@@ -435,8 +434,8 @@ function updateCartDisplay() {
             return sum + item.total;
         }, 0);
 
-        let totalValueString = totalValue.toFixed(2).replace(/\./g, ','); // Convertendo para string com vírgula
-        cartHTML += "<span class="+'valorTotal'+"><em>Total da compra:</em> R$ " + totalValueString + "</span>";
+        let totalValueString = totalValue.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }); // Convertendo para BRL
+        cartHTML += "<span class="+'valorTotal'+"><em>Total da compra:</em>" + totalValueString + "</span>";
     } else {
         cartHTML += "<span>Seu carrinho está vazio.</span>";
     }
@@ -892,9 +891,9 @@ function updateFilteredData(data) {
             tableHTML += "<td>Pagamento: <em style='display: block'>" + record.type_of_payment + "</em></td>";
             tableHTML += "<td></td>";  // Coluna 'Produtos' vazia para pagamento
             tableHTML += "<td></td>";  // Coluna 'Preço (U)' vazia para pagamento
-            tableHTML += "<td> R$ " + record.amount + "</td>";
-            tableHTML += "<td> R$ " + record.saldo_anterior + "</td>";
-            tableHTML += "<td> R$ " + record.debito + "</td>";
+            tableHTML += "<td>" + parseFloat(record.amount).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) + "</td>";
+            tableHTML += "<td>" + parseFloat(record.saldo_anterior).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) + "</td>";
+            tableHTML += "<td>" + parseFloat(record.debito).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) + "</td>";
         } else {
             // Se for uma venda
             tableHTML += "<td> Paciente: <em style='display: block'>" + record.observation + "</em></td>";
@@ -909,13 +908,13 @@ function updateFilteredData(data) {
             // Adiciona o preço e a quantidade na célula "Preço (U)"
             tableHTML += "<td>";
             for (let j = 0; j < record.products.length; j++) {
-                tableHTML += "R$ " + (record.products[j].price / record.products[j].quantity).toFixed(2) + " x " + record.products[j].quantity + "<br>";
+                tableHTML += "" + (record.products[j].price / record.products[j].quantity).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) + " x " + record.products[j].quantity + "<br>";
             }
             tableHTML += "</td>";
 
-            tableHTML += "<td>R$ " + record.total_amount + "</td>";
-            tableHTML += "<td>R$ " + record.saldo_anterior + "</td>";
-            tableHTML += "<td>R$ " + record.debito + "</td>";
+            tableHTML += "<td>" + parseFloat(record.total_amount).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) + "</td>";
+            tableHTML += "<td>" + parseFloat(record.saldo_anterior).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) + "</td>";
+            tableHTML += "<td>" + parseFloat(record.debito).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) + "</td>";
         }
 
         tableHTML += "</tr>";
@@ -2026,9 +2025,9 @@ function openExtratoFinalTab(data) {
             tableHTML += "<td>Pagto.: <em style='display: block'>" + record.type_of_payment + "</em></td>";
             tableHTML += "<td></td>";  // Coluna 'Produtos' vazia para pagamento
             tableHTML += "<td></td>";  // Coluna 'Preço (U)' vazia para pagamento
-            tableHTML += "<td> R$ " + record.amount + "</td>";
-            tableHTML += "<td> R$ " + record.saldo_anterior + "</td>";
-            tableHTML += "<td> R$ " + record.debito + "</td>";
+            tableHTML += "<td>" + parseFloat(record.amount).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) + "</td>";
+            tableHTML += "<td>" + parseFloat(record.saldo_anterior).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) + "</td>";
+            tableHTML += "<td>" + parseFloat(record.debito).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) + "</td>";
         } else {
             // Se for uma venda
             tableHTML += "<td> Pac.: <em style='display: block'>" + record.observation + "</em></td>";
@@ -2047,9 +2046,9 @@ function openExtratoFinalTab(data) {
             }
             tableHTML += "</td>";
 
-            tableHTML += "<td>R$ " + record.total_amount + "</td>";
-            tableHTML += "<td>R$ " + record.saldo_anterior + "</td>";
-            tableHTML += "<td>R$ " + record.debito + "</td>";
+            tableHTML += "<td>" + parseFloat(record.total_amount).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) + "</td>";
+            tableHTML += "<td>" + parseFloat(record.saldo_anterior).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) + "</td>";
+            tableHTML += "<td>" + parseFloat(record.debito).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) + "</td>";
         }
 
         tableHTML += "</tr>";
@@ -2068,12 +2067,14 @@ function openExtratoFinalTab(data) {
                     "</div>" +
                 "</div>"+
             "</main>" +
-        "</body><script>" +
-        "setTimeout(function() {" +
-        "    window.print();" +
-        "}, 1000);</script>" +
+        "<script>\
+        setTimeout(function() {\
+        window.print();\
+        }, 1000);\
+        </script></body>" +
     "</html>"
     );
+    novaAba.document.close();
 }
 // Função para habilitar ou desabilitar o input com base na existência do ID
 function atualizaInput() {
