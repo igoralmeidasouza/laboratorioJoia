@@ -206,7 +206,7 @@ body main {background-color: #ffffff; display: flex; width: 100%; max-width: 132
                             body main .bemVindo .vitrine .formularios .formularioRealizarVenda .tabelaCarrinho .tabelaVenda {margin: 25px 0;width: 100%;}
                             body main .bemVindo .vitrine .formularios .formularioRealizarVenda .tabelaCarrinho .tabelaVenda tbody tr{width: 100%;}
                                 body main .bemVindo .vitrine .formularios .formularioRealizarVenda .tabelaCarrinho .tabelaVenda tbody tr th, 
-                                body main .bemVindo .vitrine .formularios .formularioRealizarVenda .tabelaCarrinho .tabelaVenda tbody tr td{text-align: left; line-height: 18px}
+                                body main .bemVindo .vitrine .formularios .formularioRealizarVenda .tabelaCarrinho .tabelaVenda tbody tr td{text-align: left; line-height: 18px; padding: 5px 10px}
                                 body main .bemVindo .vitrine .formularios .formularioRealizarVenda .tabelaCarrinho .tabelaVenda tbody tr th:nth-child(1) {width: 15%;}
                                 body main .bemVindo .vitrine .formularios .formularioRealizarVenda .tabelaCarrinho .tabelaVenda tbody tr th:nth-child(2) {width: 19%;}
                                 body main .bemVindo .vitrine .formularios .formularioRealizarVenda .tabelaCarrinho .tabelaVenda tbody tr th:nth-child(3) {width: 13%;min-width: 93px;}
