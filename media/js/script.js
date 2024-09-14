@@ -519,7 +519,12 @@ function openInvoiceTab(data) {
     //let nomePaciente = item.paciente;
     let totalValue = data.total;
     let saldoAnterior = saldoDevedorClient - totalValue;
-    let totalValueString = totalValue.toFixed(2).replace(/\./g, ','); // Convertendo para string com vírgula
+
+    //formatar valor de salto anterior
+    saldoDevedorClient = parseFloat(saldoDevedorClient).toFixed(2);
+    let saldoDevedorClientFormatted = parseFloat(saldoDevedorClient).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
+    let totalValueString = totalValue.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
     let itemsHTML = "<tr><th>Produto</th><th>Produto (u)</th><th>Qt.</th><th>Cor</th><th>Dente</th><th>Preço Total</th></tr>";
     itemsHTML += data.cart.map(item => {
         // split para converter a string de dentes em array
@@ -528,14 +533,15 @@ function openInvoiceTab(data) {
         return `
             <tr>
                 <td> ${item.productName}</td>
-                <td> R$ ${item.price}</td>
+                <td> ${item.price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</td>
                 <td>${item.quantity}</td>
                 <td>${item.cor}</td>
                 <td>${item.denteNumero}</td>
-                <td> R$ ${item.total.toFixed(2).replace(/\./g, ',')}</td>
+                <td> ${item.total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</td>
             </tr>
         <!--<hr>-->`;
     }).join('');
+    
 
     // splitar string de dentes para virar lista e ser usada nos svgs
     let dentesSvg = Array.from(new Set(dentesArray));
@@ -723,9 +729,9 @@ function openInvoiceTab(data) {
                         </div>
 
                         <div class="saldoClientContainer">
-                            <span>Total do Pedido: <em>R$ ${totalValueString}</em></span>
-                            <span> Saldo Devedor Anterior: <em>R$ ${saldoAnterior.toFixed(2)}</em></span>
-                            <span> Saldo Devedor Atual: <em>R$ ${saldoDevedorClient}</em></span>
+                            <span>Total do Pedido: <em>${totalValueString}</em></span>
+                            <span> Saldo Devedor Anterior: <em>${saldoAnterior.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</em></span>
+                            <span> Saldo Devedor Atual: <em>${saldoDevedorClientFormatted}</em></span>
                         </div>
                     </div>
                 </div>
