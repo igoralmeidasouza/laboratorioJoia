@@ -977,7 +977,7 @@ function updateFilteredHistory(data) {
     // Inicializa a string HTML da tabela
     let tableHTML = "<table class='tabelaGeral'>"+
                         "<tr>"+
-                            "<th>ID</th>"+
+                            "<th>Pedido</th>"+
                             "<th>Data</th>"+
                             "<th>Paciente</th>"+
                             "<th>Produto</th>"+
