@@ -1009,7 +1009,7 @@ function updateFilteredHistory(data) {
 
             for (let i = 0; i < saleData.products.length; i++) {
                 productsHTML += saleData.products[i].product_name + "<br>";
-                pricesHTML += "R$ " + (saleData.products[i].price / saleData.products[i].quantity).toFixed(2) + "<br>";
+                pricesHTML += "" + (saleData.products[i].price / saleData.products[i].quantity).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) + "<br>";
                 quantitiesHTML += saleData.products[i].quantity + "<br>";
             }
 
@@ -1017,9 +1017,9 @@ function updateFilteredHistory(data) {
             tableHTML += "<td>" + productsHTML + "</td>";
             tableHTML += "<td>" + pricesHTML + "</td>";
             tableHTML += "<td>" + quantitiesHTML + "</td>";
-            tableHTML += "<td>R$ " + saleData.total_amount + "</td>";
-            tableHTML += "<td>R$ " + saleData.saldo_anterior + "</td>";
-            tableHTML += "<td>R$ " + saleData.debito + "</td>";
+            tableHTML += "<td>" + parseFloat(saleData.total_amount).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) + "</td>";
+            tableHTML += "<td>" + parseFloat(saleData.saldo_anterior).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) + "</td>";
+            tableHTML += "<td>" + parseFloat(saleData.debito).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) + "</td>";
             tableHTML += "</tr>";
         }
     }
@@ -1110,9 +1110,9 @@ function updateFilteredPagamentos(data) {
         }
 
         tableHTML += "<td>" + (pagamento.type_of_payment || "N/A") + "</td>";
-        tableHTML += "<td> R$ " + (pagamento.amount || "N/A") + "</td>";
-        tableHTML += "<td> R$ " + (pagamento.saldo_anterior || "N/A") + "</td>";
-        tableHTML += "<td> R$ " + (pagamento.saldo_atual || "N/A") + "</td>";
+        tableHTML += "<td>" + (parseFloat(pagamento.amount).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) || "N/A") + "</td>";
+        tableHTML += "<td>" + (parseFloat(pagamento.saldo_anterior).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) || "N/A") + "</td>";
+        tableHTML += "<td>" + (parseFloat(pagamento.saldo_atual).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) || "N/A") + "</td>";
         tableHTML += "</tr>";
     }
 
@@ -1470,16 +1470,16 @@ function openPaymentHistoryTab(data) {
                             <th>Observação</th>
                             <th>Total</th>
                             <th>Saldo Anterior</th>
-                            <th>Saldo Atual</th>
+                            <th>Saldo Devedor</th>
                         </tr>
                         ${data.paymentDetails.map(payment => `
                             <tr>
                                 <td>${payment.payment_id}</td>
                                 <td>${new Intl.DateTimeFormat('pt-BR').format(new Date(payment.payment_date))}</td> <!-- Converte para o formato brasileiro -->
                                 <td>${payment.type_of_payment || "N/A"}</td>
-                                <td>R$ ${payment.amount || "N/A"}</td>
-                                <td>R$ ${payment.saldo_anterior || "N/A"}</td>
-                                <td>R$ ${payment.saldo_atual || "N/A"}</td>
+                                <td>${parseFloat(payment.amount).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) || "N/A"}</td>
+                                <td>${parseFloat(payment.saldo_anterior).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) || "N/A"}</td>
+                                <td>${parseFloat(payment.saldo_atual).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) || "N/A"}</td>
                             </tr>
                         `).join('')}
             `;
@@ -1530,7 +1530,7 @@ function openPaymentHistoryTab(data) {
                                     </table>
                 
                                     <div class="saldoClientContainer">
-                                        <span>Saldo Devedor Atual: <em>R$ ${clientDebitAmount}</em></span>
+                                        <span>Saldo Devedor Atual: <em>R$ ${parseFloat(clientDebitAmount).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</em></span>
                                     </div>
                                 </div>
                             </div>
@@ -1741,9 +1741,9 @@ function openPaymentSalesTab(data) {
                         <td>${sale.products.map(product => product.product_name).join('<br>')}</td>
                         <td>${sale.products.map(product => 'R$ ' + (product.price / product.quantity).toFixed(2)).join('<br>')}</td>
                         <td>${sale.products.map(product => product.quantity).join('<br>')}</td>
-                        <td>R$ ${sale.total_amount || "N/A"}</td>
-                        <td>R$ ${sale.saldo_anterior || "N/A"}</td>
-                        <td>R$ ${sale.debito || "N/A"}</td> <!-- Corrigido para exibir debito -->
+                        <td>${parseFloat(sale.total_amount).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) || "N/A"}</td>
+                        <td>${parseFloat(sale.saldo_anterior).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) || "N/A"}</td>
+                        <td>${parseFloat(sale.debito).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) || "N/A"}</td> <!-- Corrigido para exibir debito -->
                     </tr>
                 `).join('')}
             `;
@@ -1795,7 +1795,7 @@ function openPaymentSalesTab(data) {
                                     </table>
                 
                                     <div class="saldoClientContainer">
-                                        <span>Saldo Devedor Atual: <em>R$ ${clientDebitAmount}</em></span>
+                                        <span>Saldo Devedor Atual: <em>R$ ${parseFloat(clientDebitAmount).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</em></span>
                                     </div>
                                 </div>
                             </div>
