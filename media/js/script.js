@@ -823,7 +823,7 @@ function updateFilteredData(data) {
     // Inicializa a string HTML da tabela
     let tableHTML =
                     "<tr>"+
-                        "<th>ID</th>"+
+                        "<th>Ficha</th>"+
                         "<th>Data</th>"+
                         "<th>Observação</th>"+
                         "<th>Produtos</th>"+
@@ -1723,7 +1723,7 @@ function openPaymentSalesTab(data) {
             // Cria o HTML para os itens de venda
             let saleItemsHTML = `
                 <tr>
-                    <th>ID</th>
+                    <th>Pedido</th>
                     <th>Data</th>
                     <th>Paciente</th>
                     <th>Produto</th>
@@ -1958,7 +1958,7 @@ function openExtratoFinalTab(data) {
                     '<div class="impressaoTabela"> ' +
                         "<table class='tabelaExtrato tabelaExtratoFinal'>" +
                             "<tr>" +
-                                "<th>ID</th>" +
+                                "<th>Ficha</th>" +
                                 "<th>Data</th>" +
                                 "<th>Observação</th>" +
                                 "<th>Produtos</th>" +
