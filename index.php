@@ -1,5 +1,6 @@
 <?php
-    define('MEDIA_VERSION',uniqid()); 
+    //define('MEDIA_VERSION',uniqid()); 
+    define('MEDIA_VERSION','16-09-2024');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -183,7 +184,7 @@
                                             const parentClass = path.closest('g').classList.value; // Pega as classes do elemento pai <g>
                                             path.classList.toggle('ativo'); // Adiciona/Remove a classe 'ativo' ao <path>
                                             path.classList.toggle(parentClass); // Adiciona/Remove as classes do <g> ao <path>
-                                            console.log(path.getAttribute('class')); // Exibe as classes atuais do <path> no console
+                                            //console.log(path.getAttribute('class')); // Exibe as classes atuais do <path> no console
                                         });
                                     });
 

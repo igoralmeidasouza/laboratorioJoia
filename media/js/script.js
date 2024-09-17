@@ -547,8 +547,6 @@ function openInvoiceTab(data) {
     // Converter de volta para uma string com 'dente_' na frente de cada número
     let dentesString = dentesSvg.map(dente => `dente${dente}`).join(' ');
 
-    console.log('dentes que serao ativos no svg: ', dentesSvg);
-    console.log('Dentes String:', dentesString); // Exibe a string final no console
     let invoiceHTML = `
     <html>
         <head>
