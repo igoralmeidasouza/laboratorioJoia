@@ -2060,7 +2060,7 @@ function openExtratoFinalTab(data) {
                             "</table>" +
                         "</div>" +
                         "<div class='saldoClientContainer'>" +
-                            "<span>Débito atual: <em>R$ "+ clientAmount +"</em></span>"+
+                            "<span>Débito atual: <em>R$ "+ parseFloat(clientAmount).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) +"</em></span>"+
                         "</div>"+
                     "</div>" +
                 "</div>"+
