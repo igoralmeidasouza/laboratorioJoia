@@ -1735,7 +1735,7 @@ function openPaymentSalesTab(data) {
                     <tr>
                         <td>${sale.sale_id}</td>
                         <td>${new Intl.DateTimeFormat('pt-BR').format(new Date(sale.sale_date))}</td>
-                        <td>${sale.client_name}</td>
+                        <td>${sale.observation}</td>
                         <td>${sale.products.map(product => product.product_name).join('<br>')}</td>
                         <td>${sale.products.map(product => 'R$ ' + (product.price / product.quantity).toFixed(2)).join('<br>')}</td>
                         <td>${sale.products.map(product => product.quantity).join('<br>')}</td>
